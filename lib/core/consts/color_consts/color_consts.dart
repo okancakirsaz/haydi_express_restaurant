@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ColorConsts {
   static final ColorConsts instance = ColorConsts();
-  final Color lightGray = const Color(0xFFF4F4F4);
+  final Color lightGray = const Color(0xFFF4F4F5);
   final Color background = const Color(0xFFF4F4F4);
   final Color black = const Color(0xFF000000);
   final Color darkGrey = const Color(0xFF3E3E3E);
