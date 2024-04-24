@@ -11,7 +11,7 @@ class AreYouSure extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: ColorConsts.instance.darkGrey,
+      backgroundColor: ColorConsts.instance.third,
       content: SizedBox(
         height: 150,
         child: Column(
@@ -40,7 +40,7 @@ class AreYouSure extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(ColorConsts.instance.orange),
+        backgroundColor: MaterialStatePropertyAll(ColorConsts.instance.primary),
         shape: MaterialStatePropertyAll(
           RoundedRectangleBorder(
               borderRadius: RadiusConsts.instance.circularAll10),

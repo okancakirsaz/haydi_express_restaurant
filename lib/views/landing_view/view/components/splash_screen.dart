@@ -14,10 +14,9 @@ class SplashScreen extends StatelessWidget {
         width: 300,
         height: 300,
         child: Center(
-          child: Logo(),
+          child: Hero(tag: "logoHero", child: Logo()),
         ),
       ),
     ));
-    ;
   }
 }

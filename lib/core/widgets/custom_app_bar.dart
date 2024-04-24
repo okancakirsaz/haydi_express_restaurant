@@ -15,7 +15,7 @@ class CustomAppBar {
 
   PreferredSizeWidget build() {
     return AppBar(
-      backgroundColor: ColorConsts.instance.green,
+      backgroundColor: ColorConsts.instance.primary,
       bottom: tabs,
       title: title,
       actions: actions,

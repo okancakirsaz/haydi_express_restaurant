@@ -10,7 +10,7 @@ class ErrorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: ColorConsts.instance.darkGrey,
+      backgroundColor: ColorConsts.instance.third,
       content: Center(
         child: Text(
           reason ?? "Bir sorun oluştu, tekrar deneyiniz.",

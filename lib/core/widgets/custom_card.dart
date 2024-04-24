@@ -20,7 +20,7 @@ class CustomCard extends StatelessWidget {
       padding: PaddingConsts.instance.horizontal10,
       width: double.infinity,
       decoration: BoxDecoration(
-          color: ColorConsts.instance.lightGray,
+          color: ColorConsts.instance.background,
           borderRadius: RadiusConsts.instance.circularAll100),
       child: ListTile(
         title: Text(title, style: TextConsts.instance.regularBlack18Bold),
@@ -32,7 +32,7 @@ class CustomCard extends StatelessWidget {
               child: Icon(
                 Icons.delete,
                 size: 45,
-                color: ColorConsts.instance.red,
+                color: ColorConsts.instance.third,
               ),
             )),
       ),

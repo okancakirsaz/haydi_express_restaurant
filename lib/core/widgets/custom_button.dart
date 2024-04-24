@@ -1,42 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/consts/color_consts/color_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/radius_consts.dart';
+import 'package:haydi_express_restaurant/core/consts/text_consts.dart';
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
-  final TextStyle style;
+  final TextStyle? style;
   final String text;
-  final double width;
-  final double height;
-  const CustomButton(
-      {super.key,
-      required this.onPressed,
-      required this.style,
-      required this.text,
-      required this.width,
-      required this.height});
+  final double? width;
+  final double? height;
+  const CustomButton({
+    super.key,
+    required this.onPressed,
+    this.style,
+    required this.text,
+    this.width,
+    this.height,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: width,
       height: height,
+      constraints: const BoxConstraints(
+        minHeight: 60,
+        minWidth: 200,
+      ),
       child: ElevatedButton(
           style: ButtonStyle(
             backgroundColor:
-                MaterialStatePropertyAll(ColorConsts.instance.lightGray),
-            elevation: const MaterialStatePropertyAll(0),
+                MaterialStatePropertyAll(ColorConsts.instance.primary),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                borderRadius: RadiusConsts.instance.circularAll100,
-                side: BorderSide(color: ColorConsts.instance.black),
+                borderRadius: RadiusConsts.instance.circularAll20,
               ),
             ),
           ),
           onPressed: onPressed,
           child: Text(
             text,
-            style: style,
+            textAlign: TextAlign.center,
+            style: style ?? TextConsts.instance.regularWhite25,
           )),
     );
   }

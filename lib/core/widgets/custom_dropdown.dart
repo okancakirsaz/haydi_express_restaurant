@@ -30,9 +30,9 @@ class CustomDropdown extends StatelessWidget {
       },
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: ColorConsts.instance.lightGray,
+        fillColor: ColorConsts.instance.background,
         border: const OutlineInputBorder(),
-        activeIndicatorBorder: BorderSide(color: ColorConsts.instance.orange),
+        activeIndicatorBorder: BorderSide(color: ColorConsts.instance.primary),
       ),
       hintText: hint,
       requestFocusOnTap: false,

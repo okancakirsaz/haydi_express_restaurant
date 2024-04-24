@@ -4,6 +4,10 @@ class RadiusConsts {
   static final RadiusConsts instance = RadiusConsts();
   final BorderRadiusGeometry circularAll10 =
       const BorderRadius.all(Radius.circular(10));
+  final BorderRadiusGeometry circularAll20 =
+      const BorderRadius.all(Radius.circular(20));
+  final BorderRadiusGeometry circularAll40 =
+      const BorderRadius.all(Radius.circular(40));
   final BorderRadiusGeometry circularAll100 =
       const BorderRadius.all(Radius.circular(100));
   final BorderRadiusGeometry circularLeft100 = const BorderRadius.only(

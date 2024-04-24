@@ -5,6 +5,8 @@ import 'package:haydi_express_restaurant/views/landing_view/view/components/spla
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../authentication/log_in/view/log_in_view.dart';
+
 part 'landing_viewmodel.g.dart';
 
 class LandingViewModel = _LandingViewModelBase with _$LandingViewModel;
@@ -27,9 +29,7 @@ abstract class _LandingViewModelBase with Store, BaseViewModel {
         localeManager.getNullableStringData(LocaleKeysEnums.id.name);
     if (userId == null) {
       //Auth Screen
-      defaultWidget = const Scaffold(
-        body: Center(child: Text("AUTH")),
-      );
+      defaultWidget = const LogInView();
     } else {
       //Main Screen
       defaultWidget = const Scaffold(

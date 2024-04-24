@@ -24,12 +24,12 @@ class CustomStateFullButton extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-          color: ColorConsts.instance.lightGray,
+          color: ColorConsts.instance.background,
           border: Border.all(),
           borderRadius: RadiusConsts.instance.circularAll100),
       child: EasyButton(
           type: EasyButtonType.text,
-          buttonColor: ColorConsts.instance.lightGray,
+          buttonColor: ColorConsts.instance.background,
           borderRadius: 100,
           onPressed: onPressed,
           idleStateWidget: Text(
@@ -39,7 +39,7 @@ class CustomStateFullButton extends StatelessWidget {
           loadingStateWidget: Padding(
             padding: PaddingConsts.instance.all10,
             child: CircularProgressIndicator(
-              color: ColorConsts.instance.orange,
+              color: ColorConsts.instance.primary,
             ),
           )),
     );
