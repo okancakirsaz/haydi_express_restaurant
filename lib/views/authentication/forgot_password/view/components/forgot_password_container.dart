@@ -1,8 +1,8 @@
-part of "../log_in_view.dart";
+part of "../forgot_password_view.dart";
 
-class LogInContainer extends StatelessWidget {
-  final LogInViewModel viewModel;
-  const LogInContainer({super.key, required this.viewModel});
+class ForgotPasswordContainer extends StatelessWidget {
+  final ForgotPasswordViewModel viewModel;
+  const ForgotPasswordContainer({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +34,9 @@ class LogInContainer extends StatelessWidget {
               ),
             ),
             CustomButton(
-              onPressed: () => viewModel.navigateToForgotPassword(),
+              onPressed: () => viewModel.navigateLogIn(),
               style: TextConsts.instance.regularWhite20,
-              text: "Şifremi Unuttum",
+              text: "Giriş Yap",
             ),
           ],
         ),
@@ -50,23 +50,21 @@ class LogInContainer extends StatelessWidget {
         Padding(
           padding: PaddingConsts.instance.bottom50,
           child: Text(
-            "Restoran Girişi",
+            "Şifremi Unuttum",
             style: TextConsts.instance.regularWhite40Bold,
           ),
         ),
-        CustomTextField(
-          padding: PaddingConsts.instance.all20,
-          controller: TextEditingController(),
-          hint: "E-Posta",
-        ),
-        CustomTextField(
-          padding: PaddingConsts.instance.all20,
-          controller: TextEditingController(),
-          hint: "Şifre",
+        Padding(
+          padding: PaddingConsts.instance.top50,
+          child: CustomTextField(
+            padding: PaddingConsts.instance.all20,
+            controller: TextEditingController(),
+            hint: "E-Posta",
+          ),
         ),
         Padding(
           padding: PaddingConsts.instance.top10,
-          child: CustomButton(onPressed: () {}, text: "Giriş Yap"),
+          child: CustomButton(onPressed: () {}, text: "Gönder"),
         )
       ],
     );

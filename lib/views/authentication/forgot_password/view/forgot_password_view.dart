@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:haydi_express_restaurant/core/consts/color_consts/color_consts.dart';
-import 'package:haydi_express_restaurant/core/consts/padding_consts.dart';
-import 'package:haydi_express_restaurant/core/consts/radius_consts.dart';
-import 'package:haydi_express_restaurant/core/consts/text_consts.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_button.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_text_field.dart';
-import 'package:haydi_express_restaurant/core/widgets/logo.dart';
-import 'package:haydi_express_restaurant/views/authentication/log_in/viewmodel/log_in_viewmodel.dart';
 import '../../../../core/base/view/base_view.dart';
+import '../../../../core/consts/color_consts/color_consts.dart';
+import '../../../../core/consts/padding_consts.dart';
+import '../../../../core/consts/radius_consts.dart';
+import '../../../../core/consts/text_consts.dart';
+import '../../../../core/widgets/custom_button.dart';
+import '../../../../core/widgets/custom_text_field.dart';
+import '../../../../core/widgets/logo.dart';
+import '../viewmodel/forgot_password_viewmodel.dart';
 
-part "components/log_in_container.dart";
+part "./components/forgot_password_container.dart";
 
-class LogInView extends StatelessWidget {
-  const LogInView({super.key});
+class ForgotPasswordView extends StatelessWidget {
+  const ForgotPasswordView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<LogInViewModel>(
-        viewModel: LogInViewModel(),
+    return BaseView<ForgotPasswordViewModel>(
+        viewModel: ForgotPasswordViewModel(),
         onPageBuilder: (context, model) {
           return CustomScaffold(
             body: Center(
@@ -37,7 +36,7 @@ class LogInView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  LogInContainer(viewModel: model),
+                  ForgotPasswordContainer(viewModel: model),
                 ],
               ),
             ),
