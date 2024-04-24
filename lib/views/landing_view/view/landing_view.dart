@@ -17,23 +17,9 @@ class LandingView extends StatelessWidget {
               future: model.init(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  if (snapshot.data != "Auth") {
-                    //Main
-                    return const Scaffold(
-                      body: Text("main"),
-                    );
-                  } else {
-                    //Auth
-                    return const Scaffold(
-                      body: Text("auth"),
-                    );
-                  }
+                  return snapshot.data!;
                 } else {
-                  return const Scaffold(
-                      body: Center(
-                    child: SizedBox(
-                        width: 300, height: 300, child: Center(child: Logo())),
-                  ));
+                  return model.defaultWidget;
                 }
               });
         },
