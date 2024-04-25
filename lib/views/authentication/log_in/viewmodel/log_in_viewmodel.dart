@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
 import 'package:haydi_express_restaurant/views/authentication/forgot_password/view/forgot_password_view.dart';
+import 'package:haydi_express_restaurant/views/authentication/log_in/service/log_in_service.dart';
+import 'package:haydi_express_restaurant/views/authentication/models/log_in_model.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 
@@ -14,7 +17,45 @@ abstract class _LogInViewModelBase with Store, BaseViewModel {
   @override
   init() {}
 
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  final LogInService service = LogInService();
+
   navigateToForgotPassword() {
     navigationManager.navigate(const ForgotPasswordView());
+  }
+
+  //TODO:Add main page widget
+  _navigateToMainPage() {
+    navigationManager.navigate(const Scaffold());
+  }
+
+  Future<void> tryToLogIn() async {
+    if (email.text != "" && password.text != "") {
+      final LogInModel response = await _sendLogInRequest();
+
+      if (response.isLoginSuccess) {
+        await localeManager.setStringData(
+            LocaleKeysEnums.id.name, response.uid!);
+        _navigateToMainPage();
+      } else {
+        showErrorDialog(response.unSuccessfulReason);
+      }
+    } else {
+      showErrorDialog("E-Posta veya şifre giriniz");
+    }
+  }
+
+  Future<LogInModel> _sendLogInRequest() async {
+    final LogInModel? response = await service.logIn(LogInModel(
+      mail: email.text,
+      password: password.text,
+      isLoginSuccess: false,
+    ));
+    if (response == null) {
+      showErrorDialog("Bir sorun oluştu, tekrar deneyiniz.");
+      throw Exception("Response is null");
+    }
+    return response;
   }
 }

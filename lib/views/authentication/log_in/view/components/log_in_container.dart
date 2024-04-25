@@ -56,17 +56,18 @@ class LogInContainer extends StatelessWidget {
         ),
         CustomTextField(
           padding: PaddingConsts.instance.all20,
-          controller: TextEditingController(),
+          controller: viewModel.email,
           hint: "E-Posta",
         ),
         CustomTextField(
           padding: PaddingConsts.instance.all20,
-          controller: TextEditingController(),
+          controller: viewModel.password,
           hint: "Şifre",
         ),
         Padding(
           padding: PaddingConsts.instance.top10,
-          child: CustomButton(onPressed: () {}, text: "Giriş Yap"),
+          child: CustomButton(
+              onPressed: () async => viewModel.tryToLogIn(), text: "Giriş Yap"),
         )
       ],
     );
