@@ -5,6 +5,8 @@ import 'package:haydi_express_restaurant/views/authentication/models/forgot_pass
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../sign_up/view/sign_up_view.dart';
+
 part 'forgot_password_viewmodel.g.dart';
 
 class ForgotPasswordViewModel = _ForgotPasswordViewModelBase
@@ -22,6 +24,10 @@ abstract class _ForgotPasswordViewModelBase with Store, BaseViewModel {
 
   navigateLogIn() {
     navigationManager.navigate(const LogInView());
+  }
+
+  navigateToSignUp() {
+    navigationManager.navigate(const SignUpView());
   }
 
   Future<void> sendResetPasswordMail() async {

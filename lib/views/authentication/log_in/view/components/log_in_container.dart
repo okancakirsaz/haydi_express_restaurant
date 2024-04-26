@@ -28,7 +28,7 @@ class LogInContainer extends StatelessWidget {
               child: CustomButton(
                 width: 290,
                 height: 65,
-                onPressed: () {},
+                onPressed: () => viewModel.navigateToSignUp(),
                 style: TextConsts.instance.regularWhite20,
                 text: "Restoran Hesabı Oluşturmak İstiyorum.",
               ),

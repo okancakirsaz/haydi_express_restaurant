@@ -1,0 +1,53 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:haydi_express_restaurant/core/consts/color_consts/color_consts.dart';
+import 'package:haydi_express_restaurant/core/consts/padding_consts.dart';
+import 'package:haydi_express_restaurant/core/consts/radius_consts.dart';
+import 'package:haydi_express_restaurant/core/consts/text_consts.dart';
+import 'package:haydi_express_restaurant/core/widgets/custom_button.dart';
+import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
+import 'package:haydi_express_restaurant/core/widgets/custom_text_field.dart';
+import 'package:haydi_express_restaurant/core/widgets/logo.dart';
+import '../../../../core/base/view/base_view.dart';
+import '../viewmodel/sign_up_viewmodel.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
+part './components/sign_up_container.dart';
+part './components/process_bar.dart';
+part './components/restaurant_owner_inputs.dart';
+part './components/restaurant_information_inputs.dart';
+part './components/previous_and_next_buttons.dart';
+
+class SignUpView extends StatelessWidget {
+  const SignUpView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseView<SignUpViewModel>(
+        viewModel: SignUpViewModel(),
+        onPageBuilder: (context, model) {
+          return CustomScaffold(
+            body: Stack(
+              alignment: Alignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                      margin: PaddingConsts.instance.all20,
+                      width: 200,
+                      height: 200,
+                      child: const Hero(tag: "logoHero", child: Logo())),
+                ),
+                SignUpContainer(viewModel: model),
+              ],
+            ),
+          );
+        },
+        onModelReady: (model) {
+          model.init();
+          model.setContext(context);
+          model.setInitialPage(model);
+        },
+        onDispose: (model) {});
+  }
+}
