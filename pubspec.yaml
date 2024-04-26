@@ -30,6 +30,7 @@ dependencies:
   flutter_svg: ^2.0.9
   easy_loading_button: ^0.3.2
   window_manager: ^0.3.8
+  passwordfield:
 
   #Others
   shared_preferences: ^2.2.1

@@ -1,0 +1,15 @@
+import 'package:haydi_express_restaurant/core/consts/endpoints.dart';
+import 'package:haydi_express_restaurant/core/init/network_manager.dart';
+import 'package:haydi_express_restaurant/views/authentication/models/forgot_password_model.dart';
+
+final class ForgotPasswordService extends NetworkManager {
+  Future<ForgotPasswordModel?> forgotPassword(ForgotPasswordModel data) async {
+    try {
+      final response = await network.post(Endpoints.instance.forgotPassword,
+          data: data.toJson());
+      return ForgotPasswordModel.fromJson(response.data);
+    } catch (e) {
+      return null;
+    }
+  }
+}

@@ -1,45 +1,50 @@
 import 'package:easy_loading_button/easy_loading_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/consts/color_consts/color_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/padding_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/radius_consts.dart';
 
+import '../consts/text_consts.dart';
+
 class CustomStateFullButton extends StatelessWidget {
   final VoidCallback onPressed;
-  final TextStyle style;
+  final TextStyle? style;
   final String text;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   const CustomStateFullButton(
       {super.key,
       required this.onPressed,
-      required this.style,
+      this.style,
       required this.text,
-      required this.width,
-      required this.height});
+      this.width,
+      this.height});
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width,
-      height: height,
+      width: width ?? 200,
+      height: height ?? 60,
+      constraints: const BoxConstraints(
+        minHeight: 60,
+        minWidth: 200,
+      ),
       decoration: BoxDecoration(
-          color: ColorConsts.instance.background,
+          color: ColorConsts.instance.primary,
           border: Border.all(),
-          borderRadius: RadiusConsts.instance.circularAll100),
+          borderRadius: RadiusConsts.instance.circularAll20),
       child: EasyButton(
           type: EasyButtonType.text,
-          buttonColor: ColorConsts.instance.background,
-          borderRadius: 100,
+          buttonColor: ColorConsts.instance.primary,
+          borderRadius: 20,
           onPressed: onPressed,
           idleStateWidget: Text(
             text,
-            style: style,
+            style: style ?? TextConsts.instance.regularWhite25,
           ),
           loadingStateWidget: Padding(
             padding: PaddingConsts.instance.all10,
             child: CircularProgressIndicator(
-              color: ColorConsts.instance.primary,
+              color: ColorConsts.instance.lightThird,
             ),
           )),
     );

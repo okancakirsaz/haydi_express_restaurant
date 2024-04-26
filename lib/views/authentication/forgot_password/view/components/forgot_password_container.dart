@@ -58,13 +58,15 @@ class ForgotPasswordContainer extends StatelessWidget {
           padding: PaddingConsts.instance.top50,
           child: CustomTextField(
             padding: PaddingConsts.instance.all20,
-            controller: TextEditingController(),
+            controller: viewModel.email,
             hint: "E-Posta",
           ),
         ),
         Padding(
           padding: PaddingConsts.instance.top10,
-          child: CustomButton(onPressed: () {}, text: "Gönder"),
+          child: CustomStateFullButton(
+              onPressed: () async => await viewModel.sendResetPasswordMail(),
+              text: "Gönder"),
         )
       ],
     );

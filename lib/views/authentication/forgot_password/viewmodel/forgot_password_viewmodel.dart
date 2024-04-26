@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:haydi_express_restaurant/views/authentication/forgot_password/service/forgot_password_service.dart';
 import 'package:haydi_express_restaurant/views/authentication/log_in/view/log_in_view.dart';
+import 'package:haydi_express_restaurant/views/authentication/models/forgot_password_model.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 
@@ -15,7 +17,35 @@ abstract class _ForgotPasswordViewModelBase with Store, BaseViewModel {
   @override
   init() {}
 
+  final ForgotPasswordService service = ForgotPasswordService();
+  final TextEditingController email = TextEditingController();
+
   navigateLogIn() {
     navigationManager.navigate(const LogInView());
+  }
+
+  Future<void> sendResetPasswordMail() async {
+    if (email.text != "") {
+      final ForgotPasswordModel? response = await service.forgotPassword(
+        ForgotPasswordModel(
+          isMailSent: false,
+          mail: email.text,
+          uid: "",
+        ),
+      );
+
+      if (response == null) {
+        showErrorDialog("Bir sorun oluştu, tekrar deneyiniz.");
+      } else {
+        if (response.isMailSent) {
+          navigateLogIn();
+          showErrorDialog("E-Postanızı kontrol ediniz.");
+        } else {
+          showErrorDialog("Lütfen geçerli bir e-posta adresi giriniz.");
+        }
+      }
+    } else {
+      showErrorDialog("Lütfen geçerli bir e-posta adresi giriniz.");
+    }
   }
 }

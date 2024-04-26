@@ -42,7 +42,7 @@ abstract class _LogInViewModelBase with Store, BaseViewModel {
         showErrorDialog(response.unSuccessfulReason);
       }
     } else {
-      showErrorDialog("E-Posta veya şifre giriniz");
+      showErrorDialog("E-Posta veya şifre eksik.");
     }
   }
 
