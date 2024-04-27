@@ -2,8 +2,8 @@ part of "../sign_up_view.dart";
 
 class PreviousAndNextButtons extends StatelessWidget {
   final Widget previousPage;
-  final String previousTitle;
-  final String nextTitle;
+  final int previousIndex;
+  final int nextIndex;
   final Widget nextPage;
   final SignUpViewModel viewModel;
   const PreviousAndNextButtons(
@@ -11,8 +11,8 @@ class PreviousAndNextButtons extends StatelessWidget {
       required this.previousPage,
       required this.nextPage,
       required this.viewModel,
-      required this.previousTitle,
-      required this.nextTitle});
+      required this.previousIndex,
+      required this.nextIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +20,12 @@ class PreviousAndNextButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         CustomButton(
-            onPressed: () => viewModel.goNextPage(previousPage, previousTitle),
+            onPressed: () => viewModel.goToPage(previousPage,
+                viewModel.titles[previousIndex], previousIndex, false),
             text: "Önceki Sayfa"),
         CustomButton(
-            onPressed: () => viewModel.goNextPage(nextPage, nextTitle),
+            onPressed: () => viewModel.goToPage(
+                nextPage, viewModel.titles[nextIndex], nextIndex, true),
             text: "Devam Et"),
       ],
     );

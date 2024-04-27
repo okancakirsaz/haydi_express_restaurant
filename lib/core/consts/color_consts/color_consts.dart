@@ -6,6 +6,7 @@ class ColorConsts {
   final Color black = const Color(0xFF000000);
   final Color primary = const Color(0xFFFF7A00);
   final Color secondary = const Color(0xFFFF9900);
+  final Color lowOpacityOrange = const Color(0xCFFF9900);
   final Color lightSecondary = const Color(0xFFFFB000);
   final Color third = const Color(0xFF401F71);
   final Color lightThird = const Color(0xFF6230AD);

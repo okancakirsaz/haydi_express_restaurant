@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/consts/radius_consts.dart';
+import 'package:haydi_express_restaurant/core/consts/text_consts.dart';
 
 import '../consts/color_consts/color_consts.dart';
 
@@ -18,6 +19,7 @@ class CustomDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownMenu(
+      textStyle: TextConsts.instance.regularWhite20,
       menuStyle: MenuStyle(
         shape: MaterialStatePropertyAll(
           RoundedRectangleBorder(
@@ -30,9 +32,11 @@ class CustomDropdown extends StatelessWidget {
       },
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: ColorConsts.instance.background,
-        border: const OutlineInputBorder(),
-        activeIndicatorBorder: BorderSide(color: ColorConsts.instance.primary),
+        fillColor: ColorConsts.instance.blurGrey,
+        border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        activeIndicatorBorder:
+            BorderSide(color: ColorConsts.instance.background),
       ),
       hintText: hint,
       requestFocusOnTap: false,

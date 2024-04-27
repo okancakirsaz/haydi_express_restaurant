@@ -189,6 +189,14 @@ class TextConsts {
     );
   }
 
+  TextStyle get regularWhite35Bold {
+    return GoogleFonts.montserrat(
+      fontSize: 35,
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
   TextStyle get regularWhite30 {
     return GoogleFonts.montserrat(
         fontSize: 30, color: Colors.white, fontWeight: FontWeight.normal);

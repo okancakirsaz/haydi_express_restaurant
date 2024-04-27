@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/consts/text_consts.dart';
+import 'package:toastification/toastification.dart';
 
 import '../consts/color_consts/color_consts.dart';
 
-class ErrorDialog extends StatelessWidget {
+class ErrorDialog {
   final String? reason;
-  const ErrorDialog({super.key, this.reason});
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      backgroundColor: ColorConsts.instance.third,
-      content: Center(
-        child: Text(
-          reason ?? "Bir sorun oluştu, tekrar deneyiniz.",
-          style: TextConsts.instance.regularWhite16Bold,
-        ),
+  final BuildContext context;
+  ErrorDialog({required this.context, this.reason}) {
+    show();
+  }
+  show() {
+    toastification.show(
+      primaryColor: ColorConsts.instance.primary,
+      context: context,
+      title: Text(
+        reason ?? "Bir sorun oluştu, daha sonra tekrar deneyiniz.s",
+        style: TextConsts.instance.regularBlack18,
       ),
+      autoCloseDuration: const Duration(seconds: 5),
     );
   }
 }

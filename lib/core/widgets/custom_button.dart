@@ -7,6 +7,7 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
   final TextStyle? style;
   final String text;
+  final Color? backGroundColor;
   final double? width;
   final double? height;
   const CustomButton({
@@ -16,6 +17,7 @@ class CustomButton extends StatelessWidget {
     required this.text,
     this.width,
     this.height,
+    this.backGroundColor,
   });
 
   @override
@@ -29,8 +31,8 @@ class CustomButton extends StatelessWidget {
       ),
       child: ElevatedButton(
           style: ButtonStyle(
-            backgroundColor:
-                MaterialStatePropertyAll(ColorConsts.instance.primary),
+            backgroundColor: MaterialStatePropertyAll(
+                backGroundColor ?? ColorConsts.instance.primary),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: RadiusConsts.instance.circularAll20,

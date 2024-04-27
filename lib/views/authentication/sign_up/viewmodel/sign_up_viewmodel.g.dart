@@ -72,11 +72,22 @@ mixin _$SignUpViewModel on _SignUpViewModelBase, Store {
   }
 
   @override
-  dynamic goNextPage(Widget nextPage, String newTitle) {
+  dynamic goToPage(Widget nextPage, String newTitle, int index, bool isNext) {
     final _$actionInfo = _$_SignUpViewModelBaseActionController.startAction(
-        name: '_SignUpViewModelBase.goNextPage');
+        name: '_SignUpViewModelBase.goToPage');
     try {
-      return super.goNextPage(nextPage, newTitle);
+      return super.goToPage(nextPage, newTitle, index, isNext);
+    } finally {
+      _$_SignUpViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic changeProcessBarStatus(int index, bool isNext) {
+    final _$actionInfo = _$_SignUpViewModelBaseActionController.startAction(
+        name: '_SignUpViewModelBase.changeProcessBarStatus');
+    try {
+      return super.changeProcessBarStatus(index, isNext);
     } finally {
       _$_SignUpViewModelBaseActionController.endAction(_$actionInfo);
     }

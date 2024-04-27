@@ -14,11 +14,10 @@ abstract mixin class BaseViewModel {
   final ScrollController defaultScrollController = ScrollController();
 
   showErrorDialog([String? reason]) {
-    showDialog(
-        context: viewModelContext,
-        builder: (context) => ErrorDialog(
-              reason: reason,
-            ));
+    ErrorDialog(
+      context: viewModelContext,
+      reason: reason,
+    );
   }
 
   navigatorPop() {

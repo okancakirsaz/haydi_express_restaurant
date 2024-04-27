@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:haydi_express_restaurant/core/consts/asset_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/color_consts/color_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/padding_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/radius_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/text_consts.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_button.dart';
+import 'package:haydi_express_restaurant/core/widgets/custom_dropdown.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_text_field.dart';
 import 'package:haydi_express_restaurant/core/widgets/logo.dart';
@@ -17,6 +19,12 @@ part './components/process_bar.dart';
 part './components/restaurant_owner_inputs.dart';
 part './components/restaurant_information_inputs.dart';
 part './components/previous_and_next_buttons.dart';
+part './components/mail_code_view.dart';
+part './components/address_inputs.dart';
+part './components/courier_option.dart';
+part './components/bank_information.dart';
+part './components/privacy_policy.dart';
+part './components/thanks_view.dart';
 
 class SignUpView extends StatelessWidget {
   const SignUpView({super.key});
@@ -48,6 +56,8 @@ class SignUpView extends StatelessWidget {
           model.setContext(context);
           model.setInitialPage(model);
         },
-        onDispose: (model) {});
+        onDispose: (model) {
+          model.disposeAllControllers();
+        });
   }
 }

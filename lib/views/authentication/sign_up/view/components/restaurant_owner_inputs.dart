@@ -25,9 +25,12 @@ class RestaurantOwnerInputs extends StatelessWidget {
         Padding(
           padding: PaddingConsts.instance.top20,
           child: CustomButton(
-              onPressed: () => viewModel.goNextPage(
-                  RestaurantInformationInputs(viewModel: viewModel),
-                  "Restoran Bilgilerini Giriniz"),
+              onPressed: () => viewModel.goToPage(
+                    RestaurantInformationInputs(viewModel: viewModel),
+                    "Restoran Bilgilerini Giriniz",
+                    1,
+                    true,
+                  ),
               text: "Devam Et"),
         )
       ],

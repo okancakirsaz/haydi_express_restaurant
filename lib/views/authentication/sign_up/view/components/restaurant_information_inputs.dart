@@ -23,13 +23,14 @@ class RestaurantInformationInputs extends StatelessWidget {
           ),
         ),
         PreviousAndNextButtons(
-            previousPage: RestaurantOwnerInputs(
-              viewModel: viewModel,
-            ),
-            nextPage: Container(),
+          previousPage: RestaurantOwnerInputs(
             viewModel: viewModel,
-            previousTitle: viewModel.titles[0],
-            nextTitle: "Title Here")
+          ),
+          nextPage: MailCodeView(viewModel: viewModel),
+          viewModel: viewModel,
+          previousIndex: 0,
+          nextIndex: 2,
+        )
       ],
     );
   }
