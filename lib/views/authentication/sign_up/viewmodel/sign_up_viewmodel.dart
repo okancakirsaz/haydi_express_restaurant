@@ -40,7 +40,6 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
   final TextEditingController restaurantName = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
-  final TextEditingController taxNumber = TextEditingController();
   final TextEditingController mailVerification = TextEditingController();
   final TextEditingController city = TextEditingController();
   final TextEditingController addressLineOne = TextEditingController();
@@ -91,7 +90,6 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
     restaurantName.dispose();
     email.dispose();
     password.dispose();
-    taxNumber.dispose();
     mailVerification.dispose();
     city.dispose();
     addressLineOne.dispose();

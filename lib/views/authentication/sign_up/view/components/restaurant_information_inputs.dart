@@ -17,8 +17,6 @@ class RestaurantInformationInputs extends StatelessWidget {
                   controller: viewModel.restaurantName, hint: "İşletme Adı"),
               CustomTextField(controller: viewModel.email, hint: "E-Posta"),
               CustomTextField(controller: viewModel.password, hint: "Şifre"),
-              CustomTextField(
-                  controller: viewModel.taxNumber, hint: "Vergi Numarası"),
             ],
           ),
         ),
