@@ -1,6 +1,7 @@
 import 'package:haydi_express_restaurant/core/consts/endpoints.dart';
-import 'package:haydi_express_restaurant/core/init/network_manager.dart';
 import 'package:haydi_express_restaurant/views/authentication/models/log_in_model.dart';
+
+import '../../../../core/managers/network_manager.dart';
 
 final class LogInService extends NetworkManager {
   Future<LogInModel?> logIn(LogInModel data) async {

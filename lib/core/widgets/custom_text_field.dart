@@ -11,18 +11,21 @@ class CustomTextField extends StatefulWidget {
   final TextStyle? style;
   final String hint;
   final TextStyle? hintStyle;
-  final TextInputType? inputType;
   final bool? isReadOnly;
+  final int? maxLength;
+  final List<TextInputFormatter>? customInputFormatters;
 
-  const CustomTextField(
-      {super.key,
-      this.padding,
-      required this.controller,
-      this.style,
-      this.inputType,
-      this.isReadOnly,
-      required this.hint,
-      this.hintStyle});
+  const CustomTextField({
+    super.key,
+    this.padding,
+    required this.controller,
+    this.style,
+    this.isReadOnly,
+    required this.hint,
+    this.hintStyle,
+    this.customInputFormatters,
+    this.maxLength,
+  });
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -59,16 +62,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 _isFocused = true;
                 setState(() {});
               },
+              maxLength: widget.maxLength,
               textInputAction: TextInputAction.next,
               readOnly: widget.isReadOnly ?? false,
-              keyboardType: widget.inputType,
-              inputFormatters: widget.inputType == TextInputType.phone ||
-                      widget.inputType == TextInputType.number
-                  ? [FilteringTextInputFormatter.digitsOnly]
-                  : null,
+              inputFormatters: widget.customInputFormatters,
               cursorColor: Colors.black,
               style: widget.style ?? TextConsts.instance.regularBlack20,
               decoration: const InputDecoration(
+                counter: SizedBox(),
                 contentPadding: EdgeInsets.only(bottom: 5, left: 10),
                 enabledBorder: InputBorder.none,
                 border: InputBorder.none,

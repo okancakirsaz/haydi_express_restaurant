@@ -1,7 +1,7 @@
 import 'package:haydi_express_restaurant/core/consts/endpoints.dart';
-import 'package:haydi_express_restaurant/core/init/network_manager.dart';
 import 'package:haydi_express_restaurant/views/authentication/models/mail_verification_request_model.dart';
 
+import '../../../../core/managers/network_manager.dart';
 import '../../models/mail_verification_model.dart';
 
 final class SignUpService extends NetworkManager {

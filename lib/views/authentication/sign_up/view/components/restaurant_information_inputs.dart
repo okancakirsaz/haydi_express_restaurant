@@ -25,7 +25,6 @@ class RestaurantInformationInputs extends StatelessWidget {
           previousPage: RestaurantOwnerInputs(
             viewModel: viewModel,
           ),
-          nextPage: MailCodeView(viewModel: viewModel),
           viewModel: viewModel,
           currentIndex: 1,
           customFunctionToNext: () async =>

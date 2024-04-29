@@ -36,11 +36,9 @@ class BankInformation extends StatelessWidget {
           previousPage: CourierOptions(
             viewModel: viewModel,
           ),
-          nextPage: PrivacyPolicy(
-            viewModel: viewModel,
-          ),
           viewModel: viewModel,
           currentIndex: 5,
+          customFunctionToNext: () => viewModel.goToPrivacyPolicy(viewModel),
         )
       ],
     );
@@ -51,7 +49,12 @@ class BankInformation extends StatelessWidget {
       width: 350,
       child: Column(
         children: <Widget>[
-          CustomTextField(controller: viewModel.iban, hint: "IBAN Numarası"),
+          CustomTextField(
+            controller: viewModel.iban,
+            hint: "IBAN Numarası(Başında TR olmadan)",
+            customInputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            maxLength: 20,
+          ),
           CustomTextField(controller: viewModel.bankName, hint: "Banka Adı"),
           CustomTextField(
               hintStyle: TextConsts.instance.regularWhite20,
@@ -68,19 +71,36 @@ class BankInformation extends StatelessWidget {
       child: Column(
         children: <Widget>[
           CustomTextField(
-              controller: viewModel.cardNumber, hint: "Kart Numarası"),
+            controller: viewModel.cardNumber,
+            hint: "Kart Numarası",
+            customInputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            maxLength: 16,
+          ),
           CustomTextField(
-              controller: viewModel.cardOwner,
-              hint: "Kart Sahibinin Adı Soyadı"),
+            controller: viewModel.cardOwner,
+            hint: "Kart Sahibinin Adı Soyadı",
+          ),
           Row(
             children: <Widget>[
               Expanded(
-                  child:
-                      CustomTextField(controller: viewModel.cvv, hint: "CVV")),
+                child: CustomTextField(
+                  controller: viewModel.cvv,
+                  hint: "CVV",
+                  maxLength: 4,
+                  customInputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                ),
+              ),
               Expanded(
-                  flex: 2,
-                  child: CustomTextField(
-                      controller: viewModel.cardExpireDate, hint: "SKT")),
+                flex: 2,
+                child: CustomTextField(
+                  controller: viewModel.cardExpireDate,
+                  hint: "SKT",
+                  maxLength: 5,
+                  customInputFormatters: [CardExpirationFormatter()],
+                ),
+              ),
             ],
           ),
         ],

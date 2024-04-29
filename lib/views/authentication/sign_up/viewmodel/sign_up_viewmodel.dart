@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/views/authentication/models/mail_verification_model.dart';
 import 'package:haydi_express_restaurant/views/authentication/models/mail_verification_request_model.dart';
@@ -65,10 +66,15 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
   }
 
   @action
-  goToPage(Widget nextPage, String newTitle, int index, bool isNext) {
-    title = newTitle;
-    page = nextPage;
-    changeProcessBarStatus(index, isNext);
+  goToPage(Widget nextPage, String newTitle, int index, bool isNext,
+      [bool? validation]) {
+    if (validation ?? true) {
+      title = newTitle;
+      page = nextPage;
+      changeProcessBarStatus(index, isNext);
+    } else {
+      showErrorDialog("Lütfen istenilen bilgilerin girildiğinden emin olun.");
+    }
   }
 
   @action
@@ -82,11 +88,6 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
     } else {
       process = process - oneProcess;
     }
-  }
-
-  pickCourierOption(bool option, SignUpViewModel viewModel) {
-    isWantCourierService = option;
-    goToPage(BankInformation(viewModel: viewModel), titles[5], 5, true);
   }
 
   disposeAllControllers() {
@@ -110,29 +111,35 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
   }
 
   Future<void> sendMailVerifyRequest(SignUpViewModel viewModel) async {
-    //For entered new mail address case
-    isMailVerified = false;
-    final MailVerificationRequestModel? response =
-        await service.sendVerifyRequest(
-      MailVerificationRequestModel(
-          email: email.text, isMailSent: false, verificationCode: null),
-    );
-
-    if (response != null) {
-      if (response.isMailSent) {
-        goToPage(
-          MailCodeView(
-            viewModel: viewModel,
-          ),
-          titles[2],
-          2,
-          true,
+    switch (restaurantInputsValidation) {
+      case true:
+        //For entered new mail address case
+        isMailVerified = false;
+        final MailVerificationRequestModel? response =
+            await service.sendVerifyRequest(
+          MailVerificationRequestModel(
+              email: email.text, isMailSent: false, verificationCode: null),
         );
-      } else {
-        showErrorDialog();
-      }
-    } else {
-      showErrorDialog();
+
+        if (response != null) {
+          if (response.isMailSent) {
+            goToPage(
+              MailCodeView(
+                viewModel: viewModel,
+              ),
+              titles[2],
+              2,
+              true,
+            );
+          } else {
+            showErrorDialog();
+          }
+        } else {
+          showErrorDialog();
+        }
+        break;
+      default:
+        showErrorDialog("Lütfen istenilen bilgilerin girildiğinden emin olun.");
     }
   }
 
@@ -145,7 +152,7 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
             verificationCode: mailVerification.text),
       );
       if (response != null) {
-        if (response.isCodeTrue) {
+        if (response.isCodeTrue || kDebugMode) {
           _goToAddressInputs(viewModel);
           isMailVerified = true;
         } else {
@@ -168,5 +175,82 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
       3,
       true,
     );
+  }
+
+  pickCourierOption(bool option, SignUpViewModel viewModel) {
+    isWantCourierService = option;
+    goToPage(BankInformation(viewModel: viewModel), titles[5], 5, true);
+  }
+
+  goToCourierOptionPage(SignUpViewModel viewModel) {
+    goToPage(CourierOptions(viewModel: viewModel), titles[4], 4, true,
+        addressInputsValidation);
+  }
+
+  goToPrivacyPolicy(SignUpViewModel viewModel) {
+    goToPage(
+      PrivacyPolicy(viewModel: viewModel),
+      titles[5],
+      5,
+      true,
+      bankAccountValidation,
+    );
+  }
+
+  goToFinalPage(SignUpViewModel viewModel) {
+    goToPage(
+      ThanksView(viewModel: viewModel),
+      titles[7],
+      7,
+      true,
+    );
+  }
+
+  bool get ownerInputsValidation {
+    if (ownerName.text != "" &&
+        ownerSurName.text != "" &&
+        ownerPhoneNumber.text != "" &&
+        ownerPhoneNumber.text.length == 10) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool get restaurantInputsValidation {
+    if (restaurantName.text != "" &&
+        email.text != "" &&
+        password.text != "" &&
+        email.text.contains("@")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool get addressInputsValidation {
+    if (addressLineOne.text != "" && addressLineTwo.text != "") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool get bankAccountValidation {
+    if (iban.text != "" &&
+        iban.text.length == 20 &&
+        bankName.text != "" &&
+        bankAccountOwner.text != "" &&
+        cardNumber.text != "" &&
+        cardNumber.text.length == 16 &&
+        cardOwner.text != "" &&
+        cvv.text != "" &&
+        cvv.text.length >= 3 &&
+        cardExpireDate.text != "" &&
+        cardExpireDate.text.length == 5) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

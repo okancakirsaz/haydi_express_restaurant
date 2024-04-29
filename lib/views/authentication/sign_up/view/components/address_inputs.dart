@@ -38,11 +38,10 @@ class AddressInputs extends StatelessWidget {
           previousPage: MailCodeView(
             viewModel: viewModel,
           ),
-          nextPage: CourierOptions(
-            viewModel: viewModel,
-          ),
           viewModel: viewModel,
           currentIndex: 3,
+          customFunctionToNext: () =>
+              viewModel.goToCourierOptionPage(viewModel),
         )
       ],
     );

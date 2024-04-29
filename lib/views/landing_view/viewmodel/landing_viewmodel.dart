@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
-import 'package:haydi_express_restaurant/core/init/web_socket_manager.dart';
+import 'package:haydi_express_restaurant/core/managers/web_socket_manager.dart';
 import 'package:haydi_express_restaurant/views/landing_view/view/components/splash_screen.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';

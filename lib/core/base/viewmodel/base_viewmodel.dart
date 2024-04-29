@@ -16,7 +16,7 @@ abstract mixin class BaseViewModel {
   showErrorDialog([String? reason]) {
     ErrorDialog(
       context: viewModelContext,
-      reason: reason,
+      reason: reason ?? "Bir sorun oluştu, daha sonra tekrar deneyiniz.",
     );
   }
 

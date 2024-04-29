@@ -72,11 +72,12 @@ mixin _$SignUpViewModel on _SignUpViewModelBase, Store {
   }
 
   @override
-  dynamic goToPage(Widget nextPage, String newTitle, int index, bool isNext) {
+  dynamic goToPage(Widget nextPage, String newTitle, int index, bool isNext,
+      [bool? validation]) {
     final _$actionInfo = _$_SignUpViewModelBaseActionController.startAction(
         name: '_SignUpViewModelBase.goToPage');
     try {
-      return super.goToPage(nextPage, newTitle, index, isNext);
+      return super.goToPage(nextPage, newTitle, index, isNext, validation);
     } finally {
       _$_SignUpViewModelBaseActionController.endAction(_$actionInfo);
     }

@@ -27,9 +27,6 @@ class MailCodeView extends StatelessWidget {
           previousPage: RestaurantInformationInputs(
             viewModel: viewModel,
           ),
-          nextPage: AddressInputs(
-            viewModel: viewModel,
-          ),
           viewModel: viewModel,
           currentIndex: 2,
           customFunctionToNext: () async =>

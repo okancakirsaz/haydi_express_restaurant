@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:haydi_express_restaurant/core/init/network_manager.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+
+import 'network_manager.dart';
 
 final class WebSocketManager extends NetworkManager {
   static final WebSocketManager instance = WebSocketManager();

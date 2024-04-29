@@ -17,8 +17,11 @@ class RestaurantOwnerInputs extends StatelessWidget {
               CustomTextField(
                   controller: viewModel.ownerSurName, hint: "Soyisim"),
               CustomTextField(
-                  controller: viewModel.ownerPhoneNumber,
-                  hint: "Telefon Numarası"),
+                controller: viewModel.ownerPhoneNumber,
+                hint: "Telefon Numarası",
+                maxLength: 10,
+                customInputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              ),
             ],
           ),
         ),
@@ -30,6 +33,7 @@ class RestaurantOwnerInputs extends StatelessWidget {
                     "Restoran Bilgilerini Giriniz",
                     1,
                     true,
+                    viewModel.ownerInputsValidation,
                   ),
               text: "Devam Et"),
         )

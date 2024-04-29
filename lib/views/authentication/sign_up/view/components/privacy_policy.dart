@@ -37,7 +37,8 @@ class PrivacyPolicy extends StatelessWidget {
           previousPage: BankInformation(
             viewModel: viewModel,
           ),
-          nextPage: ThanksView(viewModel: viewModel),
+          nextText: "Kabul Et",
+          customFunctionToNext: () => viewModel.goToFinalPage(viewModel),
           viewModel: viewModel,
           currentIndex: 6,
         )
