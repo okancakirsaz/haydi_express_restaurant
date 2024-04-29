@@ -24,15 +24,17 @@ class MailCodeView extends StatelessWidget {
           ),
         ),
         PreviousAndNextButtons(
-            previousPage: RestaurantInformationInputs(
-              viewModel: viewModel,
-            ),
-            nextPage: AddressInputs(
-              viewModel: viewModel,
-            ),
+          previousPage: RestaurantInformationInputs(
             viewModel: viewModel,
-            previousIndex: 1,
-            nextIndex: 3)
+          ),
+          nextPage: AddressInputs(
+            viewModel: viewModel,
+          ),
+          viewModel: viewModel,
+          currentIndex: 2,
+          customFunctionToNext: () async =>
+              await viewModel.sendVerifyCode(viewModel),
+        ),
       ],
     );
   }

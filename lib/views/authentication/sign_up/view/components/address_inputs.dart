@@ -42,8 +42,7 @@ class AddressInputs extends StatelessWidget {
             viewModel: viewModel,
           ),
           viewModel: viewModel,
-          previousIndex: 2,
-          nextIndex: 4,
+          currentIndex: 3,
         )
       ],
     );

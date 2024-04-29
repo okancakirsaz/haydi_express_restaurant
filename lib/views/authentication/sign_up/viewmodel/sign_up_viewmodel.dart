@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:haydi_express_restaurant/views/authentication/models/mail_verification_model.dart';
+import 'package:haydi_express_restaurant/views/authentication/models/mail_verification_request_model.dart';
+import 'package:haydi_express_restaurant/views/authentication/sign_up/service/sign_up_service.dart';
 import 'package:haydi_express_restaurant/views/authentication/sign_up/view/sign_up_view.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
@@ -13,6 +16,8 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
 
   @override
   init() {}
+
+  final SignUpService service = SignUpService();
 
   List<String> titles = [
     "Restoran Sahibinin Bilgilerini Giriniz",
@@ -52,6 +57,7 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
   final TextEditingController cvv = TextEditingController();
   final TextEditingController cardExpireDate = TextEditingController();
   bool isWantCourierService = false;
+  bool isMailVerified = false;
 
   @action
   setInitialPage(SignUpViewModel viewModel) {
@@ -101,5 +107,66 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
     cardOwner.dispose();
     cvv.dispose();
     cardExpireDate.dispose();
+  }
+
+  Future<void> sendMailVerifyRequest(SignUpViewModel viewModel) async {
+    //For entered new mail address case
+    isMailVerified = false;
+    final MailVerificationRequestModel? response =
+        await service.sendVerifyRequest(
+      MailVerificationRequestModel(
+          email: email.text, isMailSent: false, verificationCode: null),
+    );
+
+    if (response != null) {
+      if (response.isMailSent) {
+        goToPage(
+          MailCodeView(
+            viewModel: viewModel,
+          ),
+          titles[2],
+          2,
+          true,
+        );
+      } else {
+        showErrorDialog();
+      }
+    } else {
+      showErrorDialog();
+    }
+  }
+
+  Future<void> sendVerifyCode(SignUpViewModel viewModel) async {
+    if (!isMailVerified) {
+      final MailVerificationModel? response = await service.verifyMailCode(
+        MailVerificationModel(
+            email: email.text,
+            isCodeTrue: false,
+            verificationCode: mailVerification.text),
+      );
+      if (response != null) {
+        if (response.isCodeTrue) {
+          _goToAddressInputs(viewModel);
+          isMailVerified = true;
+        } else {
+          showErrorDialog("Girilen kod yanlış tekrar deneyiniz.");
+        }
+      } else {
+        showErrorDialog();
+      }
+    } else {
+      _goToAddressInputs(viewModel);
+    }
+  }
+
+  _goToAddressInputs(SignUpViewModel viewModel) {
+    goToPage(
+      AddressInputs(
+        viewModel: viewModel,
+      ),
+      titles[3],
+      3,
+      true,
+    );
   }
 }

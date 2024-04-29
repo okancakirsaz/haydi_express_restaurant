@@ -40,8 +40,7 @@ class BankInformation extends StatelessWidget {
             viewModel: viewModel,
           ),
           viewModel: viewModel,
-          previousIndex: 4,
-          nextIndex: 6,
+          currentIndex: 5,
         )
       ],
     );

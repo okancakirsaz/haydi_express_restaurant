@@ -34,13 +34,13 @@ class PrivacyPolicy extends StatelessWidget {
           ),
         ),
         PreviousAndNextButtons(
-            previousPage: BankInformation(
-              viewModel: viewModel,
-            ),
-            nextPage: ThanksView(viewModel: viewModel),
+          previousPage: BankInformation(
             viewModel: viewModel,
-            previousIndex: 5,
-            nextIndex: 7)
+          ),
+          nextPage: ThanksView(viewModel: viewModel),
+          viewModel: viewModel,
+          currentIndex: 6,
+        )
       ],
     );
   }

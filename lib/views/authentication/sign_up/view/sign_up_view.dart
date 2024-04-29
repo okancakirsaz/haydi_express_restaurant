@@ -11,6 +11,7 @@ import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_text_field.dart';
 import 'package:haydi_express_restaurant/core/widgets/logo.dart';
 import '../../../../core/base/view/base_view.dart';
+import '../../../../core/widgets/custom_statefull_button.dart';
 import '../viewmodel/sign_up_viewmodel.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 

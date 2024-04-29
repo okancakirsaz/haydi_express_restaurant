@@ -11,6 +11,7 @@ class RestaurantInformationInputs extends StatelessWidget {
       children: <Widget>[
         SizedBox(
           width: 450,
+          height: 440,
           child: Column(
             children: <Widget>[
               CustomTextField(
@@ -26,8 +27,9 @@ class RestaurantInformationInputs extends StatelessWidget {
           ),
           nextPage: MailCodeView(viewModel: viewModel),
           viewModel: viewModel,
-          previousIndex: 0,
-          nextIndex: 2,
+          currentIndex: 1,
+          customFunctionToNext: () async =>
+              await viewModel.sendMailVerifyRequest(viewModel),
         )
       ],
     );
