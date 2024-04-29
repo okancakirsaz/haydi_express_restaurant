@@ -35,6 +35,7 @@ abstract class _LogInViewModelBase with Store, BaseViewModel {
     navigationManager.navigate(const Scaffold());
   }
 
+  //TODO: *REVIEW* Downgrade mail and password data to one.
   Future<void> tryToLogIn({String? mail, String? pass}) async {
     if ((email.text != "" && password.text != "") ||
         (mail != null && pass != null)) {

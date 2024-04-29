@@ -124,7 +124,7 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
           MailVerificationRequestModel(
               email: email.text, isMailSent: false, verificationCode: null),
         );
-
+        //TODO: *REVIEW* Handle response in another function for make code more readable
         if (response != null) {
           if (response.isMailSent) {
             goToPage(
@@ -155,6 +155,7 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
             isCodeTrue: false,
             verificationCode: mailVerification.text),
       );
+      //TODO: *REVIEW* Handle response in another function for make code more readable
       if (response != null) {
         if (response.isCodeTrue || kDebugMode) {
           _goToAddressInputs(viewModel);
