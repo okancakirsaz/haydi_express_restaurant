@@ -42,10 +42,15 @@ class SignUpView extends StatelessWidget {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Container(
-                      margin: PaddingConsts.instance.all20,
-                      width: 200,
-                      height: 200,
-                      child: const Hero(tag: "logoHero", child: Logo())),
+                    margin: PaddingConsts.instance.all20,
+                    color: ColorConsts.instance.background,
+                    height: MediaQuery.of(context).size.height / 12,
+                    width: MediaQuery.of(context).size.width / 15,
+                    child: const Hero(
+                      tag: "logoHero",
+                      child: Logo(),
+                    ),
+                  ),
                 ),
                 SignUpContainer(viewModel: model),
               ],

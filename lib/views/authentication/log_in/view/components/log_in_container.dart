@@ -10,7 +10,7 @@ class LogInContainer extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Container(
-          width: 535,
+          width: 485,
           padding: PaddingConsts.instance.all20,
           height: 624,
           margin: PaddingConsts.instance.all20,

@@ -27,7 +27,7 @@ class ForgotPasswordView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    width: 550,
+                    width: 450,
                     height: 550,
                     child: Hero(
                       tag: "logoHero",
