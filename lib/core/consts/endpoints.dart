@@ -6,4 +6,5 @@ final class Endpoints {
   final String forgotPassword = "/auth/forgot-password";
   final String mailVerificationRequest = "/auth/mail-verification-request";
   final String mailVerification = "/auth/mail-verification";
+  final String signUp = "/auth/sign-up-restaurant";
 }

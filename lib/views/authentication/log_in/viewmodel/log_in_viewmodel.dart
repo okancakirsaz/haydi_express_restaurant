@@ -35,9 +35,11 @@ abstract class _LogInViewModelBase with Store, BaseViewModel {
     navigationManager.navigate(const Scaffold());
   }
 
-  Future<void> tryToLogIn() async {
-    if (email.text != "" && password.text != "") {
-      final LogInModel response = await _sendLogInRequest();
+  Future<void> tryToLogIn({String? mail, String? pass}) async {
+    if ((email.text != "" && password.text != "") ||
+        (mail != null && pass != null)) {
+      final LogInModel response =
+          await _sendLogInRequest(mail: mail, pass: pass);
 
       if (response.isLoginSuccess) {
         await localeManager.setStringData(
@@ -51,10 +53,10 @@ abstract class _LogInViewModelBase with Store, BaseViewModel {
     }
   }
 
-  Future<LogInModel> _sendLogInRequest() async {
+  Future<LogInModel> _sendLogInRequest({String? mail, String? pass}) async {
     final LogInModel? response = await service.logIn(LogInModel(
-      mail: email.text,
-      password: password.text,
+      mail: mail ?? email.text,
+      password: pass ?? password.text,
       isLoginSuccess: false,
     ));
     if (response == null) {

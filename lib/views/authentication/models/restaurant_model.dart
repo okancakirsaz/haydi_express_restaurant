@@ -16,7 +16,7 @@ class RestaurantModel {
   String cardOwner;
   String cardCvv;
   String cardExpirationDate;
-  String isPoliciesAccepted;
+  bool isPoliciesAccepted;
   String uid;
 
   RestaurantModel({
@@ -59,7 +59,7 @@ class RestaurantModel {
     String? cardOwner,
     String? cardCvv,
     String? cardExpirationDate,
-    String? isPoliciesAccepted,
+    bool? isPoliciesAccepted,
     String? uid,
   }) {
     return RestaurantModel(
@@ -128,7 +128,7 @@ class RestaurantModel {
       cardOwner: json['cardOwner'] as String,
       cardCvv: json['cardCvv'] as String,
       cardExpirationDate: json['cardExpirationDate'] as String,
-      isPoliciesAccepted: json['isPoliciesAccepted'] as String,
+      isPoliciesAccepted: json['isPoliciesAccepted'] as bool,
       uid: json['uid'] as String,
     );
   }

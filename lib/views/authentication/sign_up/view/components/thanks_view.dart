@@ -30,7 +30,9 @@ class ThanksView extends StatelessWidget {
             ],
           ),
         ),
-        CustomButton(onPressed: () {}, text: "Menü Oluştur"),
+        CustomStateFullButton(
+            onPressed: () async => await viewModel.tryToSingUp(),
+            text: "Menü Oluştur"),
       ],
     );
   }

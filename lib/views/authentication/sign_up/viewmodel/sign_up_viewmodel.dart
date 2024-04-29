@@ -1,11 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:haydi_express_restaurant/core/init/model/http_exception_model.dart';
+import 'package:haydi_express_restaurant/views/authentication/log_in/viewmodel/log_in_viewmodel.dart';
 import 'package:haydi_express_restaurant/views/authentication/models/mail_verification_model.dart';
 import 'package:haydi_express_restaurant/views/authentication/models/mail_verification_request_model.dart';
 import 'package:haydi_express_restaurant/views/authentication/sign_up/service/sign_up_service.dart';
 import 'package:haydi_express_restaurant/views/authentication/sign_up/view/sign_up_view.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
+
+import '../../models/restaurant_model.dart';
 
 part 'sign_up_viewmodel.g.dart';
 
@@ -252,5 +256,50 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
     } else {
       return false;
     }
+  }
+
+  Future<void> tryToSingUp() async {
+    final dynamic response = await service.signUp(_fetchSignUpData);
+    if (response != null) {
+      if (response is HttpExceptionModel) {
+        showErrorDialog(response.message);
+        navigatorPop();
+      } else {
+        await _tryToLogIn();
+      }
+    } else {
+      showErrorDialog();
+    }
+  }
+
+  Future<void> _tryToLogIn() async {
+    //Dependency Injection
+    final LogInViewModel loginViewModel = LogInViewModel();
+    loginViewModel.setContext(viewModelContext);
+    await loginViewModel.tryToLogIn(mail: email.text, pass: password.text);
+  }
+
+  RestaurantModel get _fetchSignUpData {
+    return RestaurantModel(
+      ownerName: ownerName.text,
+      ownerSurname: ownerSurName.text,
+      phoneNumber: "+90${ownerPhoneNumber.text}",
+      businessName: restaurantName.text,
+      email: email.text,
+      password: password.text,
+      taxNumber: "undefined",
+      isMailVerified: isMailVerified,
+      address: "${addressLineOne.text} - ${addressLineTwo.text} - ${city.text}",
+      wantDeliveryFromUs: isWantCourierService,
+      ibanNumber: "TR${iban.text}",
+      bankName: bankName.text,
+      bankAccountOwner: bankAccountOwner.text,
+      cardNumber: cardNumber.text,
+      cardOwner: cardOwner.text,
+      cardCvv: cvv.text,
+      cardExpirationDate: cardExpireDate.text,
+      isPoliciesAccepted: true,
+      uid: "",
+    );
   }
 }
