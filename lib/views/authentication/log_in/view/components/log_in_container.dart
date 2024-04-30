@@ -67,7 +67,9 @@ class LogInContainer extends StatelessWidget {
         Padding(
           padding: PaddingConsts.instance.top10,
           child: CustomStateFullButton(
-              onPressed: () async => viewModel.tryToLogIn(), text: "Giriş Yap"),
+              onPressed: () async => viewModel.tryToLogIn(
+                  viewModel.email.text, viewModel.password.text),
+              text: "Giriş Yap"),
         )
       ],
     );

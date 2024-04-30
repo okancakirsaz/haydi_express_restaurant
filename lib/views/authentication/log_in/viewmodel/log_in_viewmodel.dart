@@ -35,12 +35,9 @@ abstract class _LogInViewModelBase with Store, BaseViewModel {
     navigationManager.navigate(const Scaffold());
   }
 
-  //TODO: *REVIEW* Downgrade mail and password data to one.
-  Future<void> tryToLogIn({String? mail, String? pass}) async {
-    if ((email.text != "" && password.text != "") ||
-        (mail != null && pass != null)) {
-      final LogInModel response =
-          await _sendLogInRequest(mail: mail, pass: pass);
+  Future<void> tryToLogIn(String mail, String pass) async {
+    if (mail != "" && pass != "") {
+      final LogInModel response = await _sendLogInRequest(mail, pass);
 
       if (response.isLoginSuccess) {
         await localeManager.setStringData(
@@ -54,10 +51,10 @@ abstract class _LogInViewModelBase with Store, BaseViewModel {
     }
   }
 
-  Future<LogInModel> _sendLogInRequest({String? mail, String? pass}) async {
+  Future<LogInModel> _sendLogInRequest(String mail, String pass) async {
     final LogInModel? response = await service.logIn(LogInModel(
-      mail: mail ?? email.text,
-      password: pass ?? password.text,
+      mail: mail,
+      password: pass,
       isLoginSuccess: false,
     ));
     if (response == null) {

@@ -124,26 +124,30 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
           MailVerificationRequestModel(
               email: email.text, isMailSent: false, verificationCode: null),
         );
-        //TODO: *REVIEW* Handle response in another function for make code more readable
-        if (response != null) {
-          if (response.isMailSent) {
-            goToPage(
-              MailCodeView(
-                viewModel: viewModel,
-              ),
-              titles[2],
-              2,
-              true,
-            );
-          } else {
-            showErrorDialog();
-          }
-        } else {
-          showErrorDialog();
-        }
+        _handleMailVerifyResponse(response, viewModel);
         break;
       default:
         showErrorDialog("Lütfen istenilen bilgilerin girildiğinden emin olun.");
+    }
+  }
+
+  _handleMailVerifyResponse(
+      MailVerificationRequestModel? response, SignUpViewModel viewModel) {
+    if (response != null) {
+      if (response.isMailSent) {
+        goToPage(
+          MailCodeView(
+            viewModel: viewModel,
+          ),
+          titles[2],
+          2,
+          true,
+        );
+      } else {
+        showErrorDialog();
+      }
+    } else {
+      showErrorDialog();
     }
   }
 
@@ -155,19 +159,23 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
             isCodeTrue: false,
             verificationCode: mailVerification.text),
       );
-      //TODO: *REVIEW* Handle response in another function for make code more readable
-      if (response != null) {
-        if (response.isCodeTrue || kDebugMode) {
-          _goToAddressInputs(viewModel);
-          isMailVerified = true;
-        } else {
-          showErrorDialog("Girilen kod yanlış tekrar deneyiniz.");
-        }
-      } else {
-        showErrorDialog();
-      }
+      _handleSendVerifyCodeResponse(response, viewModel);
     } else {
       _goToAddressInputs(viewModel);
+    }
+  }
+
+  _handleSendVerifyCodeResponse(
+      MailVerificationModel? response, SignUpViewModel viewModel) {
+    if (response != null) {
+      if (response.isCodeTrue || kDebugMode) {
+        _goToAddressInputs(viewModel);
+        isMailVerified = true;
+      } else {
+        showErrorDialog("Girilen kod yanlış tekrar deneyiniz.");
+      }
+    } else {
+      showErrorDialog();
     }
   }
 
@@ -277,7 +285,7 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
     //Dependency Injection
     final LogInViewModel loginViewModel = LogInViewModel();
     loginViewModel.setContext(viewModelContext);
-    await loginViewModel.tryToLogIn(mail: email.text, pass: password.text);
+    await loginViewModel.tryToLogIn(email.text, password.text);
   }
 
   RestaurantModel get _fetchSignUpData {
