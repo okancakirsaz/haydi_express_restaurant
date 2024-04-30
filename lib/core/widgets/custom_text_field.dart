@@ -43,13 +43,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
         children: <Widget>[
           Text(
             widget.hint,
-            style: widget.hintStyle ?? TextConsts.instance.regularWhite25,
+            style: widget.hintStyle ?? TextConsts.instance.regularWhite22,
           ),
           const SizedBox(
             height: 5,
           ),
           Container(
-            height: 55,
+            height: 50,
             decoration: BoxDecoration(
               boxShadow: ColorConsts.instance.shadow,
               color: _isFocused

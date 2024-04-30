@@ -26,8 +26,8 @@ class CustomButton extends StatelessWidget {
       width: width,
       height: height,
       constraints: const BoxConstraints(
-        minHeight: 60,
-        minWidth: 200,
+        minHeight: 50,
+        minWidth: 160,
       ),
       child: ElevatedButton(
           style: ButtonStyle(
