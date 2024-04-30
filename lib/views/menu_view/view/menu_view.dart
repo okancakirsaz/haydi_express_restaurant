@@ -11,7 +11,14 @@ class MenuView extends StatelessWidget {
     return BaseView<MenuViewModel>(
       viewModel: MenuViewModel(),
       onPageBuilder: (context, model) {
-        return CustomScaffold(body: Container());
+        return const CustomScaffold(
+            body: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[],
+            ),
+          ],
+        ));
       },
       onModelReady: (model) {
         model.init();

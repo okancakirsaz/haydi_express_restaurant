@@ -20,7 +20,7 @@ abstract class _MainViewModelBase with Store, BaseViewModel {
   @observable
   Widget page = const MenuView();
 
-  late final String restaurantName;
+  String restaurantName = "Restaurant Name";
 
   @action
   changePage(Widget newPage) {
