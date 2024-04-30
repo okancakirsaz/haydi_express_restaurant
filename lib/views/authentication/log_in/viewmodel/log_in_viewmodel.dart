@@ -4,6 +4,7 @@ import 'package:haydi_express_restaurant/views/authentication/forgot_password/vi
 import 'package:haydi_express_restaurant/views/authentication/log_in/service/log_in_service.dart';
 import 'package:haydi_express_restaurant/views/authentication/models/log_in_model.dart';
 import 'package:haydi_express_restaurant/views/authentication/sign_up/view/sign_up_view.dart';
+import 'package:haydi_express_restaurant/views/main_view.dart/view/main_view.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 
@@ -30,9 +31,8 @@ abstract class _LogInViewModelBase with Store, BaseViewModel {
     navigationManager.navigate(const SignUpView());
   }
 
-  //TODO:Add main page widget
   _navigateToMainPage() {
-    navigationManager.navigate(const Scaffold());
+    navigationManager.navigateAndRemoveUntil(const MainView());
   }
 
   Future<void> tryToLogIn(String mail, String pass) async {

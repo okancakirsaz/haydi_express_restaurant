@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:haydi_express_restaurant/core/consts/color_consts/color_consts.dart';
 
 class TextConsts {
   static final TextConsts instance = TextConsts();
@@ -80,6 +81,14 @@ class TextConsts {
     return GoogleFonts.montserrat(
       fontSize: 16,
       color: Colors.white,
+      fontWeight: FontWeight.normal,
+    );
+  }
+
+  TextStyle get regularPrimary16 {
+    return GoogleFonts.montserrat(
+      fontSize: 16,
+      color: ColorConsts.instance.primary,
       fontWeight: FontWeight.normal,
     );
   }
@@ -200,6 +209,11 @@ class TextConsts {
   TextStyle get regularWhite30 {
     return GoogleFonts.montserrat(
         fontSize: 30, color: Colors.white, fontWeight: FontWeight.normal);
+  }
+
+  TextStyle get regularWhite30Bold {
+    return GoogleFonts.montserrat(
+        fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold);
   }
 
   TextStyle get regularWhite25Bold {
