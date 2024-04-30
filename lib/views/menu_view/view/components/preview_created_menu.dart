@@ -42,18 +42,15 @@ class PreviewCreatedMenu extends StatelessWidget {
           ],
         ),
         SizedBox(
-          width: 300,
+          width: MediaQuery.of(context).size.width - 150,
+          height: 100,
           child: ListTile(
             leading: Text(
               "İçerik: ",
               style: TextConsts.instance.regularWhite16Bold,
             ),
-            //TODO: resize as responsive
-            title: SizedBox(
-              width: 280,
-              child: Text(viewModel.menuContent.text,
-                  style: TextConsts.instance.regularWhite16),
-            ),
+            title: Text(viewModel.menuContent.text,
+                style: TextConsts.instance.regularWhite16),
           ),
         ),
       ],

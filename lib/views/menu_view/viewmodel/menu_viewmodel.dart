@@ -2,6 +2,10 @@ import 'dart:typed_data';
 
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
+import 'package:haydi_express_restaurant/views/menu_view/models/menu_model.dart';
+import 'package:haydi_express_restaurant/views/menu_view/service/menu_service.dart';
+import 'package:uuid/uuid.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 import '../view/menu_view.dart';
@@ -16,7 +20,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
 
   @override
   init() {}
-
+  final MenuService service = MenuService();
   final TextEditingController menuName = TextEditingController();
   final TextEditingController menuPrice = TextEditingController();
   final TextEditingController menuContent = TextEditingController();
@@ -52,6 +56,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     }
   }
 
+  //TODO: *REVIEW* Add compress.
   Future<void> pickImage() async {
     final XFile? image = await openFile(
       acceptedTypeGroups: <XTypeGroup>[
@@ -72,5 +77,42 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     } else {
       return false;
     }
+  }
+
+  Future<void> createMenu() async {
+    if (_createMenuInputValidation) {
+      final MenuModel? response =
+          await service.createMenu(_fetchMenuModel, menuImage!);
+      _handleCreateMenuResponse(response);
+    } else {
+      showErrorDialog(
+          "Lütfen istenilen bilgilerin tamamının girildiğinden emin olun.");
+    }
+  }
+
+  _handleCreateMenuResponse(MenuModel? response) {
+    if (response != null) {
+      menuName.text = "";
+      menuImage = null;
+      menuPrice.text = "";
+      menuContent.text = "";
+    } else {
+      showErrorDialog();
+    }
+  }
+
+  MenuModel get _fetchMenuModel {
+    return MenuModel(
+      name: menuName.text,
+      price: int.parse(menuPrice.text),
+      photoUrl: "",
+      content: menuContent.text,
+      restaurantUid: localeManager.getStringData(LocaleKeysEnums.id.name),
+      isOnDiscount: null,
+      discountAmount: null,
+      discountFinishDate: null,
+      menuId: const Uuid().v7(),
+      stats: {},
+    );
   }
 }

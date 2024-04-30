@@ -45,7 +45,7 @@ class CreatePreviewMenContainer extends StatelessWidget {
         CustomStateFullButton(
           width: 160,
           height: 50,
-          onPressed: () {},
+          onPressed: () async => await viewModel.createMenu(),
           style: TextConsts.instance.regularWhite20,
           text: "Oluştur",
         ),

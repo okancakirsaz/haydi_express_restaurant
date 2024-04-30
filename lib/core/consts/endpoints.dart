@@ -7,4 +7,7 @@ final class Endpoints {
   final String mailVerificationRequest = "/auth/mail-verification-request";
   final String mailVerification = "/auth/mail-verification";
   final String signUp = "/auth/sign-up-restaurant";
+
+  //Menu
+  final String createMenu = "/menu/create-menu";
 }

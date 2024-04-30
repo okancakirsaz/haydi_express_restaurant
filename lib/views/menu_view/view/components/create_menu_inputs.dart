@@ -43,7 +43,10 @@ class CreateMenuInputs extends StatelessWidget {
         SizedBox(
           width: 350,
           child: CustomTextField(
-              controller: viewModel.menuContent, hint: "Menü İçeriği"),
+            controller: viewModel.menuContent,
+            hint: "Menü İçeriği",
+            maxLength: 150,
+          ),
         ),
       ],
     );

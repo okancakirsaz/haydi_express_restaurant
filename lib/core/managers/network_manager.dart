@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:http_parser/http_parser.dart';
 
 abstract class NetworkManager {
   NetworkManager() {
@@ -19,5 +20,13 @@ abstract class NetworkManager {
       network.options.baseUrl = localHost;
     }
     return network.options.baseUrl;
+  }
+
+  MultipartFile uploadFile(Uint8List file, String name) {
+    return MultipartFile.fromBytes(
+      file,
+      filename: name,
+      contentType: MediaType("File", name.split(".").last),
+    );
   }
 }
