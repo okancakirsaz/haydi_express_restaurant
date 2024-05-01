@@ -19,7 +19,8 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
   void setContext(BuildContext context) => viewModelContext = context;
 
   @override
-  init() {}
+  init() async {}
+
   final MenuService service = MenuService();
   final TextEditingController menuName = TextEditingController();
   final TextEditingController menuPrice = TextEditingController();
@@ -31,6 +32,9 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
 
   @observable
   String createOrPreviewMenuButtonText = "Önizleme";
+
+  @observable
+  ObservableList<MenuModel> restaurantMenu = ObservableList.of([]);
 
   @action
   fetchCreateOrPreviewMenuWidget(Widget currentWidget, bool isPreview) {
@@ -96,6 +100,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
       menuImage = null;
       menuPrice.text = "";
       menuContent.text = "";
+      addNewMenuToRestaurantMenu(response);
     } else {
       showErrorDialog();
     }
@@ -114,5 +119,21 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
       menuId: const Uuid().v7(),
       stats: {},
     );
+  }
+
+  Future<List<MenuModel>?> getRestaurantMenu() async {
+    final List<MenuModel>? response = await service.getRestaurantMenu(
+        localeManager.getStringData(LocaleKeysEnums.id.name));
+    if (response == null) {
+      showErrorDialog("Menü getirilirken bir sorun oluştu.");
+    } else {
+      restaurantMenu = ObservableList.of(response);
+    }
+    return response;
+  }
+
+  @action
+  addNewMenuToRestaurantMenu(MenuModel data) {
+    restaurantMenu.add(data);
   }
 }

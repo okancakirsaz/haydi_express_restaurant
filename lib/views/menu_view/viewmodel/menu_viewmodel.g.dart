@@ -44,6 +44,22 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
     });
   }
 
+  late final _$restaurantMenuAtom =
+      Atom(name: '_MenuViewModelBase.restaurantMenu', context: context);
+
+  @override
+  ObservableList<MenuModel> get restaurantMenu {
+    _$restaurantMenuAtom.reportRead();
+    return super.restaurantMenu;
+  }
+
+  @override
+  set restaurantMenu(ObservableList<MenuModel> value) {
+    _$restaurantMenuAtom.reportWrite(value, super.restaurantMenu, () {
+      super.restaurantMenu = value;
+    });
+  }
+
   late final _$_MenuViewModelBaseActionController =
       ActionController(name: '_MenuViewModelBase', context: context);
 
@@ -70,10 +86,22 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
   }
 
   @override
+  dynamic addNewMenuToRestaurantMenu(MenuModel data) {
+    final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
+        name: '_MenuViewModelBase.addNewMenuToRestaurantMenu');
+    try {
+      return super.addNewMenuToRestaurantMenu(data);
+    } finally {
+      _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 createOrPreviewMenuWidget: ${createOrPreviewMenuWidget},
-createOrPreviewMenuButtonText: ${createOrPreviewMenuButtonText}
+createOrPreviewMenuButtonText: ${createOrPreviewMenuButtonText},
+restaurantMenu: ${restaurantMenu}
     ''';
   }
 }

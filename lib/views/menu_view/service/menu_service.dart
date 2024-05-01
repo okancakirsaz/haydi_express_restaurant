@@ -20,4 +20,21 @@ final class MenuService extends NetworkManager {
       return null;
     }
   }
+
+  Future<List<MenuModel>?> getRestaurantMenu(String id) async {
+    try {
+      final response = await network.get(
+        Endpoints.instance.getRestaurantMenu,
+        queryParameters: {"id": id},
+      );
+      List<MenuModel> dataList = [];
+      for (int i = 0; i <= response.data.length - 1; i++) {
+        dataList.add(MenuModel.fromJson(response.data[i]));
+      }
+
+      return dataList;
+    } catch (e) {
+      return null;
+    }
+  }
 }

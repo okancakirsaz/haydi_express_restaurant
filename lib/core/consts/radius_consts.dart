@@ -18,4 +18,6 @@ class RadiusConsts {
       topRight: Radius.circular(10), topLeft: Radius.circular(10));
   final BorderRadiusGeometry circularBottom10 = const BorderRadius.only(
       bottomRight: Radius.circular(10), bottomLeft: Radius.circular(10));
+  final BorderRadiusGeometry circularBottom20 = const BorderRadius.only(
+      bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20));
 }
