@@ -24,6 +24,7 @@ dependencies:
   #Generating
   build_runner: ^2.4.6
   uuid: ^4.3.3
+  intl: ^0.19.0
 
   #UI
   google_fonts: ^6.1.0
@@ -46,6 +47,7 @@ dependencies:
   dio:
   socket_io_client: ^2.0.3+1
   http_parser: ^4.0.2
+  
   
   
   

@@ -10,6 +10,7 @@ import 'package:haydi_express_restaurant/core/consts/padding_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/radius_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/text_consts.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_button.dart';
+import 'package:haydi_express_restaurant/core/widgets/custom_dropdown.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_statefull_button.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_text_button.dart';
@@ -25,6 +26,7 @@ part './components/preview_created_menu.dart';
 part 'components/restaurant_menu.dart';
 part './components/campaings_container.dart';
 part './components/active_campaigns.dart';
+part './components/add_campaign.dart';
 
 class MenuView extends StatelessWidget {
   const MenuView({super.key});
@@ -89,11 +91,8 @@ class MenuView extends StatelessWidget {
       onModelReady: (model) {
         model.init();
         model.setContext(context);
-        model.fetchCreateOrPreviewMenuWidget(
-            CreateMenuInputs(
-              viewModel: model,
-            ),
-            false);
+        model.fetchObservableWidgets(CreateMenuInputs(viewModel: model),
+            ActiveCampaigns(viewModel: model));
       },
       onDispose: (model) {},
     );

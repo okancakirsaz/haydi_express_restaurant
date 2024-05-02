@@ -3,8 +3,10 @@ import 'dart:typed_data';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
+import 'package:haydi_express_restaurant/views/menu_view/models/add_campaign_model.dart';
 import 'package:haydi_express_restaurant/views/menu_view/models/menu_model.dart';
 import 'package:haydi_express_restaurant/views/menu_view/service/menu_service.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
@@ -31,6 +33,12 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
   Widget createOrPreviewMenuWidget = const SizedBox();
 
   @observable
+  Widget campaignWidget = const SizedBox();
+
+  @observable
+  String campaignButtonText = "Yeni Kampanya";
+
+  @observable
   String createOrPreviewMenuButtonText = "Önizleme";
 
   @observable
@@ -38,8 +46,19 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
   @observable
   ObservableList<MenuModel> menusOnCampaigns = ObservableList.of([]);
 
+  final TextEditingController pickedMenu = TextEditingController();
+  final TextEditingController discountAmount = TextEditingController();
+  String? campaignFinishDate;
+
   @action
-  fetchCreateOrPreviewMenuWidget(Widget currentWidget, bool isPreview) {
+  fetchObservableWidgets(
+      Widget createOrPreviewWidget, Widget initialCampaignWidget) {
+    createOrPreviewMenuWidget = createOrPreviewWidget;
+    campaignWidget = initialCampaignWidget;
+  }
+
+  @action
+  _changePreviewOrAddMenuWidget(Widget currentWidget, bool isPreview) {
     createOrPreviewMenuButtonText = isPreview ? "Düzenle" : "Önizleme";
     createOrPreviewMenuWidget = currentWidget;
   }
@@ -49,16 +68,20 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     if (createOrPreviewMenuButtonText == "Önizleme") {
       switch (_createMenuInputValidation) {
         case true:
-          viewModel.fetchCreateOrPreviewMenuWidget(
-              PreviewCreatedMenu(viewModel: viewModel), true);
+          _changePreviewOrAddMenuWidget(
+            PreviewCreatedMenu(viewModel: viewModel),
+            true,
+          );
           break;
         default:
           showErrorDialog(
               "Lütfen istenilen bilgilerin tamamının girildiğinden emin olun.");
       }
     } else {
-      viewModel.fetchCreateOrPreviewMenuWidget(
-          CreateMenuInputs(viewModel: viewModel), false);
+      _changePreviewOrAddMenuWidget(
+        CreateMenuInputs(viewModel: viewModel),
+        false,
+      );
     }
   }
 
@@ -146,6 +169,117 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
       if (restaurantMenu[i].isOnDiscount) {
         menusOnCampaigns.add(restaurantMenu[i]);
       }
+    }
+  }
+
+  @action
+  cancelCampaign(String menuId) async {
+    final bool? response = await service.cancelCampaign(menuId);
+    if (response == null || response == false) {
+      showErrorDialog();
+    } else {
+      final MenuModel element =
+          menusOnCampaigns.where((element) => element.menuId == menuId).first;
+      restaurantMenu
+          .where((element) => element.menuId == menuId)
+          .first
+          .isOnDiscount = false;
+      menusOnCampaigns.remove(element);
+    }
+  }
+
+  @action
+  changeCampaignScreen(MenuViewModel viewModel) {
+    const String buttonTextActive = "Aktif Kampanyalar";
+    const String buttonTextNext = "Yeni Kampanya";
+    if (campaignButtonText == buttonTextNext) {
+      campaignWidget = AddCampaign(viewModel: viewModel);
+      campaignButtonText = buttonTextActive;
+    } else {
+      campaignWidget = ActiveCampaigns(viewModel: viewModel);
+      campaignButtonText = buttonTextNext;
+    }
+  }
+
+  List<DropdownMenuEntry> fetchAllMenuInDropdown() {
+    List<DropdownMenuEntry> dataList = [];
+    for (int i = 0; i <= restaurantMenu.length - 1; i++) {
+      if (!restaurantMenu[i].isOnDiscount) {
+        dataList.add(
+          DropdownMenuEntry(
+            value: restaurantMenu[i].name,
+            label: restaurantMenu[i].name,
+          ),
+        );
+      }
+    }
+    return dataList;
+  }
+
+  String parseIso8601Format(String isoDate) {
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    return DateFormat('dd.MM.yyyy').format(dateTime);
+  }
+
+  Future<void> openDatePicker() async {
+    final DateTime? selectedDate = await showDatePicker(
+      context: viewModelContext,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2300),
+      currentDate: DateTime.now(),
+    );
+    if (selectedDate != null) {
+      campaignFinishDate = selectedDate.toIso8601String();
+    }
+  }
+
+  Future<void> addCampaign() async {
+    if (_campaignValidation) {
+      final int amount = int.parse(discountAmount.text.substring(1));
+      final AddCampaignModel? response = await service.addDiscount(
+        AddCampaignModel(
+          amount: amount,
+          expireDate: campaignFinishDate!,
+          menuId: _findMenuFromPickedMenu!.menuId,
+        ),
+      );
+      _handleAddCampaignResponse(response);
+    } else {
+      showErrorDialog("Lütfen sizden istenilen bilgileri giriniz.");
+    }
+  }
+
+  @action
+  _handleAddCampaignResponse(AddCampaignModel? response) {
+    if (response == null) {
+      showErrorDialog();
+    } else {
+      final MenuModel changedMenu = _findMenuFromPickedMenu!;
+
+      changedMenu.discountFinishDate = response.expireDate;
+      changedMenu.discountAmount = response.amount;
+      changedMenu.isOnDiscount = true;
+      menusOnCampaigns.add(changedMenu);
+      campaignFinishDate = null;
+      pickedMenu.text = "";
+      discountAmount.text = "";
+    }
+  }
+
+  MenuModel? get _findMenuFromPickedMenu {
+    return restaurantMenu
+        .where((element) => element.name == pickedMenu.text)
+        .first;
+  }
+
+  bool get _campaignValidation {
+    if (discountAmount.text != "" &&
+        campaignFinishDate != null &&
+        pickedMenu.text != "") {
+      return true;
+    } else {
+      return false;
     }
   }
 }

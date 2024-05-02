@@ -11,4 +11,6 @@ final class Endpoints {
   //Menu
   final String createMenu = "/menu/create-menu";
   final String getRestaurantMenu = "/menu/get-restaurant-menu";
+  final String cancelCampaign = "/menu/cancel-campaign";
+  final String addDiscount = "/menu/add-discount";
 }

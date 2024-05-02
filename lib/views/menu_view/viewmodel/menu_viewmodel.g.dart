@@ -26,6 +26,38 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
     });
   }
 
+  late final _$campaignWidgetAtom =
+      Atom(name: '_MenuViewModelBase.campaignWidget', context: context);
+
+  @override
+  Widget get campaignWidget {
+    _$campaignWidgetAtom.reportRead();
+    return super.campaignWidget;
+  }
+
+  @override
+  set campaignWidget(Widget value) {
+    _$campaignWidgetAtom.reportWrite(value, super.campaignWidget, () {
+      super.campaignWidget = value;
+    });
+  }
+
+  late final _$campaignButtonTextAtom =
+      Atom(name: '_MenuViewModelBase.campaignButtonText', context: context);
+
+  @override
+  String get campaignButtonText {
+    _$campaignButtonTextAtom.reportRead();
+    return super.campaignButtonText;
+  }
+
+  @override
+  set campaignButtonText(String value) {
+    _$campaignButtonTextAtom.reportWrite(value, super.campaignButtonText, () {
+      super.campaignButtonText = value;
+    });
+  }
+
   late final _$createOrPreviewMenuButtonTextAtom = Atom(
       name: '_MenuViewModelBase.createOrPreviewMenuButtonText',
       context: context);
@@ -60,15 +92,52 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
     });
   }
 
+  late final _$menusOnCampaignsAtom =
+      Atom(name: '_MenuViewModelBase.menusOnCampaigns', context: context);
+
+  @override
+  ObservableList<MenuModel> get menusOnCampaigns {
+    _$menusOnCampaignsAtom.reportRead();
+    return super.menusOnCampaigns;
+  }
+
+  @override
+  set menusOnCampaigns(ObservableList<MenuModel> value) {
+    _$menusOnCampaignsAtom.reportWrite(value, super.menusOnCampaigns, () {
+      super.menusOnCampaigns = value;
+    });
+  }
+
+  late final _$cancelCampaignAsyncAction =
+      AsyncAction('_MenuViewModelBase.cancelCampaign', context: context);
+
+  @override
+  Future cancelCampaign(String menuId) {
+    return _$cancelCampaignAsyncAction.run(() => super.cancelCampaign(menuId));
+  }
+
   late final _$_MenuViewModelBaseActionController =
       ActionController(name: '_MenuViewModelBase', context: context);
 
   @override
-  dynamic fetchCreateOrPreviewMenuWidget(Widget currentWidget, bool isPreview) {
+  dynamic fetchObservableWidgets(
+      Widget createOrPreviewWidget, Widget initialCampaignWidget) {
     final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
-        name: '_MenuViewModelBase.fetchCreateOrPreviewMenuWidget');
+        name: '_MenuViewModelBase.fetchObservableWidgets');
     try {
-      return super.fetchCreateOrPreviewMenuWidget(currentWidget, isPreview);
+      return super
+          .fetchObservableWidgets(createOrPreviewWidget, initialCampaignWidget);
+    } finally {
+      _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic _changePreviewOrAddMenuWidget(Widget currentWidget, bool isPreview) {
+    final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
+        name: '_MenuViewModelBase._changePreviewOrAddMenuWidget');
+    try {
+      return super._changePreviewOrAddMenuWidget(currentWidget, isPreview);
     } finally {
       _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
     }
@@ -97,11 +166,47 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
   }
 
   @override
+  dynamic _separateCampaigns() {
+    final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
+        name: '_MenuViewModelBase._separateCampaigns');
+    try {
+      return super._separateCampaigns();
+    } finally {
+      _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic changeCampaignScreen(MenuViewModel viewModel) {
+    final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
+        name: '_MenuViewModelBase.changeCampaignScreen');
+    try {
+      return super.changeCampaignScreen(viewModel);
+    } finally {
+      _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic _handleAddCampaignResponse(AddCampaignModel? response) {
+    final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
+        name: '_MenuViewModelBase._handleAddCampaignResponse');
+    try {
+      return super._handleAddCampaignResponse(response);
+    } finally {
+      _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 createOrPreviewMenuWidget: ${createOrPreviewMenuWidget},
+campaignWidget: ${campaignWidget},
+campaignButtonText: ${campaignButtonText},
 createOrPreviewMenuButtonText: ${createOrPreviewMenuButtonText},
-restaurantMenu: ${restaurantMenu}
+restaurantMenu: ${restaurantMenu},
+menusOnCampaigns: ${menusOnCampaigns}
     ''';
   }
 }

@@ -14,75 +14,102 @@ class ActiveCampaigns extends StatelessWidget {
           style: TextConsts.instance.regularPrimary20,
         ),
         subtitle: Observer(builder: (context) {
-          return Column(
-            children: <Widget>[
-              _buildTitles(),
-              const Divider(
-                thickness: 2,
-              ),
-              SizedBox(
-                height: 300,
-                child: ListView.builder(
-                    itemCount: viewModel.menusOnCampaigns.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: PaddingConsts.instance.top10,
-                        child: buildActiveCampaignsObject(
-                          viewModel.menusOnCampaigns[index],
-                        ),
-                      );
-                    }),
-              ),
-            ],
+          return Padding(
+            padding: PaddingConsts.instance.top40,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _buildTitles(),
+                const SizedBox(
+                  width: 360,
+                  child: Divider(
+                    thickness: 2,
+                  ),
+                ),
+                buildCampaignsList(),
+              ],
+            ),
           );
         }),
       ),
     );
   }
-  //TODO:Contuniue with listing campaigns
+
+  Widget buildCampaignsList() {
+    return SizedBox(
+      height: 300,
+      child: ListView.builder(
+          itemCount: viewModel.menusOnCampaigns.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: PaddingConsts.instance.top10,
+              child: buildActiveCampaignsObject(
+                viewModel.menusOnCampaigns[index],
+              ),
+            );
+          }),
+    );
+  }
 
   Widget buildActiveCampaignsObject(MenuModel data) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        Text(
-          data.name,
-          style: TextConsts.instance.regularWhite16,
-        ),
-        Text(
-          "%${data.discountAmount}",
-          style: TextConsts.instance.regularWhite16,
-        ),
-        Text(
-          data.discountFinishDate!,
-          style: TextConsts.instance.regularWhite16,
-        ),
-        CustomTextButton(
-          onPressed: () {},
-          style: TextConsts.instance.regularPrimary16Underlined,
-          text: "İptal Et",
-        ),
-      ],
+    return SizedBox(
+      width: 400,
+      child: Row(
+        children: <Widget>[
+          SizedBox(
+            width: 150,
+            child: Padding(
+              padding: PaddingConsts.instance.left10,
+              child: Text(
+                data.name,
+                style: TextConsts.instance.regularWhite16,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 90,
+            child: Text(
+              "%${data.discountAmount}",
+              style: TextConsts.instance.regularWhite16,
+            ),
+          ),
+          SizedBox(
+            width: 150,
+            child: Text(
+              viewModel.parseIso8601Format(data.discountFinishDate!),
+              style: TextConsts.instance.regularWhite16,
+            ),
+          ),
+          CustomTextButton(
+            onPressed: () async => await viewModel.cancelCampaign(data.menuId),
+            style: TextConsts.instance.regularPrimary16Underlined,
+            text: "İptal Et",
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildTitles() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        Text(
-          "Menü Adı",
-          style: TextConsts.instance.regularWhite16Bold,
-        ),
-        Text(
-          "İndirim Oranı",
-          style: TextConsts.instance.regularWhite16Bold,
-        ),
-        Text(
-          "Bitiş Tarihi",
-          style: TextConsts.instance.regularWhite16Bold,
-        ),
-      ],
+    return SizedBox(
+      width: 350,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            "Menü Adı",
+            style: TextConsts.instance.regularWhite16Bold,
+          ),
+          Text(
+            "İndirim Oranı",
+            style: TextConsts.instance.regularWhite16Bold,
+          ),
+          Text(
+            "Bitiş Tarihi",
+            style: TextConsts.instance.regularWhite16Bold,
+          ),
+        ],
+      ),
     );
   }
 }

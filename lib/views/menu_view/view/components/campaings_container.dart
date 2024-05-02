@@ -15,21 +15,25 @@ class CampaignsContainer extends StatelessWidget {
       ),
       child: Stack(
         children: <Widget>[
+          Padding(
+            padding: PaddingConsts.instance.top20,
+            child: Observer(builder: (context) {
+              return viewModel.campaignWidget;
+            }),
+          ),
           Align(
             alignment: Alignment.topRight,
             child: Padding(
               padding: PaddingConsts.instance.all20,
-              child: CustomButton(
-                onPressed: () {},
-                style: TextConsts.instance.regularWhite20,
-                text: "Yeni Kampanya",
-              ),
+              child: Observer(builder: (context) {
+                return CustomButton(
+                  onPressed: () => viewModel.changeCampaignScreen(viewModel),
+                  style: TextConsts.instance.regularWhite20,
+                  text: viewModel.campaignButtonText,
+                );
+              }),
             ),
           ),
-          Padding(
-            padding: PaddingConsts.instance.top20,
-            child: ActiveCampaigns(viewModel: viewModel),
-          )
         ],
       ),
     );
