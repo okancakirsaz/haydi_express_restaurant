@@ -35,6 +35,8 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
 
   @observable
   ObservableList<MenuModel> restaurantMenu = ObservableList.of([]);
+  @observable
+  ObservableList<MenuModel> menusOnCampaigns = ObservableList.of([]);
 
   @action
   fetchCreateOrPreviewMenuWidget(Widget currentWidget, bool isPreview) {
@@ -113,7 +115,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
       photoUrl: "",
       content: menuContent.text,
       restaurantUid: localeManager.getStringData(LocaleKeysEnums.id.name),
-      isOnDiscount: null,
+      isOnDiscount: false,
       discountAmount: null,
       discountFinishDate: null,
       menuId: const Uuid().v7(),
@@ -128,6 +130,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
       showErrorDialog("Menü getirilirken bir sorun oluştu.");
     } else {
       restaurantMenu = ObservableList.of(response);
+      _separateCampaigns();
     }
     return response;
   }
@@ -135,5 +138,14 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
   @action
   addNewMenuToRestaurantMenu(MenuModel data) {
     restaurantMenu.add(data);
+  }
+
+  @action
+  _separateCampaigns() {
+    for (int i = 0; i <= restaurantMenu.length - 1; i++) {
+      if (restaurantMenu[i].isOnDiscount) {
+        menusOnCampaigns.add(restaurantMenu[i]);
+      }
+    }
   }
 }

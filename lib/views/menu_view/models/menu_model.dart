@@ -4,7 +4,7 @@ class MenuModel {
   String photoUrl;
   String content;
   String restaurantUid;
-  bool? isOnDiscount;
+  bool isOnDiscount;
   int? discountAmount;
   String? discountFinishDate;
   String menuId;
@@ -47,7 +47,7 @@ class MenuModel {
       photoUrl: json['photoUrl'] as String,
       content: json['content'] as String,
       restaurantUid: json['restaurantUid'] as String,
-      isOnDiscount: json['isOnDiscount'] as bool?,
+      isOnDiscount: json['isOnDiscount'] as bool,
       discountAmount: json['discountAmount'] as int?,
       discountFinishDate: json['discountFinishDate'] as String?,
       menuId: json['menuId'] as String,

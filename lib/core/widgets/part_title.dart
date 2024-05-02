@@ -1,4 +1,6 @@
-part of '../menu_view.dart';
+import 'package:flutter/material.dart';
+
+import '../consts/text_consts.dart';
 
 class PartTitle extends StatelessWidget {
   final String title;

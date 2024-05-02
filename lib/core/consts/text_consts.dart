@@ -101,6 +101,24 @@ class TextConsts {
     );
   }
 
+  TextStyle get regularPrimary16Underlined {
+    return GoogleFonts.montserrat(
+      fontSize: 16,
+      color: ColorConsts.instance.primary,
+      decoration: TextDecoration.underline,
+      fontWeight: FontWeight.normal,
+      decorationColor: ColorConsts.instance.primary,
+    );
+  }
+
+  TextStyle get regularPrimary20 {
+    return GoogleFonts.montserrat(
+      fontSize: 20,
+      color: ColorConsts.instance.primary,
+      fontWeight: FontWeight.normal,
+    );
+  }
+
   TextStyle get regularBlack20 {
     return GoogleFonts.montserrat(
       fontSize: 20,
