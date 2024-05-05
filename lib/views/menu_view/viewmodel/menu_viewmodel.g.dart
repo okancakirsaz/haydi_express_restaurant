@@ -116,6 +116,14 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
     return _$cancelCampaignAsyncAction.run(() => super.cancelCampaign(menuId));
   }
 
+  late final _$deleteMenuAsyncAction =
+      AsyncAction('_MenuViewModelBase.deleteMenu', context: context);
+
+  @override
+  Future<void> deleteMenu(MenuModel data) {
+    return _$deleteMenuAsyncAction.run(() => super.deleteMenu(data));
+  }
+
   late final _$_MenuViewModelBaseActionController =
       ActionController(name: '_MenuViewModelBase', context: context);
 

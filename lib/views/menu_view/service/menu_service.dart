@@ -63,4 +63,14 @@ final class MenuService extends NetworkManager {
       return null;
     }
   }
+
+  Future<bool?> deleteMenu(MenuModel data) async {
+    try {
+      final response = await network.post(Endpoints.instance.deleteMenu,
+          data: data.toJson());
+      return bool.parse(response.data);
+    } catch (e) {
+      return null;
+    }
+  }
 }

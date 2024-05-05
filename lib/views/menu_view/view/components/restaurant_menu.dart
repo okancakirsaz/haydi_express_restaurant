@@ -148,7 +148,8 @@ class RestaurantMenu extends StatelessWidget {
         Row(
           children: <Widget>[
             _customItemSettingsButton(() {}, "Düzenle"),
-            _customItemSettingsButton(() {}, "Sil"),
+            _customItemSettingsButton(
+                () async => await viewModel.deleteMenu(data), "Sil"),
           ],
         )
       ],

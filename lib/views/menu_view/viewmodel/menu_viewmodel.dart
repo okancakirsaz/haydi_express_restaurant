@@ -294,4 +294,14 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
   backToMenuView() {
     navigationManager.navigateAndRemoveUntil(const MenuView());
   }
+
+  @action
+  Future<void> deleteMenu(MenuModel data) async {
+    final bool? response = await service.deleteMenu(data);
+    if (response != null && response) {
+      restaurantMenu.remove(data);
+    } else {
+      showErrorDialog();
+    }
+  }
 }
