@@ -76,7 +76,7 @@ class ActiveCampaigns extends StatelessWidget {
           SizedBox(
             width: 150,
             child: Text(
-              viewModel.parseIso8601Format(data.discountFinishDate!),
+              viewModel.parseIso8601DateFormat(data.discountFinishDate!),
               style: TextConsts.instance.regularWhite16,
             ),
           ),

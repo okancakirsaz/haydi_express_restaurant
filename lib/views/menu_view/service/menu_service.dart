@@ -24,6 +24,7 @@ final class MenuService extends NetworkManager {
 
   Future<List<MenuModel>?> getRestaurantMenu(String id) async {
     try {
+      print(id);
       final response = await network.get(
         Endpoints.instance.getRestaurantMenu,
         queryParameters: {"id": id},

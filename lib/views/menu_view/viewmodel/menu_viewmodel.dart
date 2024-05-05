@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
 import 'package:haydi_express_restaurant/views/menu_view/models/add_campaign_model.dart';
 import 'package:haydi_express_restaurant/views/menu_view/models/menu_model.dart';
+import 'package:haydi_express_restaurant/views/menu_view/models/menu_stats_model.dart';
 import 'package:haydi_express_restaurant/views/menu_view/service/menu_service.dart';
-import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
@@ -142,7 +142,14 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
       discountAmount: null,
       discountFinishDate: null,
       menuId: const Uuid().v7(),
-      stats: {},
+      stats: MenuStatsModel(
+        comments: [],
+        creationDate: DateTime.now().toIso8601String(),
+        totalOrderCount: 0,
+        likeRatio: 0,
+        mostOrderTakingHour: "Henüz veri yok",
+        totalRevenue: 0,
+      ),
     );
   }
 
@@ -216,12 +223,6 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     return dataList;
   }
 
-  String parseIso8601Format(String isoDate) {
-    DateTime dateTime = DateTime.parse(isoDate);
-
-    return DateFormat('dd.MM.yyyy').format(dateTime);
-  }
-
   Future<void> openDatePicker() async {
     final DateTime? selectedDate = await showDatePicker(
       context: viewModelContext,
@@ -281,5 +282,16 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     } else {
       return false;
     }
+  }
+
+  navigateToMenuStats(MenuModel data, MenuViewModel viewModel) {
+    navigationManager.navigate(MenuStats(
+      data: data,
+      viewModel: viewModel,
+    ));
+  }
+
+  backToMenuView() {
+    navigationManager.navigateAndRemoveUntil(const MenuView());
   }
 }

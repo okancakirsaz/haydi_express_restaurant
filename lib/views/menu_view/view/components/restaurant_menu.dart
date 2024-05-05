@@ -13,15 +13,18 @@ class RestaurantMenu extends StatelessWidget {
             List<MenuModel> data = viewModel.restaurantMenu;
 
             return Observer(builder: (context) {
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount:
-                        MediaQuery.of(context).size.width <= 1300 ? 2 : 3,
-                    childAspectRatio: 2),
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  return buildMenuItem(data[index]);
-                },
+              return Hero(
+                tag: "menuItem",
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount:
+                          MediaQuery.of(context).size.width <= 1300 ? 2 : 3,
+                      childAspectRatio: 2),
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    return buildMenuItem(data[index]);
+                  },
+                ),
               );
             });
           } else {
@@ -139,7 +142,9 @@ class RestaurantMenu extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        _customItemSettingsButton(() {}, "İstatistikler"),
+        _customItemSettingsButton(
+            () => viewModel.navigateToMenuStats(data, viewModel),
+            "İstatistikler"),
         Row(
           children: <Widget>[
             _customItemSettingsButton(() {}, "Düzenle"),

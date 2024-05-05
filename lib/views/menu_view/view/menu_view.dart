@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -27,6 +25,7 @@ part 'components/restaurant_menu.dart';
 part './components/campaings_container.dart';
 part './components/active_campaigns.dart';
 part './components/add_campaign.dart';
+part './components/menu_stats.dart';
 
 class MenuView extends StatelessWidget {
   const MenuView({super.key});

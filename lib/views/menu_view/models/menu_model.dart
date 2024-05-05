@@ -1,3 +1,5 @@
+import 'package:haydi_express_restaurant/views/menu_view/models/menu_stats_model.dart';
+
 class MenuModel {
   String name;
   int price;
@@ -8,9 +10,7 @@ class MenuModel {
   int? discountAmount;
   String? discountFinishDate;
   String menuId;
-
-  //TODO:Add menu stats model
-  dynamic stats;
+  MenuStatsModel stats;
 
   MenuModel({
     required this.name,
@@ -36,7 +36,7 @@ class MenuModel {
       'discountAmount': discountAmount,
       'discountFinishDate': discountFinishDate,
       'menuId': menuId,
-      'stats': stats,
+      'stats': stats.toJson(),
     };
   }
 
@@ -51,7 +51,7 @@ class MenuModel {
       discountAmount: json['discountAmount'] as int?,
       discountFinishDate: json['discountFinishDate'] as String?,
       menuId: json['menuId'] as String,
-      stats: json['stats'],
+      stats: MenuStatsModel.fromJson(json['stats']),
     );
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_manager.dart';
 import 'package:haydi_express_restaurant/core/managers/navigation_manager.dart';
+import 'package:intl/intl.dart';
 
 import '../../widgets/error_dialog.dart';
 
@@ -24,5 +25,11 @@ abstract mixin class BaseViewModel {
     if (Navigator.canPop(viewModelContext)) {
       Navigator.pop(viewModelContext);
     }
+  }
+
+  String parseIso8601DateFormat(String isoDate) {
+    DateTime dateTime = DateTime.parse(isoDate);
+
+    return DateFormat('dd.MM.yyyy').format(dateTime);
   }
 }
