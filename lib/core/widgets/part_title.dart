@@ -10,15 +10,15 @@ class PartTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 300,
+      width: 500,
       child: ListTile(
         leading: Text(
           title,
-          style: TextConsts.instance.regularBlack25Bold,
+          style: TextConsts.instance.regularBlack20Bold,
         ),
         title: Text(
           subtitle != null ? "- $subtitle" : "",
-          style: TextConsts.instance.regularBlack18,
+          style: TextConsts.instance.regularBlack16,
         ),
       ),
     );

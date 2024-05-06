@@ -6,6 +6,7 @@ import 'package:haydi_express_restaurant/core/widgets/custom_app_bar/viewmodel/c
 import 'package:haydi_express_restaurant/core/widgets/custom_text_button.dart';
 import 'package:haydi_express_restaurant/views/main_view.dart/viewmodel/main_viewmodel.dart';
 import 'package:haydi_express_restaurant/views/menu_view/view/menu_view.dart';
+import 'package:haydi_express_restaurant/views/profile/profile_view/view/profile_view.dart';
 
 import '../../consts/color_consts/color_consts.dart';
 
@@ -38,7 +39,7 @@ class CustomAppBar {
       actions: <Widget>[
         buildTextButton(const MenuView(), 0, elements[0]),
         buildTextButton(const Center(child: Text("1")), 1, elements[1]),
-        buildTextButton(const Center(child: Text("2")), 2, elements[2]),
+        buildTextButton(const ProfileView(), 2, elements[2]),
         buildTextButton(const Center(child: Text("3")), 3, elements[3]),
         buildTextButton(const Center(child: Text("4")), 4, elements[4]),
         buildTextButton(const Center(child: Text("5")), 5, elements[5]),

@@ -308,7 +308,9 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
       cardCvv: cvv.text,
       cardExpirationDate: cardExpireDate.text,
       isPoliciesAccepted: true,
+      accountCreationDate: DateTime.now().toIso8601String(),
       uid: "",
+      isAccountBanned: false,
     );
   }
 }

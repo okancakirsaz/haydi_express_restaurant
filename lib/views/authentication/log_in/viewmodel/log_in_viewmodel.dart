@@ -42,7 +42,10 @@ abstract class _LogInViewModelBase with Store, BaseViewModel {
       if (response.isLoginSuccess) {
         await localeManager.setStringData(
             LocaleKeysEnums.id.name, response.uid!);
-        //TODO: Cache restaurant name
+        await localeManager.setJsonData(
+          LocaleKeysEnums.restaurantData.name,
+          response.restaurantData!.toJson(),
+        );
         _navigateToMainPage();
       } else {
         showErrorDialog(response.unSuccessfulReason);

@@ -1,1 +1,1 @@
-enum LocaleKeysEnums { id, restaurantName }
+enum LocaleKeysEnums { id, restaurantData }

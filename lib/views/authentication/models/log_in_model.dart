@@ -1,7 +1,10 @@
+import 'package:haydi_express_restaurant/views/authentication/models/restaurant_model.dart';
+
 class LogInModel {
   String mail;
   String password;
   bool isLoginSuccess;
+  RestaurantModel? restaurantData;
   String? unSuccessfulReason;
   String? uid;
 
@@ -9,6 +12,7 @@ class LogInModel {
       {required this.mail,
       required this.password,
       required this.isLoginSuccess,
+      this.restaurantData,
       this.unSuccessfulReason,
       this.uid});
 
@@ -18,6 +22,7 @@ class LogInModel {
       'password': password,
       'isLoginSuccess': isLoginSuccess,
       'unSuccessfulReason': unSuccessfulReason,
+      'restaurantData': restaurantData?.toJson(),
       'uid': uid
     };
   }
@@ -28,6 +33,8 @@ class LogInModel {
       password: json['password'] as String,
       isLoginSuccess: json['isLoginSuccess'] as bool,
       unSuccessfulReason: json['unSuccessfulReason'] as String?,
+      restaurantData:
+          RestaurantModel.fromJson(json['restaurantData']) as RestaurantModel?,
       uid: json['uid'] as String?,
     );
   }

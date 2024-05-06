@@ -16,7 +16,7 @@ class ErrorDialog {
       context: context,
       title: Text(
         reason ?? "Bir sorun oluştu, daha sonra tekrar deneyiniz.s",
-        style: TextConsts.instance.regularBlack18,
+        style: TextConsts.instance.regularBlack16,
       ),
       autoCloseDuration: const Duration(seconds: 5),
     );

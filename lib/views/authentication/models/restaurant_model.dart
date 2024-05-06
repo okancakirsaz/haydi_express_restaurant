@@ -16,8 +16,11 @@ class RestaurantModel {
   String cardOwner;
   String cardCvv;
   String cardExpirationDate;
+  String accountCreationDate;
   bool isPoliciesAccepted;
   String uid;
+  String? nextPaymentDate;
+  bool isAccountBanned;
 
   RestaurantModel({
     required this.ownerName,
@@ -25,6 +28,7 @@ class RestaurantModel {
     required this.phoneNumber,
     required this.businessName,
     required this.email,
+    required this.accountCreationDate,
     required this.password,
     required this.taxNumber,
     required this.isMailVerified,
@@ -39,51 +43,9 @@ class RestaurantModel {
     required this.cardExpirationDate,
     required this.isPoliciesAccepted,
     required this.uid,
+    this.nextPaymentDate,
+    required this.isAccountBanned,
   });
-
-  RestaurantModel copyWith({
-    String? ownerName,
-    String? ownerSurname,
-    String? phoneNumber,
-    String? businessName,
-    String? email,
-    String? password,
-    String? taxNumber,
-    bool? isMailVerified,
-    String? address,
-    bool? wantDeliveryFromUs,
-    String? ibanNumber,
-    String? bankName,
-    String? bankAccountOwner,
-    String? cardNumber,
-    String? cardOwner,
-    String? cardCvv,
-    String? cardExpirationDate,
-    bool? isPoliciesAccepted,
-    String? uid,
-  }) {
-    return RestaurantModel(
-      ownerName: ownerName ?? this.ownerName,
-      ownerSurname: ownerSurname ?? this.ownerSurname,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      businessName: businessName ?? this.businessName,
-      email: email ?? this.email,
-      password: password ?? this.password,
-      taxNumber: taxNumber ?? this.taxNumber,
-      isMailVerified: isMailVerified ?? this.isMailVerified,
-      address: address ?? this.address,
-      wantDeliveryFromUs: wantDeliveryFromUs ?? this.wantDeliveryFromUs,
-      ibanNumber: ibanNumber ?? this.ibanNumber,
-      bankName: bankName ?? this.bankName,
-      bankAccountOwner: bankAccountOwner ?? this.bankAccountOwner,
-      cardNumber: cardNumber ?? this.cardNumber,
-      cardOwner: cardOwner ?? this.cardOwner,
-      cardCvv: cardCvv ?? this.cardCvv,
-      cardExpirationDate: cardExpirationDate ?? this.cardExpirationDate,
-      isPoliciesAccepted: isPoliciesAccepted ?? this.isPoliciesAccepted,
-      uid: uid ?? this.uid,
-    );
-  }
 
   Map<String, dynamic> toJson() {
     return {
@@ -103,14 +65,18 @@ class RestaurantModel {
       'cardNumber': cardNumber,
       'cardOwner': cardOwner,
       'cardCvv': cardCvv,
+      'accountCreationDate': accountCreationDate,
       'cardExpirationDate': cardExpirationDate,
       'isPoliciesAccepted': isPoliciesAccepted,
       'uid': uid,
+      'nextPaymentDate': nextPaymentDate,
+      'isAccountBanned': isAccountBanned,
     };
   }
 
   factory RestaurantModel.fromJson(Map<String, dynamic> json) {
     return RestaurantModel(
+      accountCreationDate: json['accountCreationDate'] as String,
       ownerName: json['ownerName'] as String,
       ownerSurname: json['ownerSurname'] as String,
       phoneNumber: json['phoneNumber'] as String,
@@ -130,34 +96,10 @@ class RestaurantModel {
       cardExpirationDate: json['cardExpirationDate'] as String,
       isPoliciesAccepted: json['isPoliciesAccepted'] as bool,
       uid: json['uid'] as String,
+      nextPaymentDate: json['nextPaymentDate'] as String?,
+      isAccountBanned: json['isAccountBanned'] as bool,
     );
   }
-
-  @override
-  String toString() =>
-      "RestaurantModel(ownerName: $ownerName,ownerSurname: $ownerSurname,phoneNumber: $phoneNumber,businessName: $businessName,email: $email,password: $password,taxNumber: $taxNumber,isMailVerified: $isMailVerified,address: $address,wantDeliveryFromUs: $wantDeliveryFromUs,ibanNumber: $ibanNumber,bankName: $bankName,bankAccountOwner: $bankAccountOwner,cardNumber: $cardNumber,cardOwner: $cardOwner,cardCvv: $cardCvv,cardExpirationDate: $cardExpirationDate,isPoliciesAccepted: $isPoliciesAccepted,uid: $uid)";
-
-  @override
-  int get hashCode => Object.hash(
-      ownerName,
-      ownerSurname,
-      phoneNumber,
-      businessName,
-      email,
-      password,
-      taxNumber,
-      isMailVerified,
-      address,
-      wantDeliveryFromUs,
-      ibanNumber,
-      bankName,
-      bankAccountOwner,
-      cardNumber,
-      cardOwner,
-      cardCvv,
-      cardExpirationDate,
-      isPoliciesAccepted,
-      uid);
 
   @override
   bool operator ==(Object other) =>
