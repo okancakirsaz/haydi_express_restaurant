@@ -22,9 +22,21 @@ final class MenuService extends NetworkManager {
     }
   }
 
+  Future<MenuModel?> editMenu(MenuModel data, Uint8List? file) async {
+    try {
+      final response = await network.post(Endpoints.instance.editMenu,
+          data: FormData.fromMap({
+            "file": file != null ? uploadFile(file, data.menuId) : null,
+            "json": jsonEncode(data.toJson()),
+          }));
+      return MenuModel.fromJson(response.data);
+    } catch (e) {
+      return null;
+    }
+  }
+
   Future<List<MenuModel>?> getRestaurantMenu(String id) async {
     try {
-      print(id);
       final response = await network.get(
         Endpoints.instance.getRestaurantMenu,
         queryParameters: {"id": id},

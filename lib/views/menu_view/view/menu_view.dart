@@ -26,6 +26,7 @@ part './components/campaings_container.dart';
 part './components/active_campaigns.dart';
 part './components/add_campaign.dart';
 part './components/menu_stats.dart';
+part './components/edit_menu.dart';
 
 class MenuView extends StatelessWidget {
   const MenuView({super.key});

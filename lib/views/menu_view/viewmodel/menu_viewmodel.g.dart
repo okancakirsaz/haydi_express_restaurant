@@ -108,6 +108,22 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
     });
   }
 
+  late final _$editMenuImageAtom =
+      Atom(name: '_MenuViewModelBase.editMenuImage', context: context);
+
+  @override
+  ImageProvider<Object>? get editMenuImage {
+    _$editMenuImageAtom.reportRead();
+    return super.editMenuImage;
+  }
+
+  @override
+  set editMenuImage(ImageProvider<Object>? value) {
+    _$editMenuImageAtom.reportWrite(value, super.editMenuImage, () {
+      super.editMenuImage = value;
+    });
+  }
+
   late final _$cancelCampaignAsyncAction =
       AsyncAction('_MenuViewModelBase.cancelCampaign', context: context);
 
@@ -174,6 +190,17 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
   }
 
   @override
+  dynamic changeMenuState(MenuModel data) {
+    final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
+        name: '_MenuViewModelBase.changeMenuState');
+    try {
+      return super.changeMenuState(data);
+    } finally {
+      _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic _separateCampaigns() {
     final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
         name: '_MenuViewModelBase._separateCampaigns');
@@ -207,6 +234,17 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
   }
 
   @override
+  dynamic _getEditingMenuImage(String url) {
+    final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
+        name: '_MenuViewModelBase._getEditingMenuImage');
+    try {
+      return super._getEditingMenuImage(url);
+    } finally {
+      _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 createOrPreviewMenuWidget: ${createOrPreviewMenuWidget},
@@ -214,7 +252,8 @@ campaignWidget: ${campaignWidget},
 campaignButtonText: ${campaignButtonText},
 createOrPreviewMenuButtonText: ${createOrPreviewMenuButtonText},
 restaurantMenu: ${restaurantMenu},
-menusOnCampaigns: ${menusOnCampaigns}
+menusOnCampaigns: ${menusOnCampaigns},
+editMenuImage: ${editMenuImage}
     ''';
   }
 }

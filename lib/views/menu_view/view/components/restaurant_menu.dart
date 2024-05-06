@@ -22,7 +22,7 @@ class RestaurantMenu extends StatelessWidget {
                       childAspectRatio: 2),
                   itemCount: data.length,
                   itemBuilder: (context, index) {
-                    return buildMenuItem(data[index]);
+                    return buildMenuItem(data[index], context);
                   },
                 ),
               );
@@ -37,7 +37,7 @@ class RestaurantMenu extends StatelessWidget {
         });
   }
 
-  Widget buildMenuItem(MenuModel data) {
+  Widget buildMenuItem(MenuModel data, BuildContext context) {
     return Container(
       margin: PaddingConsts.instance.all10,
       width: 400,
@@ -71,7 +71,7 @@ class RestaurantMenu extends StatelessWidget {
               decoration: BoxDecoration(
                   color: ColorConsts.instance.blurGrey,
                   borderRadius: RadiusConsts.instance.circularBottom10),
-              child: _itemSettings(data),
+              child: _itemSettings(data, context),
             ),
           ),
         ],
@@ -138,16 +138,27 @@ class RestaurantMenu extends StatelessWidget {
     );
   }
 
-  Widget _itemSettings(MenuModel data) {
+  Widget _itemSettings(MenuModel data, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         _customItemSettingsButton(
-            () => viewModel.navigateToMenuStats(data, viewModel),
-            "İstatistikler"),
+          () => viewModel.navigateToMenuStats(data, viewModel),
+          "İstatistikler",
+        ),
         Row(
           children: <Widget>[
-            _customItemSettingsButton(() {}, "Düzenle"),
+            _customItemSettingsButton(() async {
+              await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      backgroundColor: ColorConsts.instance.secondary,
+                      content: EditMenu(viewModel: viewModel, data: data),
+                    );
+                  });
+              viewModel.onEditDialogClose();
+            }, "Düzenle"),
             _customItemSettingsButton(
                 () async => await viewModel.deleteMenu(data), "Sil"),
           ],

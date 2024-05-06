@@ -45,10 +45,13 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
   ObservableList<MenuModel> restaurantMenu = ObservableList.of([]);
   @observable
   ObservableList<MenuModel> menusOnCampaigns = ObservableList.of([]);
+  @observable
+  ImageProvider? editMenuImage;
 
   final TextEditingController pickedMenu = TextEditingController();
   final TextEditingController discountAmount = TextEditingController();
   String? campaignFinishDate;
+  bool isOnEditMode = false;
 
   @action
   fetchObservableWidgets(
@@ -95,13 +98,16 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
       ],
     );
     menuImage = await image?.readAsBytes();
+    if (isOnEditMode) {
+      _getEditingMenuImage("");
+    }
   }
 
   bool get _createMenuInputValidation {
     if (menuContent.text != "" &&
         menuName.text != "" &&
         menuPrice.text != "" &&
-        menuImage != null) {
+        (menuImage != null || isOnEditMode)) {
       return true;
     } else {
       return false;
@@ -119,16 +125,48 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     }
   }
 
+  Future<void> editMenu(MenuModel data) async {
+    if (_createMenuInputValidation) {
+      final MenuModel? response =
+          await service.editMenu(_fetchEditedMenuModel(data), menuImage);
+      _handleEditMenuResponse(response);
+    } else {
+      showErrorDialog(
+          "Lütfen istenilen bilgilerin tamamının girildiğinden emin olun.");
+    }
+  }
+
+  _resetMenuInputs() {
+    menuName.text = "";
+    menuImage = null;
+    menuPrice.text = "";
+    menuContent.text = "";
+  }
+
   _handleCreateMenuResponse(MenuModel? response) {
     if (response != null) {
-      menuName.text = "";
-      menuImage = null;
-      menuPrice.text = "";
-      menuContent.text = "";
+      _resetMenuInputs();
       addNewMenuToRestaurantMenu(response);
     } else {
       showErrorDialog();
     }
+  }
+
+  _handleEditMenuResponse(MenuModel? response) {
+    if (response != null) {
+      changeMenuState(response);
+      //Close dialog
+      navigatorPop();
+    } else {
+      showErrorDialog();
+    }
+  }
+
+  MenuModel _fetchEditedMenuModel(MenuModel data) {
+    data.name = menuName.text;
+    data.content = menuContent.text;
+    data.price = int.parse(menuPrice.text);
+    return data;
   }
 
   MenuModel get _fetchMenuModel {
@@ -167,6 +205,14 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
 
   @action
   addNewMenuToRestaurantMenu(MenuModel data) {
+    restaurantMenu.add(data);
+  }
+
+  @action
+  changeMenuState(MenuModel data) {
+    final MenuModel oldElement =
+        restaurantMenu.where((element) => element.menuId == data.menuId).first;
+    restaurantMenu.remove(oldElement);
     restaurantMenu.add(data);
   }
 
@@ -302,6 +348,28 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
       restaurantMenu.remove(data);
     } else {
       showErrorDialog();
+    }
+  }
+
+  initEditMenuDialog(MenuModel data) {
+    isOnEditMode = true;
+    _getEditingMenuImage(data.photoUrl);
+    menuContent.text = data.content;
+    menuPrice.text = data.price.toString();
+    menuName.text = data.name;
+  }
+
+  onEditDialogClose() {
+    isOnEditMode = false;
+    _resetMenuInputs();
+  }
+
+  @action
+  _getEditingMenuImage(String url) {
+    if (menuImage == null) {
+      editMenuImage = NetworkImage(url);
+    } else {
+      editMenuImage = MemoryImage(menuImage!);
     }
   }
 }
