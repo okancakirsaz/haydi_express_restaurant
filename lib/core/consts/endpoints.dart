@@ -3,7 +3,7 @@ final class Endpoints {
 
   //Auth
   final String logIn = "/auth/log-in-restaurant";
-  final String forgotPassword = "/auth/forgot-password";
+  final String forgotPassword = "/auth/forgot-password-restaurant";
   final String mailVerificationRequest = "/auth/mail-verification-request";
   final String mailVerification = "/auth/mail-verification";
   final String signUp = "/auth/sign-up-restaurant";
