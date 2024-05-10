@@ -33,8 +33,9 @@ class LogInModel {
       password: json['password'] as String,
       isLoginSuccess: json['isLoginSuccess'] as bool,
       unSuccessfulReason: json['unSuccessfulReason'] as String?,
-      restaurantData:
-          RestaurantModel.fromJson(json['restaurantData']) as RestaurantModel?,
+      restaurantData: json['restaurantData'] != null
+          ? RestaurantModel.fromJson(json['restaurantData'])
+          : null,
       uid: json['uid'] as String?,
     );
   }

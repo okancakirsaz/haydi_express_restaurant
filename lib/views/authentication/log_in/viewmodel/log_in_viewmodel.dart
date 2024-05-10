@@ -36,35 +36,36 @@ abstract class _LogInViewModelBase with Store, BaseViewModel {
   }
 
   Future<void> tryToLogIn(String mail, String pass) async {
-    if (mail != "" && pass != "") {
-      final LogInModel response = await _sendLogInRequest(mail, pass);
-
-      if (response.isLoginSuccess) {
-        await localeManager.setStringData(
-            LocaleKeysEnums.id.name, response.uid!);
-        await localeManager.setJsonData(
-          LocaleKeysEnums.restaurantData.name,
-          response.restaurantData!.toJson(),
-        );
-        _navigateToMainPage();
-      } else {
-        showErrorDialog(response.unSuccessfulReason);
-      }
-    } else {
+    if (mail.isEmpty || pass.isEmpty || !mail.contains("@")) {
       showErrorDialog("E-Posta veya şifre eksik.");
+      return;
     }
+
+    final LogInModel? response = await _sendLogInRequest(mail, pass);
+
+    if (response == null) {
+      showErrorDialog();
+      return;
+    }
+
+    if (!response.isLoginSuccess) {
+      showErrorDialog(response.unSuccessfulReason);
+      return;
+    }
+    await localeManager.setStringData(LocaleKeysEnums.id.name, response.uid!);
+    await localeManager.setJsonData(
+      LocaleKeysEnums.restaurantData.name,
+      response.restaurantData!.toJson(),
+    );
+    _navigateToMainPage();
   }
 
-  Future<LogInModel> _sendLogInRequest(String mail, String pass) async {
+  Future<LogInModel?> _sendLogInRequest(String mail, String pass) async {
     final LogInModel? response = await service.logIn(LogInModel(
       mail: mail,
       password: pass,
       isLoginSuccess: false,
     ));
-    if (response == null) {
-      showErrorDialog("Bir sorun oluştu, tekrar deneyiniz.");
-      throw Exception("Response is null");
-    }
     return response;
   }
 }
