@@ -14,6 +14,7 @@ import '../view/menu_view.dart';
 
 part 'menu_viewmodel.g.dart';
 
+//TODO: Add cached menu algorithm after 1.0 release
 class MenuViewModel = _MenuViewModelBase with _$MenuViewModel;
 
 abstract class _MenuViewModelBase with Store, BaseViewModel {
