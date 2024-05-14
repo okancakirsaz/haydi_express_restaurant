@@ -88,7 +88,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     }
   }
 
-  //TODO: *REVIEW* Add compress.
+  //TODO:Add compress.
   Future<void> pickImage() async {
     final XFile? image = await openFile(
       acceptedTypeGroups: <XTypeGroup>[
