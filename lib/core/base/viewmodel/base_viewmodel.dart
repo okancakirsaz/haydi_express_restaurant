@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_manager.dart';
 import 'package:haydi_express_restaurant/core/managers/navigation_manager.dart';
 import 'package:intl/intl.dart';
@@ -32,4 +33,7 @@ abstract mixin class BaseViewModel {
 
     return DateFormat('dd.MM.yyyy').format(dateTime);
   }
+
+  String? get accessToken =>
+      localeManager.getNullableStringData(LocaleKeysEnums.accessToken.name);
 }

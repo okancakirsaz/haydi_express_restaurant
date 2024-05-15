@@ -9,26 +9,38 @@ import '../../../../core/managers/network_manager.dart';
 import '../models/menu_model.dart';
 
 final class MenuService extends NetworkManager {
-  Future<MenuModel?> createMenu(MenuModel data, Uint8List file) async {
+  Future<MenuModel?> createMenu(
+      MenuModel data, Uint8List file, String accessToken) async {
     try {
-      final response = await network.post(Endpoints.instance.createMenu,
-          data: FormData.fromMap({
-            "file": uploadFile(file, data.menuId),
-            "json": jsonEncode(data.toJson()),
-          }));
+      final response = await network.post(
+        Endpoints.instance.createMenu,
+        data: FormData.fromMap({
+          "file": uploadFile(file, data.menuId),
+          "json": jsonEncode(data.toJson()),
+        }),
+        options: Options(headers: setHeaderAccessToken(accessToken)),
+      );
       return MenuModel.fromJson(response.data);
     } catch (e) {
       return null;
     }
   }
 
-  Future<MenuModel?> editMenu(MenuModel data, Uint8List? file) async {
+  Future<MenuModel?> editMenu(
+      MenuModel data, Uint8List? file, String accessToken) async {
     try {
-      final response = await network.post(Endpoints.instance.editMenu,
-          data: FormData.fromMap({
+      final response = await network.post(
+        Endpoints.instance.editMenu,
+        data: FormData.fromMap(
+          {
             "file": file != null ? uploadFile(file, data.menuId) : null,
             "json": jsonEncode(data.toJson()),
-          }));
+          },
+        ),
+        options: Options(
+          headers: setHeaderAccessToken(accessToken),
+        ),
+      );
       return MenuModel.fromJson(response.data);
     } catch (e) {
       return null;
@@ -52,11 +64,14 @@ final class MenuService extends NetworkManager {
     }
   }
 
-  Future<bool?> cancelCampaign(String menuId) async {
+  Future<bool?> cancelCampaign(String menuId, String accessToken) async {
     try {
       final response = await network.get(
         Endpoints.instance.cancelCampaign,
         queryParameters: {"menuId": menuId},
+        options: Options(
+          headers: setHeaderAccessToken(accessToken),
+        ),
       );
       return bool.parse(response.data);
     } catch (e) {
@@ -64,11 +79,15 @@ final class MenuService extends NetworkManager {
     }
   }
 
-  Future<AddCampaignModel?> addDiscount(AddCampaignModel data) async {
+  Future<AddCampaignModel?> addDiscount(
+      AddCampaignModel data, String accessToken) async {
     try {
       final response = await network.post(
         Endpoints.instance.addDiscount,
         data: data.toJson(),
+        options: Options(
+          headers: {'Authorization': 'Bearer $accessToken'},
+        ),
       );
       return AddCampaignModel.fromJson(response.data);
     } catch (e) {
@@ -76,10 +95,15 @@ final class MenuService extends NetworkManager {
     }
   }
 
-  Future<bool?> deleteMenu(MenuModel data) async {
+  Future<bool?> deleteMenu(MenuModel data, String accessToken) async {
     try {
-      final response = await network.post(Endpoints.instance.deleteMenu,
-          data: data.toJson());
+      final response = await network.post(
+        Endpoints.instance.deleteMenu,
+        data: data.toJson(),
+        options: Options(
+          headers: setHeaderAccessToken(accessToken),
+        ),
+      );
       return bool.parse(response.data);
     } catch (e) {
       return null;

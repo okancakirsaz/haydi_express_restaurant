@@ -52,11 +52,7 @@ abstract class _LogInViewModelBase with Store, BaseViewModel {
       showErrorDialog(response.unSuccessfulReason);
       return;
     }
-    await localeManager.setStringData(LocaleKeysEnums.id.name, response.uid!);
-    await localeManager.setJsonData(
-      LocaleKeysEnums.restaurantData.name,
-      response.restaurantData!.toJson(),
-    );
+    await _cacheData(response);
     _navigateToMainPage();
   }
 
@@ -67,5 +63,15 @@ abstract class _LogInViewModelBase with Store, BaseViewModel {
       isLoginSuccess: false,
     ));
     return response;
+  }
+
+  Future<void> _cacheData(LogInModel response) async {
+    await localeManager.setStringData(LocaleKeysEnums.id.name, response.uid!);
+    await localeManager.setJsonData(
+      LocaleKeysEnums.restaurantData.name,
+      response.restaurantData!.toJson(),
+    );
+    await localeManager.setStringData(
+        LocaleKeysEnums.accessToken.name, response.accessToken!);
   }
 }

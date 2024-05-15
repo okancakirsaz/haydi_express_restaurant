@@ -7,14 +7,17 @@ class LogInModel {
   RestaurantModel? restaurantData;
   String? unSuccessfulReason;
   String? uid;
+  String? accessToken;
 
-  LogInModel(
-      {required this.mail,
-      required this.password,
-      required this.isLoginSuccess,
-      this.restaurantData,
-      this.unSuccessfulReason,
-      this.uid});
+  LogInModel({
+    required this.mail,
+    required this.password,
+    required this.isLoginSuccess,
+    this.restaurantData,
+    this.unSuccessfulReason,
+    this.uid,
+    this.accessToken,
+  });
 
   Map<String, dynamic> toJson() {
     return {
@@ -23,7 +26,8 @@ class LogInModel {
       'isLoginSuccess': isLoginSuccess,
       'unSuccessfulReason': unSuccessfulReason,
       'restaurantData': restaurantData?.toJson(),
-      'uid': uid
+      'uid': uid,
+      "accessToken": accessToken,
     };
   }
 
@@ -37,6 +41,7 @@ class LogInModel {
           ? RestaurantModel.fromJson(json['restaurantData'])
           : null,
       uid: json['uid'] as String?,
+      accessToken: json['accessToken'] as String?,
     );
   }
 

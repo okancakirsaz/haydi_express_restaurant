@@ -119,7 +119,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
   Future<void> createMenu() async {
     if (_createMenuInputValidation) {
       final MenuModel? response =
-          await service.createMenu(_fetchMenuModel, menuImage!);
+          await service.createMenu(_fetchMenuModel, menuImage!, accessToken!);
       _handleCreateMenuResponse(response);
     } else {
       showErrorDialog(
@@ -129,8 +129,8 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
 
   Future<void> editMenu(MenuModel data) async {
     if (_createMenuInputValidation) {
-      final MenuModel? response =
-          await service.editMenu(_fetchEditedMenuModel(data), menuImage);
+      final MenuModel? response = await service.editMenu(
+          _fetchEditedMenuModel(data), menuImage, accessToken!);
       _handleEditMenuResponse(response);
     } else {
       showErrorDialog(
@@ -229,7 +229,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
 
   @action
   cancelCampaign(String menuId) async {
-    final bool? response = await service.cancelCampaign(menuId);
+    final bool? response = await service.cancelCampaign(menuId, accessToken!);
     if (response == null || response == false) {
       showErrorDialog();
     } else {
@@ -287,12 +287,12 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     if (_campaignValidation) {
       final int amount = int.parse(discountAmount.text.substring(1));
       final AddCampaignModel? response = await service.addDiscount(
-        AddCampaignModel(
-          amount: amount,
-          expireDate: campaignFinishDate!,
-          menuId: _findMenuFromPickedMenu!.menuId,
-        ),
-      );
+          AddCampaignModel(
+            amount: amount,
+            expireDate: campaignFinishDate!,
+            menuId: _findMenuFromPickedMenu!.menuId,
+          ),
+          accessToken!);
       _handleAddCampaignResponse(response);
     } else {
       showErrorDialog("Lütfen sizden istenilen bilgileri giriniz.");
@@ -345,7 +345,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
 
   @action
   Future<void> deleteMenu(MenuModel data) async {
-    final bool? response = await service.deleteMenu(data);
+    final bool? response = await service.deleteMenu(data, accessToken!);
     if (response != null && response) {
       restaurantMenu.remove(data);
     } else {
