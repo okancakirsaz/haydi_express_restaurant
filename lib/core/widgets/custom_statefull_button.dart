@@ -29,9 +29,11 @@ class CustomStateFullButton extends StatelessWidget {
         minWidth: 160,
       ),
       decoration: BoxDecoration(
-          color: ColorConsts.instance.primary,
-          border: Border.all(),
-          borderRadius: RadiusConsts.instance.circularAll20),
+        color: ColorConsts.instance.primary,
+        border: const Border(),
+        borderRadius: RadiusConsts.instance.circularAll20,
+        boxShadow: ColorConsts.instance.shadow,
+      ),
       child: EasyButton(
           type: EasyButtonType.text,
           buttonColor: ColorConsts.instance.primary,

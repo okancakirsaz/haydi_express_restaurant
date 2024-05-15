@@ -59,7 +59,7 @@ class AccountInformation extends StatelessWidget {
           Text(
             value,
             style: TextConsts.instance.regularBlack16,
-          )
+          ),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
+import 'package:haydi_express_restaurant/views/authentication/log_in/view/log_in_view.dart';
 import 'package:haydi_express_restaurant/views/authentication/models/restaurant_model.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
@@ -19,4 +20,11 @@ abstract class _ProfileViewModelBase with Store, BaseViewModel {
   }
 
   late final RestaurantModel restaurantData;
+
+  Future<void> signOut() async {
+    await localeManager.removeData(LocaleKeysEnums.accessToken.name);
+    await localeManager.removeData(LocaleKeysEnums.id.name);
+    await localeManager.removeData(LocaleKeysEnums.restaurantData.name);
+    navigationManager.navigateAndRemoveUntil(const LogInView());
+  }
 }

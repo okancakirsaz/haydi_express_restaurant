@@ -4,6 +4,7 @@ import 'package:haydi_express_restaurant/core/consts/padding_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/text_consts.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_button.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
+import 'package:haydi_express_restaurant/core/widgets/custom_text_button.dart';
 import 'package:haydi_express_restaurant/core/widgets/part_title.dart';
 import '../../../../core/base/view/base_view.dart';
 import '../viewmodel/profile_viewmodel.dart';
@@ -37,7 +38,7 @@ class ProfileView extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.bottomRight,
-                child: _buildActions(),
+                child: _buildActions(model),
               ),
             ],
           ));
@@ -49,10 +50,15 @@ class ProfileView extends StatelessWidget {
         onDispose: (model) {});
   }
 
-  Widget _buildActions() {
+  Widget _buildActions(ProfileViewModel model) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
+        CustomTextButton(
+          style: TextConsts.instance.regularPrimary16Underlined,
+          onPressed: () async => await model.signOut(),
+          text: "Çıkış Yap",
+        ),
         _buildProfileViewCustomButton(
           Text(
             "Gizlilik\nPolitikası",
