@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
+import 'package:haydi_express_restaurant/views/main_view.dart/view/main_view.dart';
 import 'package:haydi_express_restaurant/views/menu_view/models/add_campaign_model.dart';
 import 'package:haydi_express_restaurant/views/menu_view/models/menu_model.dart';
 import 'package:haydi_express_restaurant/views/menu_view/models/menu_stats_model.dart';
@@ -339,7 +340,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
   }
 
   backToMenuView() {
-    navigationManager.navigateAndRemoveUntil(const MenuView());
+    navigationManager.navigateAndRemoveUntil(const MainView());
   }
 
   @action
