@@ -12,7 +12,6 @@ class LogInContainer extends StatelessWidget {
         Container(
           width: 485,
           padding: PaddingConsts.instance.all20,
-          height: 624,
           margin: PaddingConsts.instance.all20,
           decoration: BoxDecoration(
             color: ColorConsts.instance.third,
@@ -27,15 +26,16 @@ class LogInContainer extends StatelessWidget {
               padding: PaddingConsts.instance.horizontal10,
               child: CustomButton(
                 width: 290,
-                height: 65,
+                height: 55,
                 onPressed: () => viewModel.navigateToSignUp(),
-                style: TextConsts.instance.regularWhite20,
+                style: TextConsts.instance.regularWhite16,
                 text: "Restoran Hesabı Oluşturmak İstiyorum.",
               ),
             ),
             CustomButton(
               onPressed: () => viewModel.navigateToForgotPassword(),
-              style: TextConsts.instance.regularWhite20,
+              height: 55,
+              style: TextConsts.instance.regularWhite16,
               text: "Şifremi Unuttum",
             ),
           ],

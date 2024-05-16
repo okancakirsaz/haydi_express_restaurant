@@ -9,7 +9,7 @@ void main() async {
 
   if (Platform.isMacOS || Platform.isWindows) {
     await windowManager.ensureInitialized();
-    WindowManager.instance.setMinimumSize(const Size(1024, 760));
+    WindowManager.instance.setMinimumSize(const Size(1024, 660));
   }
   runApp(
     const MyApp(),

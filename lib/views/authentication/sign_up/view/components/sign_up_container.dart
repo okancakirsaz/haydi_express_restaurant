@@ -7,33 +7,35 @@ class SignUpContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            width: 930,
-            child: Text(
-              viewModel.title,
-              style: TextConsts.instance.regularBlack36Bold,
-              textAlign: TextAlign.right,
+      return SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              width: 930,
+              child: Text(
+                viewModel.title,
+                style: TextConsts.instance.regularBlack36Bold,
+                textAlign: TextAlign.right,
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          Container(
-            width: 1010,
-            height: 610,
-            decoration: BoxDecoration(
-              color: ColorConsts.instance.third,
-              borderRadius: RadiusConsts.instance.circularAll40,
+            const SizedBox(height: 20),
+            Container(
+              width: 1010,
+              height: 570,
+              decoration: BoxDecoration(
+                color: ColorConsts.instance.third,
+                borderRadius: RadiusConsts.instance.circularAll40,
+              ),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(width: 900, height: 510, child: viewModel.page),
+                  ProcessBar(viewModel: viewModel),
+                ],
+              ),
             ),
-            child: Column(
-              children: <Widget>[
-                SizedBox(width: 900, height: 570, child: viewModel.page),
-                ProcessBar(viewModel: viewModel),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       );
     });
   }

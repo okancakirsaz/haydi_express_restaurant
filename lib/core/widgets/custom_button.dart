@@ -26,8 +26,8 @@ class CustomButton extends StatelessWidget {
       width: width,
       height: height,
       constraints: const BoxConstraints(
-        minHeight: 50,
-        minWidth: 160,
+        minHeight: 40,
+        minWidth: 130,
       ),
       child: ElevatedButton(
           style: ButtonStyle(
@@ -44,7 +44,7 @@ class CustomButton extends StatelessWidget {
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: style ?? TextConsts.instance.regularWhite25,
+            style: style ?? TextConsts.instance.regularWhite20,
           )),
     );
   }

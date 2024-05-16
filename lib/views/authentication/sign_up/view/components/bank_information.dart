@@ -24,14 +24,15 @@ class BankInformation extends StatelessWidget {
             ],
           ),
         ),
-        Container(
-          margin: PaddingConsts.instance.bottom10,
-          width: 400,
-          child: Text(
-            "Girdiğiniz bilgileri istediğiniz zaman restoran profili kısmından değiştirebilirsiniz.",
-            style: TextConsts.instance.regularWhite16Bold,
-          ),
-        ),
+        //TODO: Will open
+        // Container(
+        //   margin: PaddingConsts.instance.bottom10,
+        //   width: 400,
+        //   child: Text(
+        //     "Girdiğiniz bilgileri istediğiniz zaman restoran profili kısmından değiştirebilirsiniz.",
+        //     style: TextConsts.instance.regularWhite14Bold,
+        //   ),
+        // ),
         PreviousAndNextButtons(
           previousPage: CourierOptions(
             viewModel: viewModel,

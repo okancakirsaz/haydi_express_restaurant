@@ -51,4 +51,10 @@ class CreateMenuInputs extends StatelessWidget {
       ],
     );
   }
+
+  Widget _buildTagsInput() {
+    return Column(
+      children: <Widget>[],
+    );
+  }
 }

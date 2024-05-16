@@ -21,6 +21,7 @@ class PreviousAndNextButtons extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         CustomButton(
+            height: 50,
             onPressed: () => viewModel.goToPage(previousPage,
                 viewModel.titles[currentIndex - 1], currentIndex - 1, false),
             text: "Önceki Sayfa"),

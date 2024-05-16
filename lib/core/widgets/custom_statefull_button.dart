@@ -22,11 +22,11 @@ class CustomStateFullButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width ?? 200,
-      height: height ?? 60,
+      width: width ?? 150,
+      height: height ?? 50,
       constraints: const BoxConstraints(
-        minHeight: 50,
-        minWidth: 160,
+        minHeight: 40,
+        minWidth: 130,
       ),
       decoration: BoxDecoration(
         color: ColorConsts.instance.primary,
@@ -41,7 +41,7 @@ class CustomStateFullButton extends StatelessWidget {
           onPressed: onPressed,
           idleStateWidget: Text(
             text,
-            style: style ?? TextConsts.instance.regularWhite25,
+            style: style ?? TextConsts.instance.regularWhite20,
             textAlign: TextAlign.center,
           ),
           loadingStateWidget: Padding(

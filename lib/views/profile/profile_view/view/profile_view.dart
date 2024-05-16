@@ -101,7 +101,10 @@ class ProfileView extends StatelessWidget {
           ),
           backgroundColor: ColorConsts.instance.lightThird,
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(5))),
+            borderRadius: BorderRadius.all(
+              Radius.circular(5),
+            ),
+          ),
           elevation: 1,
         ),
         child: content,
