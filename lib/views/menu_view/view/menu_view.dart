@@ -1,5 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -18,6 +20,7 @@ import '../../../../core/base/view/base_view.dart';
 import '../../../core/widgets/part_title.dart';
 import '../viewmodel/menu_viewmodel.dart';
 
+part './components/tags_list.dart';
 part 'components/create_preview_menu_contaier.dart';
 part 'components/create_menu_inputs.dart';
 part './components/preview_created_menu.dart';
@@ -52,7 +55,7 @@ class MenuView extends StatelessWidget {
                       ),
                       subtitle: Padding(
                         padding: PaddingConsts.instance.all20,
-                        child: CreatePreviewMenContainer(viewModel: model),
+                        child: CreatePreviewMenuContainer(viewModel: model),
                       ),
                     ),
                   ),

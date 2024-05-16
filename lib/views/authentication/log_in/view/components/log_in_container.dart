@@ -48,7 +48,7 @@ class LogInContainer extends StatelessWidget {
     return Column(
       children: <Widget>[
         Padding(
-          padding: PaddingConsts.instance.bottom50,
+          padding: PaddingConsts.instance.bottom25,
           child: Text(
             "Restoran Girişi",
             style: TextConsts.instance.regularWhite40Bold,

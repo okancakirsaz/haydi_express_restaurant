@@ -76,6 +76,22 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
     });
   }
 
+  late final _$tagsAtom =
+      Atom(name: '_MenuViewModelBase.tags', context: context);
+
+  @override
+  ObservableList<String> get tags {
+    _$tagsAtom.reportRead();
+    return super.tags;
+  }
+
+  @override
+  set tags(ObservableList<String> value) {
+    _$tagsAtom.reportWrite(value, super.tags, () {
+      super.tags = value;
+    });
+  }
+
   late final _$restaurantMenuAtom =
       Atom(name: '_MenuViewModelBase.restaurantMenu', context: context);
 
@@ -179,6 +195,39 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
   }
 
   @override
+  dynamic addTag() {
+    final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
+        name: '_MenuViewModelBase.addTag');
+    try {
+      return super.addTag();
+    } finally {
+      _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic deleteTag(int index) {
+    final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
+        name: '_MenuViewModelBase.deleteTag');
+    try {
+      return super.deleteTag(index);
+    } finally {
+      _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic _resetMenuInputs() {
+    final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
+        name: '_MenuViewModelBase._resetMenuInputs');
+    try {
+      return super._resetMenuInputs();
+    } finally {
+      _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic addNewMenuToRestaurantMenu(MenuModel data) {
     final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
         name: '_MenuViewModelBase.addNewMenuToRestaurantMenu');
@@ -251,6 +300,7 @@ createOrPreviewMenuWidget: ${createOrPreviewMenuWidget},
 campaignWidget: ${campaignWidget},
 campaignButtonText: ${campaignButtonText},
 createOrPreviewMenuButtonText: ${createOrPreviewMenuButtonText},
+tags: ${tags},
 restaurantMenu: ${restaurantMenu},
 menusOnCampaigns: ${menusOnCampaigns},
 editMenuImage: ${editMenuImage}

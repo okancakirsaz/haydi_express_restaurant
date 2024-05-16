@@ -20,7 +20,6 @@ class LogInView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: There is a UI bug occured(overflow) fix it
     return BaseView<LogInViewModel>(
         viewModel: LogInViewModel(),
         onPageBuilder: (context, model) {

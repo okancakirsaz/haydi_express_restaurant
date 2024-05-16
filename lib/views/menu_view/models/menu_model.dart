@@ -10,6 +10,7 @@ class MenuModel {
   int? discountAmount;
   String? discountFinishDate;
   String menuId;
+  List<dynamic> tags;
   MenuStatsModel stats;
 
   MenuModel({
@@ -17,6 +18,7 @@ class MenuModel {
     required this.price,
     required this.photoUrl,
     required this.content,
+    required this.tags,
     required this.restaurantUid,
     required this.isOnDiscount,
     required this.discountAmount,
@@ -36,6 +38,7 @@ class MenuModel {
       'discountAmount': discountAmount,
       'discountFinishDate': discountFinishDate,
       'menuId': menuId,
+      'tags': tags,
       'stats': stats.toJson(),
     };
   }
@@ -51,6 +54,7 @@ class MenuModel {
       discountAmount: json['discountAmount'] as int?,
       discountFinishDate: json['discountFinishDate'] as String?,
       menuId: json['menuId'] as String,
+      tags: json['tags'] as List<dynamic>,
       stats: MenuStatsModel.fromJson(json['stats']),
     );
   }

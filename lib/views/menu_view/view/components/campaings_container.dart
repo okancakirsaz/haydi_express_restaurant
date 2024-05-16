@@ -7,7 +7,7 @@ class CampaignsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 450,
+      height: 550,
       decoration: BoxDecoration(
         color: ColorConsts.instance.third,
         borderRadius: RadiusConsts.instance.circularAll10,

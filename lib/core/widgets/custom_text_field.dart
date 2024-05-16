@@ -10,6 +10,7 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final TextStyle? style;
   final String hint;
+  final String? label;
   final TextStyle? hintStyle;
   final bool? isReadOnly;
   final int? maxLength;
@@ -25,6 +26,7 @@ class CustomTextField extends StatefulWidget {
     this.hintStyle,
     this.customInputFormatters,
     this.maxLength,
+    this.label,
   });
 
   @override
@@ -43,13 +45,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
         children: <Widget>[
           Text(
             widget.hint,
-            style: widget.hintStyle ?? TextConsts.instance.regularWhite22,
+            style: widget.hintStyle ?? TextConsts.instance.regularWhite16,
           ),
           const SizedBox(
             height: 5,
           ),
           Container(
-            height: 50,
+            height: 45,
             decoration: BoxDecoration(
               boxShadow: ColorConsts.instance.shadow,
               color: _isFocused
@@ -67,10 +69,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
               readOnly: widget.isReadOnly ?? false,
               inputFormatters: widget.customInputFormatters,
               cursorColor: Colors.black,
-              style: widget.style ?? TextConsts.instance.regularBlack20,
-              decoration: const InputDecoration(
-                counter: SizedBox(),
-                contentPadding: EdgeInsets.only(bottom: 5, left: 10),
+              style: widget.style ?? TextConsts.instance.regularBlack16,
+              decoration: InputDecoration(
+                hintText: widget.label,
+                hintStyle: TextConsts.instance.regularThird12,
+                counter: const SizedBox(),
+                contentPadding: const EdgeInsets.only(bottom: 5, left: 10),
                 enabledBorder: InputBorder.none,
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,

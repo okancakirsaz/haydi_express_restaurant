@@ -1,13 +1,13 @@
 part of '../menu_view.dart';
 
-class CreatePreviewMenContainer extends StatelessWidget {
+class CreatePreviewMenuContainer extends StatelessWidget {
   final MenuViewModel viewModel;
-  const CreatePreviewMenContainer({super.key, required this.viewModel});
+  const CreatePreviewMenuContainer({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 450,
+      height: 550,
       padding: PaddingConsts.instance.all20,
       decoration: BoxDecoration(
         color: ColorConsts.instance.lightThird,

@@ -36,7 +36,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
         children: <Widget>[
           Text(
             widget.hint,
-            style: widget.hintStyle ?? TextConsts.instance.regularWhite25,
+            style: widget.hintStyle ?? TextConsts.instance.regularWhite16,
           ),
           const SizedBox(
             height: 5,
@@ -62,8 +62,9 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
             ),
             errorMessage: "",
             passwordDecoration: PasswordDecoration(
-                inputStyle: widget.style ?? TextConsts.instance.regularBlack20,
-                inputPadding: const EdgeInsets.all(12)),
+              inputStyle: widget.style ?? TextConsts.instance.regularBlack16,
+              inputPadding: const EdgeInsets.all(10),
+            ),
             controller: widget.controller,
           ),
         ],

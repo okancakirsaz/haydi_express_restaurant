@@ -170,6 +170,11 @@ class MenuStats extends StatelessWidget {
           "Toplam Gelir(Menü): ",
           "${data.stats.totalRevenue}₺",
         ),
+        SizedBox(
+            width: 400,
+            height: 80,
+            child: TagsList(
+                viewModel: viewModel, isEditable: false, dataSet: data.tags))
       ],
     );
   }

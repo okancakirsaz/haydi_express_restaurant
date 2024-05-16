@@ -42,6 +42,14 @@ class PreviewCreatedMenu extends StatelessWidget {
           ],
         ),
         SizedBox(
+          width: 400,
+          height: 60,
+          child: TagsList(
+            viewModel: viewModel,
+            dataSet: viewModel.tags,
+          ),
+        ),
+        SizedBox(
           width: MediaQuery.of(context).size.width - 150,
           height: 100,
           child: ListTile(

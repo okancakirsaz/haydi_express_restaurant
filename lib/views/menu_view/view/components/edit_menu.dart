@@ -35,6 +35,7 @@ class _EditMenuState extends State<EditMenu> {
             controller: widget.viewModel.menuContent,
             hint: "İçerik",
           ),
+          _buildTagsInput(),
           Padding(
             padding: PaddingConsts.instance.top10,
             child: Row(
@@ -79,6 +80,40 @@ class _EditMenuState extends State<EditMenu> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildTagsInput() {
+    return Column(
+      children: <Widget>[
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: CustomTextField(
+                controller: widget.viewModel.tag,
+                hint: "Etiket",
+                label: "Örn: Makarna, Pide, Ev Yemeği...",
+              ),
+            ),
+            Padding(
+              padding: PaddingConsts.instance.top20,
+              child: CustomTextButton(
+                onPressed: () => widget.viewModel.addTag(),
+                style: TextConsts.instance.regularPrimary16,
+                text: "Ekle",
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+            height: 60,
+            width: 350,
+            child: TagsList(
+              viewModel: widget.viewModel,
+              dataSet: widget.viewModel.tags,
+            ))
+      ],
     );
   }
 }

@@ -29,16 +29,23 @@ class CreateMenuInputs extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: PaddingConsts.instance.top40,
+                  padding: PaddingConsts.instance.top30,
                   child: CustomStateFullButton(
+                    borderRadius: RadiusConsts.instance.circularAll10,
+                    height: 50,
                     onPressed: () async => await viewModel.pickImage(),
                     text: "Ürün Fotoğrafı\nEkle",
                     style: TextConsts.instance.regularWhite16,
                   ),
                 ),
-              )
+              ),
             ],
           ),
+        ),
+        SizedBox(
+          width: 350,
+          height: 150,
+          child: _buildTagsInput(),
         ),
         SizedBox(
           width: 350,
@@ -54,7 +61,35 @@ class CreateMenuInputs extends StatelessWidget {
 
   Widget _buildTagsInput() {
     return Column(
-      children: <Widget>[],
+      children: <Widget>[
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: CustomTextField(
+                controller: viewModel.tag,
+                hint: "Etiket",
+                label: "Örn: Makarna, Pide, Ev Yemeği...",
+              ),
+            ),
+            Padding(
+              padding: PaddingConsts.instance.top20,
+              child: CustomTextButton(
+                onPressed: () => viewModel.addTag(),
+                style: TextConsts.instance.regularPrimary16,
+                text: "Ekle",
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+            height: 60,
+            width: 350,
+            child: TagsList(
+              viewModel: viewModel,
+              dataSet: viewModel.tags,
+            ))
+      ],
     );
   }
 }

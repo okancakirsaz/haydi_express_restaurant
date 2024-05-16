@@ -12,13 +12,15 @@ class CustomStateFullButton extends StatelessWidget {
   final String text;
   final double? width;
   final double? height;
+  final BorderRadiusGeometry? borderRadius;
   const CustomStateFullButton(
       {super.key,
       required this.onPressed,
       this.style,
       required this.text,
       this.width,
-      this.height});
+      this.height,
+      this.borderRadius});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +33,7 @@ class CustomStateFullButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: ColorConsts.instance.primary,
         border: const Border(),
-        borderRadius: RadiusConsts.instance.circularAll20,
+        borderRadius: borderRadius ?? RadiusConsts.instance.circularAll20,
         boxShadow: ColorConsts.instance.shadow,
       ),
       child: EasyButton(

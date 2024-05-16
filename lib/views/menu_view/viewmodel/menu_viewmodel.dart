@@ -29,6 +29,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
   final TextEditingController menuName = TextEditingController();
   final TextEditingController menuPrice = TextEditingController();
   final TextEditingController menuContent = TextEditingController();
+  final TextEditingController tag = TextEditingController();
   Uint8List? menuImage;
 
   @observable
@@ -43,6 +44,8 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
   @observable
   String createOrPreviewMenuButtonText = "Önizleme";
 
+  @observable
+  ObservableList<String> tags = ObservableList.of([]);
   @observable
   ObservableList<MenuModel> restaurantMenu = ObservableList.of([]);
   @observable
@@ -109,11 +112,30 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     if (menuContent.text != "" &&
         menuName.text != "" &&
         menuPrice.text != "" &&
-        (menuImage != null || isOnEditMode)) {
+        (menuImage != null || isOnEditMode) &&
+        tags.isNotEmpty) {
       return true;
     } else {
       return false;
     }
+  }
+
+  @action
+  addTag() {
+    if (tags.length >= 5) {
+      showErrorDialog("En fazla beş etiket girebilirsiniz.");
+      return;
+    }
+
+    if (tag.text.isNotEmpty) {
+      tags.add(tag.text);
+    }
+    tag.text = "";
+  }
+
+  @action
+  deleteTag(int index) {
+    tags.removeAt(index);
   }
 
   Future<void> createMenu() async {
@@ -138,11 +160,13 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     }
   }
 
+  @action
   _resetMenuInputs() {
     menuName.text = "";
     menuImage = null;
     menuPrice.text = "";
     menuContent.text = "";
+    tags.clear();
   }
 
   _handleCreateMenuResponse(MenuModel? response) {
@@ -168,6 +192,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     data.name = menuName.text;
     data.content = menuContent.text;
     data.price = int.parse(menuPrice.text);
+    data.tags = tags.toList();
     return data;
   }
 
@@ -182,6 +207,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
       discountAmount: null,
       discountFinishDate: null,
       menuId: const Uuid().v7(),
+      tags: tags.toList(growable: false),
       stats: MenuStatsModel(
         comments: [],
         creationDate: DateTime.now().toIso8601String(),
@@ -359,6 +385,9 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     menuContent.text = data.content;
     menuPrice.text = data.price.toString();
     menuName.text = data.name;
+    for (String element in data.tags) {
+      tags.add(element);
+    }
   }
 
   onEditDialogClose() {
