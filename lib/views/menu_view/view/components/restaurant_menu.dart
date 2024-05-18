@@ -7,7 +7,7 @@ class RestaurantMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<MenuModel>?>(
-        future: viewModel.getRestaurantMenu(),
+        future: viewModel.fetchRestaurantMenu(),
         builder: (context, snapshot) {
           if (snapshot.data != null) {
             List<MenuModel> data = viewModel.restaurantMenu;

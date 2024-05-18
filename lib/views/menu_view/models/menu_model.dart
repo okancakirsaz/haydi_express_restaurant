@@ -12,6 +12,7 @@ class MenuModel {
   String menuId;
   List<dynamic> tags;
   MenuStatsModel stats;
+  String? boostExpireDate;
 
   MenuModel({
     required this.name,
@@ -25,6 +26,7 @@ class MenuModel {
     required this.discountFinishDate,
     required this.menuId,
     required this.stats,
+    this.boostExpireDate,
   });
 
   Map<String, dynamic> toJson() {
@@ -40,23 +42,24 @@ class MenuModel {
       'menuId': menuId,
       'tags': tags,
       'stats': stats.toJson(),
+      'boostExpireDate': boostExpireDate,
     };
   }
 
   factory MenuModel.fromJson(Map<String, dynamic> json) {
     return MenuModel(
-      name: json['name'] as String,
-      price: json['price'] as int,
-      photoUrl: json['photoUrl'] as String,
-      content: json['content'] as String,
-      restaurantUid: json['restaurantUid'] as String,
-      isOnDiscount: json['isOnDiscount'] as bool,
-      discountAmount: json['discountAmount'] as int?,
-      discountFinishDate: json['discountFinishDate'] as String?,
-      menuId: json['menuId'] as String,
-      tags: json['tags'] as List<dynamic>,
-      stats: MenuStatsModel.fromJson(json['stats']),
-    );
+        name: json['name'] as String,
+        price: json['price'] as int,
+        photoUrl: json['photoUrl'] as String,
+        content: json['content'] as String,
+        restaurantUid: json['restaurantUid'] as String,
+        isOnDiscount: json['isOnDiscount'] as bool,
+        discountAmount: json['discountAmount'] as int?,
+        discountFinishDate: json['discountFinishDate'] as String?,
+        menuId: json['menuId'] as String,
+        tags: json['tags'] as List<dynamic>,
+        stats: MenuStatsModel.fromJson(json['stats']),
+        boostExpireDate: json['boostExpireDate'] as String?);
   }
 
   @override

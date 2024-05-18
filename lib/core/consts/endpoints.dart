@@ -15,4 +15,7 @@ final class Endpoints {
   final String cancelCampaign = "/menu/cancel-campaign";
   final String addDiscount = "/menu/add-discount";
   final String deleteMenu = "/menu/delete-menu";
+
+  //Advertisement
+  final String getBoost = "/advertisement/get-new-advertisement";
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_manager.dart';
+import 'package:haydi_express_restaurant/core/init/cache/local_sql_manager.dart';
 import 'package:haydi_express_restaurant/core/managers/navigation_manager.dart';
+import 'package:haydi_express_restaurant/core/widgets/success_dialog.dart';
 import 'package:intl/intl.dart';
 
 import '../../widgets/error_dialog.dart';
@@ -10,6 +12,7 @@ abstract mixin class BaseViewModel {
   late BuildContext viewModelContext;
   void setContext(BuildContext context);
   LocaleManager localeManager = LocaleManager.instance;
+  LocaleSqlManager localeSqlManager = LocaleSqlManager.instance;
   NavigationManager get navigationManager =>
       NavigationManager(viewModelContext);
   void init() {}
@@ -18,8 +21,12 @@ abstract mixin class BaseViewModel {
   showErrorDialog([String? reason]) {
     ErrorDialog(
       context: viewModelContext,
-      reason: reason ?? "Bir sorun oluştu, daha sonra tekrar deneyiniz.",
+      reason: reason,
     );
+  }
+
+  showSuccessDialog([String? reason]) {
+    SuccessDialog(context: viewModelContext, reason: reason);
   }
 
   navigatorPop() {

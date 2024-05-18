@@ -142,7 +142,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     if (_createMenuInputValidation) {
       final MenuModel? response =
           await service.createMenu(_fetchMenuModel, menuImage!, accessToken!);
-      _handleCreateMenuResponse(response);
+      await _handleCreateMenuResponse(response);
     } else {
       showErrorDialog(
           "Lütfen istenilen bilgilerin tamamının girildiğinden emin olun.");
@@ -153,7 +153,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     if (_createMenuInputValidation) {
       final MenuModel? response = await service.editMenu(
           _fetchEditedMenuModel(data), menuImage, accessToken!);
-      _handleEditMenuResponse(response);
+      await _handleEditMenuResponse(response);
     } else {
       showErrorDialog(
           "Lütfen istenilen bilgilerin tamamının girildiğinden emin olun.");
@@ -169,18 +169,18 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     tags.clear();
   }
 
-  _handleCreateMenuResponse(MenuModel? response) {
+  Future<void> _handleCreateMenuResponse(MenuModel? response) async {
     if (response != null) {
       _resetMenuInputs();
-      addNewMenuToRestaurantMenu(response);
+      await addNewMenuToRestaurantMenu(response);
     } else {
       showErrorDialog();
     }
   }
 
-  _handleEditMenuResponse(MenuModel? response) {
+  Future<void> _handleEditMenuResponse(MenuModel? response) async {
     if (response != null) {
-      changeMenuState(response);
+      await changeMenuState(response);
       //Close dialog
       navigatorPop();
     } else {
@@ -219,29 +219,62 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     );
   }
 
-  Future<List<MenuModel>?> getRestaurantMenu() async {
+  Future<List<MenuModel>> fetchRestaurantMenu() async {
+    restaurantMenu = ObservableList.of(await _getRestaurantMenuFromApi() ?? []);
+    _separateCampaigns();
+    return restaurantMenu;
+
+    //TODO: Open it later when you want to display logic on cached menu
+    // if (localeManager.getNullableJsonData(LocaleKeysEnums.menu.name) == null) {
+    //   restaurantMenu =
+    //       ObservableList.of(await _getRestaurantMenuFromApi() ?? []);
+    // } else {
+    //   restaurantMenu = ObservableList.of(_encodeMenuFromCache);
+    // }
+    // _separateCampaigns();
+    // return restaurantMenu;
+  }
+
+  List<MenuModel> get _encodeMenuFromCache {
+    final List<dynamic> cachedList =
+        localeManager.getJsonData(LocaleKeysEnums.menu.name);
+    final List<MenuModel> cachedListAsModel =
+        cachedList.map((e) => MenuModel.fromJson(e)).toList();
+    return cachedListAsModel;
+  }
+
+  Future<List<MenuModel>?> _getRestaurantMenuFromApi() async {
     final List<MenuModel>? response = await service.getRestaurantMenu(
         localeManager.getStringData(LocaleKeysEnums.id.name));
     if (response == null) {
       showErrorDialog("Menü getirilirken bir sorun oluştu.");
-    } else {
-      restaurantMenu = ObservableList.of(response);
-      _separateCampaigns();
+      return null;
     }
+    await _cacheRestaurantMenu(response);
+
     return response;
   }
 
-  @action
-  addNewMenuToRestaurantMenu(MenuModel data) {
-    restaurantMenu.add(data);
+  Future<void> _cacheRestaurantMenu(List<MenuModel> data) async {
+    await localeManager.setJsonData(
+      LocaleKeysEnums.menu.name,
+      data.map((e) => e.toJson()).toList(),
+    );
   }
 
   @action
-  changeMenuState(MenuModel data) {
+  Future<void> addNewMenuToRestaurantMenu(MenuModel data) async {
+    restaurantMenu.add(data);
+    await _cacheRestaurantMenu(restaurantMenu);
+  }
+
+  @action
+  Future<void> changeMenuState(MenuModel data) async {
     final MenuModel oldElement =
         restaurantMenu.where((element) => element.menuId == data.menuId).first;
     restaurantMenu.remove(oldElement);
     restaurantMenu.add(data);
+    await _cacheRestaurantMenu(restaurantMenu);
   }
 
   @action
@@ -265,6 +298,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
           .where((element) => element.menuId == menuId)
           .first
           .isOnDiscount = false;
+      await _cacheRestaurantMenu(restaurantMenu);
       menusOnCampaigns.remove(element);
     }
   }
@@ -374,6 +408,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     final bool? response = await service.deleteMenu(data, accessToken!);
     if (response != null && response) {
       restaurantMenu.remove(data);
+      await _cacheRestaurantMenu(restaurantMenu);
     } else {
       showErrorDialog();
     }

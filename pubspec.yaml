@@ -35,13 +35,12 @@ dependencies:
   calendar_date_picker2: ^0.5.3
   toastification: ^1.2.1
 
-  #Others
+  #File
   shared_preferences: ^2.2.1
-  
-  
-  #OS
+  sqlite3: ^2.1.0
+  sqlite3_flutter_libs: ^0.5.18
+  path_provider: ^2.1.1
   file_selector: ^1.0.3
-  
 
   #Network
   dio:

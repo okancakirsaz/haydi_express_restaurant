@@ -24,7 +24,7 @@ class AdsNavigator extends StatelessWidget {
         Padding(
           padding: PaddingConsts.instance.all20,
           child: CustomButton(
-            onPressed: () {},
+            onPressed: () => viewModel.navigateToAds,
             text: "Reklam İşlemleri",
             style: TextConsts.instance.regularWhite16,
             backGroundColor: ColorConsts.instance.lightThird,

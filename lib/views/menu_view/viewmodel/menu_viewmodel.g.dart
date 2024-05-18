@@ -140,6 +140,24 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
     });
   }
 
+  late final _$addNewMenuToRestaurantMenuAsyncAction = AsyncAction(
+      '_MenuViewModelBase.addNewMenuToRestaurantMenu',
+      context: context);
+
+  @override
+  Future<void> addNewMenuToRestaurantMenu(MenuModel data) {
+    return _$addNewMenuToRestaurantMenuAsyncAction
+        .run(() => super.addNewMenuToRestaurantMenu(data));
+  }
+
+  late final _$changeMenuStateAsyncAction =
+      AsyncAction('_MenuViewModelBase.changeMenuState', context: context);
+
+  @override
+  Future<void> changeMenuState(MenuModel data) {
+    return _$changeMenuStateAsyncAction.run(() => super.changeMenuState(data));
+  }
+
   late final _$cancelCampaignAsyncAction =
       AsyncAction('_MenuViewModelBase.cancelCampaign', context: context);
 
@@ -222,28 +240,6 @@ mixin _$MenuViewModel on _MenuViewModelBase, Store {
         name: '_MenuViewModelBase._resetMenuInputs');
     try {
       return super._resetMenuInputs();
-    } finally {
-      _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic addNewMenuToRestaurantMenu(MenuModel data) {
-    final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
-        name: '_MenuViewModelBase.addNewMenuToRestaurantMenu');
-    try {
-      return super.addNewMenuToRestaurantMenu(data);
-    } finally {
-      _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic changeMenuState(MenuModel data) {
-    final _$actionInfo = _$_MenuViewModelBaseActionController.startAction(
-        name: '_MenuViewModelBase.changeMenuState');
-    try {
-      return super.changeMenuState(data);
     } finally {
       _$_MenuViewModelBaseActionController.endAction(_$actionInfo);
     }

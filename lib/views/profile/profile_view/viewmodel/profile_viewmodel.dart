@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
+import 'package:haydi_express_restaurant/views/adversiment/get_adversiment_view/view/get_ads_view.dart';
 import 'package:haydi_express_restaurant/views/authentication/log_in/view/log_in_view.dart';
 import 'package:haydi_express_restaurant/views/authentication/models/restaurant_model.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
@@ -27,4 +28,6 @@ abstract class _ProfileViewModelBase with Store, BaseViewModel {
     await localeManager.removeData(LocaleKeysEnums.restaurantData.name);
     navigationManager.navigateAndRemoveUntil(const LogInView());
   }
+
+  dynamic get navigateToAds => navigationManager.navigate(const GetAdsView());
 }

@@ -20,7 +20,6 @@ final class MenuService extends NetworkManager {
         }),
         options: Options(headers: setHeaderAccessToken(accessToken)),
       );
-      print(response.data);
       return MenuModel.fromJson(response.data);
     } catch (e) {
       return null;

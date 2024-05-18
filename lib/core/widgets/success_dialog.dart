@@ -4,19 +4,19 @@ import 'package:toastification/toastification.dart';
 
 import '../consts/color_consts/color_consts.dart';
 
-class ErrorDialog {
+class SuccessDialog {
   final String? reason;
   final BuildContext context;
-  ErrorDialog({required this.context, this.reason}) {
+  SuccessDialog({required this.context, this.reason}) {
     show();
   }
   show() {
     toastification.show(
       primaryColor: ColorConsts.instance.primary,
       context: context,
-      type: ToastificationType.error,
+      type: ToastificationType.success,
       title: Text(
-        reason ?? "Bir sorun oluştu, daha sonra tekrar deneyiniz.",
+        reason ?? "İşlem Başarılı",
         style: TextConsts.instance.regularBlack16,
       ),
       autoCloseDuration: const Duration(seconds: 5),
