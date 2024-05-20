@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:haydi_express_restaurant/core/consts/app_consts.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
 import 'package:haydi_express_restaurant/views/main_view.dart/view/main_view.dart';
 import 'package:haydi_express_restaurant/views/menu_view/models/add_campaign_model.dart';
@@ -207,6 +208,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
       discountAmount: null,
       discountFinishDate: null,
       menuId: const Uuid().v7(),
+      restaurantName: AppConst.restaurantName,
       tags: tags.toList(growable: false),
       stats: MenuStatsModel(
         comments: [],
