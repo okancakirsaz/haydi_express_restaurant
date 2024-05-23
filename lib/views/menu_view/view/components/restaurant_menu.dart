@@ -17,9 +17,10 @@ class RestaurantMenu extends StatelessWidget {
                 tag: "menuItem",
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount:
-                          MediaQuery.of(context).size.width <= 1300 ? 2 : 3,
-                      childAspectRatio: 2),
+                    crossAxisCount:
+                        MediaQuery.of(context).size.width <= 1300 ? 2 : 3,
+                    childAspectRatio: 2,
+                  ),
                   itemCount: data.length,
                   itemBuilder: (context, index) {
                     return buildMenuItem(data[index], context);
@@ -117,6 +118,7 @@ class RestaurantMenu extends StatelessWidget {
           child: ListTile(
             title: Text(
               data.name,
+              overflow: TextOverflow.ellipsis,
               style: TextConsts.instance.regularWhite20Bold,
             ),
             subtitle: Text("${data.price}₺",
@@ -129,6 +131,7 @@ class RestaurantMenu extends StatelessWidget {
             title: Text(
               data.content,
               style: TextConsts.instance.regularWhite14,
+              overflow: TextOverflow.ellipsis,
             ),
             leading:
                 Text("İçerik: ", style: TextConsts.instance.regularWhite14Bold),

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -77,15 +78,9 @@ class MenuView extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 600,
                 width: double.infinity,
-                child: ListTile(
-                  contentPadding: const EdgeInsets.all(0),
-                  title: const PartTitle(
-                    title: "Güncel Menü",
-                  ),
-                  subtitle: RestaurantMenu(viewModel: model),
-                ),
+                height: 600,
+                child: RestaurantMenu(viewModel: model),
               ),
             ],
           ),

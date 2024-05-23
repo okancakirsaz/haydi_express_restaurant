@@ -63,6 +63,7 @@ class ActiveCampaigns extends StatelessWidget {
               child: Text(
                 data.name,
                 style: TextConsts.instance.regularWhite16,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
