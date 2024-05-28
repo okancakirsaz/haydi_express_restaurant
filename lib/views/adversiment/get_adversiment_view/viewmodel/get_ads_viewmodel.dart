@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
-import 'package:haydi_express_restaurant/views/adversiment/public/model/boost_menu_model.dart';
+import 'package:haydi_express_restaurant/views/adversiment/public/model/boost_menu_or_restaurant_model.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 
@@ -77,10 +77,14 @@ abstract class _GetAdsViewModelBase with Store, BaseViewModel {
     }
   }
 
-  BoostMenuModel get _fetchBoostData => BoostMenuModel(
-      expireDate: selectedExpireDate!,
-      menuId: _getMenuIdFromMenuName,
-      boostArea: boostArea.text);
+  BoostRestaurantOrMenuModel get _fetchBoostData => BoostRestaurantOrMenuModel(
+        //TODO:Add isRestaurant check
+        expireDate: selectedExpireDate!,
+        elementId: _getMenuIdFromMenuName,
+        boostArea: boostArea.text,
+        restaurantId: localeManager.getStringData(LocaleKeysEnums.id.name),
+        isRestaurant: false,
+      );
 
   String get _getMenuIdFromMenuName {
     final MenuModel selectedMenu = restaurantMenu

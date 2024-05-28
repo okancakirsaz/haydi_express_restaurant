@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_button.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_dropdown.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_statefull_button.dart';
+import 'package:haydi_express_restaurant/views/adversiment/get_adversiment_view/view/components/get_search_ad.dart';
 import 'package:haydi_express_restaurant/views/adversiment/get_adversiment_view/viewmodel/get_ads_viewmodel.dart';
 import 'package:haydi_express_restaurant/views/adversiment/public/const/ad_types.dart';
 import '../../../../core/base/view/base_view.dart';
@@ -42,6 +43,12 @@ class GetAdsView extends StatelessWidget {
                     onPressed: () => model.openDatePicker(),
                     text: "Pick Boost Expire Date",
                   ),
+                  CustomButton(
+                      onPressed: () {
+                        model.navigationManager
+                            .navigate(GetSearchAd(viewModel: model));
+                      },
+                      text: "Search Ad"),
                   CustomStateFullButton(
                     onPressed: () async => await model.getBoost(),
                     text: "Get Ad",

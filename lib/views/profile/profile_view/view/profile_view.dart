@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/consts/color_consts/color_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/padding_consts.dart';
@@ -23,18 +24,20 @@ class ProfileView extends StatelessWidget {
           return CustomScaffold(
               body: Stack(
             children: <Widget>[
-              Column(
-                children: <Widget>[
-                  AdsNavigator(viewModel: model),
-                  Padding(
-                    padding: PaddingConsts.instance.horizontal30,
-                    child: Divider(
-                      color: ColorConsts.instance.black,
-                      thickness: 1,
+              SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    AdsNavigator(viewModel: model),
+                    Padding(
+                      padding: PaddingConsts.instance.horizontal30,
+                      child: Divider(
+                        color: ColorConsts.instance.black,
+                        thickness: 1,
+                      ),
                     ),
-                  ),
-                  AccountInformation(viewModel: model),
-                ],
+                    AccountInformation(viewModel: model),
+                  ],
+                ),
               ),
               Align(
                 alignment: Alignment.bottomRight,
