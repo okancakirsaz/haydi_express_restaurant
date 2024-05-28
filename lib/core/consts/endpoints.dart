@@ -18,4 +18,7 @@ final class Endpoints {
 
   //Advertisement
   final String getBoost = "/advertisement/get-new-advertisement";
+
+  //Search
+  final String getSearchAds = "/search/get-search-ads";
 }

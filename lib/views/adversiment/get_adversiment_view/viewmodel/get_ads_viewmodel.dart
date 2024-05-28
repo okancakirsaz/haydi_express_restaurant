@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
+import 'package:haydi_express_restaurant/core/init/model/http_exception_model.dart';
 import 'package:haydi_express_restaurant/views/adversiment/public/model/boost_menu_or_restaurant_model.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
@@ -16,13 +17,15 @@ abstract class _GetAdsViewModelBase with Store, BaseViewModel {
   void setContext(BuildContext context) => viewModelContext = context;
 
   @override
-  init() {
+  init() async {
     _initMenu();
+    await _getSearchAdsLength();
   }
 
   final AdsService service = AdsService();
 
   List<MenuModel> restaurantMenu = [];
+  bool isRestaurantBoosting = false;
   final TextEditingController boostArea = TextEditingController();
   final TextEditingController pickedMenu = TextEditingController();
   String? selectedExpireDate;
@@ -37,6 +40,18 @@ abstract class _GetAdsViewModelBase with Store, BaseViewModel {
     return restaurantMenu.map((e) {
       return DropdownMenuEntry(value: e.name, label: e.name);
     }).toList();
+  }
+
+  Future<void> _getSearchAdsLength() async {
+    final int? response = await service.getSearchAdsLength(accessToken!);
+    if (response == null) {
+      showErrorDialog();
+      return;
+    }
+    if (response >= 5) {
+      //TODO: Close suggestion ads and edit text
+      showErrorDialog("Arama Önerileri Kısmı Şuan Reklam İçin Açık Değil");
+    }
   }
 
   Future<void> openDatePicker() async {
@@ -56,34 +71,30 @@ abstract class _GetAdsViewModelBase with Store, BaseViewModel {
       return;
     }
 
-    final bool? response =
+    final HttpExceptionModel? response =
         await service.getBoost(_fetchBoostData, accessToken!);
 
-    if (response == null || !response) {
+    if (response == null) {
       showErrorDialog();
       return;
     }
-    showSuccessDialog();
+    showSuccessDialog(response.message);
   }
 
   bool get _boostValidation {
-    if (boostArea.text.isEmpty ||
-        pickedMenu.text.isEmpty ||
-        selectedExpireDate == null) {
-      showErrorDialog("Lütfen istenilen bilgileri eksiksiz giriniz.");
-      return false;
-    } else {
-      return true;
-    }
+    //TODO: Do validation
+    return true;
   }
 
+  String get restaurantId =>
+      localeManager.getStringData(LocaleKeysEnums.id.name);
+
   BoostRestaurantOrMenuModel get _fetchBoostData => BoostRestaurantOrMenuModel(
-        //TODO:Add isRestaurant check
         expireDate: selectedExpireDate!,
-        elementId: _getMenuIdFromMenuName,
+        elementId: isRestaurantBoosting ? restaurantId : _getMenuIdFromMenuName,
         boostArea: boostArea.text,
-        restaurantId: localeManager.getStringData(LocaleKeysEnums.id.name),
-        isRestaurant: false,
+        restaurantId: restaurantId,
+        isRestaurant: isRestaurantBoosting,
       );
 
   String get _getMenuIdFromMenuName {
