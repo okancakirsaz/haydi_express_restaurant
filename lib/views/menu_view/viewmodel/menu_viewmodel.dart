@@ -423,7 +423,7 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     menuPrice.text = data.price.toString();
     menuName.text = data.name;
     for (String element in data.tags) {
-      tags.add(element);
+      tags.add(element.toLowerCase());
     }
   }
 
