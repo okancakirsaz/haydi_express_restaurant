@@ -10,12 +10,12 @@ import 'package:haydi_express_restaurant/core/consts/color_consts/color_consts.d
 import 'package:haydi_express_restaurant/core/consts/padding_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/radius_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/text_consts.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_dropdown.dart';
+import 'package:haydi_express_restaurant/core/widgets/button/custom_button.dart';
+import 'package:haydi_express_restaurant/core/widgets/input/custom_dropdown.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_statefull_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_text_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_text_field.dart';
+import 'package:haydi_express_restaurant/core/widgets/button/custom_statefull_button.dart';
+import 'package:haydi_express_restaurant/core/widgets/button/custom_text_button.dart';
+import 'package:haydi_express_restaurant/core/widgets/input/custom_text_field.dart';
 import 'package:haydi_express_restaurant/views/menu_view/models/menu_model.dart';
 import '../../../../core/base/view/base_view.dart';
 import '../../../core/widgets/part_title.dart';

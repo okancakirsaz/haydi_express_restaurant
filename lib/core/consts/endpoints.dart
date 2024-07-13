@@ -21,4 +21,7 @@ final class Endpoints {
 
   //Search
   final String getSearchAds = "/search/get-search-ads";
+
+  //Orders
+  final String getActiveOrders = "/order/restaurant-active-orders";
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_dropdown.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_statefull_button.dart';
+import 'package:haydi_express_restaurant/core/widgets/button/custom_button.dart';
+import 'package:haydi_express_restaurant/core/widgets/input/custom_dropdown.dart';
+import 'package:haydi_express_restaurant/core/widgets/button/custom_statefull_button.dart';
 import 'package:haydi_express_restaurant/views/adversiment/get_adversiment_view/viewmodel/get_ads_viewmodel.dart';
 import 'package:haydi_express_restaurant/views/adversiment/public/const/ad_types.dart';
 import '../../../../core/base/view/base_view.dart';

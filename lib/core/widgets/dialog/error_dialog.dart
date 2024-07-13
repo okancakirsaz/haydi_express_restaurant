@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/consts/text_consts.dart';
 import 'package:toastification/toastification.dart';
 
-import '../consts/color_consts/color_consts.dart';
+import '../../consts/color_consts/color_consts.dart';
 
 class ErrorDialog {
   final String? reason;

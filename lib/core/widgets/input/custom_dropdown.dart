@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/consts/radius_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/text_consts.dart';
 
-import '../consts/color_consts/color_consts.dart';
+import '../../consts/color_consts/color_consts.dart';
 
 class CustomDropdown extends StatelessWidget {
   final List<DropdownMenuEntry> props;

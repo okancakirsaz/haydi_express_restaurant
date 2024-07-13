@@ -3,9 +3,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:haydi_express_restaurant/core/consts/text_consts.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_app_bar/app_bar_elements.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_app_bar/viewmodel/custom_app_bar_viewmodel.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_text_button.dart';
+import 'package:haydi_express_restaurant/core/widgets/button/custom_text_button.dart';
 import 'package:haydi_express_restaurant/views/main_view.dart/viewmodel/main_viewmodel.dart';
 import 'package:haydi_express_restaurant/views/menu_view/view/menu_view.dart';
+import 'package:haydi_express_restaurant/views/orders/view/orders_view.dart';
 import 'package:haydi_express_restaurant/views/profile/profile_view/view/profile_view.dart';
 
 import '../../consts/color_consts/color_consts.dart';
@@ -38,7 +39,7 @@ class CustomAppBar {
       centerTitle: false,
       actions: <Widget>[
         buildTextButton(const MenuView(), 0, elements[0]),
-        buildTextButton(const Center(child: Text("1")), 1, elements[1]),
+        buildTextButton(const OrdersView(), 1, elements[1]),
         buildTextButton(const ProfileView(), 2, elements[2]),
         buildTextButton(const Center(child: Text("3")), 3, elements[3]),
         buildTextButton(const Center(child: Text("4")), 4, elements[4]),

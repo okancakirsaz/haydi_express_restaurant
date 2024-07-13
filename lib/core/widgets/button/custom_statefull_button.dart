@@ -4,7 +4,7 @@ import 'package:haydi_express_restaurant/core/consts/color_consts/color_consts.d
 import 'package:haydi_express_restaurant/core/consts/padding_consts.dart';
 import 'package:haydi_express_restaurant/core/consts/radius_consts.dart';
 
-import '../consts/text_consts.dart';
+import '../../consts/text_consts.dart';
 
 class CustomStateFullButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -33,7 +33,7 @@ class CustomStateFullButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: ColorConsts.instance.primary,
         border: const Border(),
-        borderRadius: borderRadius ?? RadiusConsts.instance.circularAll20,
+        borderRadius: borderRadius ?? RadiusConsts.instance.circularAll10,
         boxShadow: ColorConsts.instance.shadow,
       ),
       child: EasyButton(
