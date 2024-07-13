@@ -253,6 +253,14 @@ class TextConsts {
     );
   }
 
+  TextStyle get regularBlack10 {
+    return GoogleFonts.montserrat(
+      fontSize: 10,
+      color: Colors.black,
+      fontWeight: FontWeight.normal,
+    );
+  }
+
   //Primary
   TextStyle get regularPrimary20 {
     return GoogleFonts.montserrat(
@@ -362,6 +370,22 @@ class TextConsts {
   TextStyle get regularThird16Bold {
     return GoogleFonts.montserrat(
       fontSize: 16,
+      color: ColorConsts.instance.third,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
+  TextStyle get regularThird16 {
+    return GoogleFonts.montserrat(
+      fontSize: 16,
+      color: ColorConsts.instance.third,
+      fontWeight: FontWeight.normal,
+    );
+  }
+
+  TextStyle get regularThird14Bold {
+    return GoogleFonts.montserrat(
+      fontSize: 14,
       color: ColorConsts.instance.third,
       fontWeight: FontWeight.bold,
     );

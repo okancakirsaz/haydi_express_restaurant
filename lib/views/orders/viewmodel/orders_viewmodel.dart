@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
+import 'package:haydi_express_restaurant/core/managers/web_socket_manager.dart';
 import 'package:haydi_express_restaurant/views/authentication/models/restaurant_model.dart';
 import 'package:haydi_express_restaurant/views/orders/model/order_model.dart';
 import 'package:haydi_express_restaurant/views/orders/service/orders_service.dart';
@@ -16,7 +17,9 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
   void setContext(BuildContext context) => viewModelContext = context;
 
   @override
-  init() {}
+  init() {
+    _listenOrderChannel();
+  }
 
   @observable
   ObservableList<OrderModel> activeOrders = ObservableList.of([]);
@@ -42,5 +45,13 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
     String hourFormat = DateFormat('HH.mm').format(dateTime);
     String dateFormat = DateFormat('dd.MM.yyyy').format(dateTime);
     return "$hourFormat - $dateFormat";
+  }
+
+  @action
+  _listenOrderChannel() {
+    WebSocketManager.instance.webSocketReceiver(
+      "New Order:${localeManager.getStringData(LocaleKeysEnums.id.name)}",
+      (e) => activeOrders.add(OrderModel.fromJson(e)),
+    );
   }
 }

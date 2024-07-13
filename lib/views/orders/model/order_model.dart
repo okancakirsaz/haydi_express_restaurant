@@ -1,10 +1,11 @@
-import '../../menu_view/models/menu_model.dart';
+import 'package:haydi_express_restaurant/views/orders/model/bucket_element_model.dart';
+
 import 'address_model.dart';
 import 'payment_model.dart';
 
 class OrderModel {
   PaymentModel paymentData;
-  List<MenuModel> menuData;
+  List<BucketElementModel> menuData;
   AddressModel addressData;
   String paymentMethod;
   String orderState;
@@ -58,7 +59,7 @@ class OrderModel {
     return OrderModel(
       paymentData: PaymentModel.fromJson(json['paymentData']),
       menuData: (json['menuData'] as List<dynamic>)
-          .map((e) => MenuModel.fromJson(e))
+          .map((e) => BucketElementModel.fromJson(e))
           .toList(),
       addressData: AddressModel.fromJson(json['addressData']),
       paymentMethod: json['paymentMethod'] as String,
