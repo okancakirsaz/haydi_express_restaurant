@@ -40,6 +40,17 @@ mixin _$OrdersViewModel on _OrdersViewModelBase, Store {
   }
 
   @override
+  dynamic changeOrderState(OrderState currentOrderState, int index) {
+    final _$actionInfo = _$_OrdersViewModelBaseActionController.startAction(
+        name: '_OrdersViewModelBase.changeOrderState');
+    try {
+      return super.changeOrderState(currentOrderState, index);
+    } finally {
+      _$_OrdersViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 activeOrders: ${activeOrders}

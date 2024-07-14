@@ -71,6 +71,7 @@ class ActiveOrders extends StatelessWidget {
             return Padding(
               padding: PaddingConsts.instance.bottom15,
               child: OrderWidget(
+                  index: i,
                   isOrderExpired: false,
                   viewModel: viewModel,
                   data: viewModel.activeOrders[i]),

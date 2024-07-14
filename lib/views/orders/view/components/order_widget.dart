@@ -3,12 +3,14 @@ part of '../orders_view.dart';
 class OrderWidget extends StatelessWidget {
   final OrdersViewModel viewModel;
   final OrderModel data;
+  final int index;
   final bool isOrderExpired;
   const OrderWidget(
       {super.key,
       required this.viewModel,
       required this.data,
-      required this.isOrderExpired});
+      required this.isOrderExpired,
+      required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -62,22 +64,24 @@ class OrderWidget extends StatelessWidget {
 
   Widget _buildTrailing() {
     final bool isOrderWaitingAccept =
-        data.orderState == OrderStates.waitingForRestaurantAccept.value
+        data.orderState.asOrderState == WaitingRestaurantAccept.instance
             ? true
             : false;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        CustomButton(
-          width: 150,
-          onPressed: () {},
-          text: isOrderWaitingAccept ? "Onayla" : data.orderState,
-          style: isOrderWaitingAccept
-              ? TextConsts.instance.regularBlack16
-              : TextConsts.instance.regularWhite12,
-          backGroundColor:
-              OrderStates.stateError.getEnumFromValue(data.orderState).color,
-        ),
+        Observer(builder: (context) {
+          return CustomButton(
+            width: 150,
+            onPressed: () =>
+                viewModel.changeOrderState(data.orderState.asOrderState, index),
+            text: isOrderWaitingAccept ? "Onayla" : data.orderState,
+            style: isOrderWaitingAccept
+                ? TextConsts.instance.regularBlack16
+                : TextConsts.instance.regularWhite12,
+            backGroundColor: data.orderState.asOrderState.color,
+          );
+        }),
         FloatingActionButton(
           backgroundColor: ColorConsts.instance.background,
           //TODO:Add print process
