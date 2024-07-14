@@ -18,8 +18,9 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
   void setContext(BuildContext context) => viewModelContext = context;
 
   @override
-  init() {
+  init() async {
     _listenOrderChannel();
+    await localeManager.setBoolData(LocaleKeysEnums.isOrderGot.name, false);
   }
 
   @observable
@@ -31,14 +32,21 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
       .wantDeliveryFromUs;
 
   Future<bool> getActiveOrders() async {
-    final List<OrderModel>? response = await service.getActiveOrders(
-        localeManager.getStringData(LocaleKeysEnums.id.name), accessToken!);
-    if (response == null) {
-      showErrorDialog();
-      return false;
+    //Every screen size changes this function triggering.
+    //So this check saves api from over requests
+    if (!localeManager.getBoolData(LocaleKeysEnums.isOrderGot.name)) {
+      final List<OrderModel>? response = await service.getActiveOrders(
+          localeManager.getStringData(LocaleKeysEnums.id.name), accessToken!);
+      if (response == null) {
+        showErrorDialog();
+        return false;
+      }
+      activeOrders = ObservableList.of(response);
+      await localeManager.setBoolData(LocaleKeysEnums.isOrderGot.name, true);
+      return true;
+    } else {
+      return true;
     }
-    activeOrders = ObservableList.of(response);
-    return true;
   }
 
   String parseIso8601DateFormatDetailed(String isoDate) {

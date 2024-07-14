@@ -51,6 +51,10 @@ class LocaleManager {
     return _instance.getString(key)!;
   }
 
+  bool getBoolData(String key) {
+    return _instance.getBool(key)!;
+  }
+
   bool? getNullableBoolData(String key) {
     return _instance.getBool(key);
   }
