@@ -41,6 +41,10 @@ abstract mixin class BaseViewModel {
     return DateFormat('dd.MM.yyyy').format(dateTime);
   }
 
+  int calculateDiscount(int price, int discountAmount) {
+    return (price - ((price * discountAmount) / 100)).toInt();
+  }
+
   String? get accessToken =>
       localeManager.getNullableStringData(LocaleKeysEnums.accessToken.name);
 }

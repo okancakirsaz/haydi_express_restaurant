@@ -13,6 +13,7 @@ import 'package:haydi_express_restaurant/core/widgets/part_title.dart';
 import 'package:haydi_express_restaurant/views/orders/model/address_model.dart';
 import 'package:haydi_express_restaurant/views/orders/model/bucket_element_model.dart';
 import 'package:haydi_express_restaurant/views/orders/model/order_model.dart';
+import 'package:haydi_express_restaurant/views/orders/model/order_states_enum.dart';
 import '../../../../core/base/view/base_view.dart';
 import '../../../core/consts/asset_consts.dart';
 import '../viewmodel/orders_viewmodel.dart';

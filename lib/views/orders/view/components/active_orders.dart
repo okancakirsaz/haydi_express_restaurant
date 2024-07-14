@@ -57,16 +57,27 @@ class ActiveOrders extends StatelessWidget {
 
   Widget _buildListView() {
     return Observer(builder: (context) {
-      return ListView.builder(
-        itemCount: viewModel.activeOrders.length,
-        itemBuilder: (context, i) {
-          return Padding(
-            padding: PaddingConsts.instance.bottom15,
-            child: OrderWidget(
-                viewModel: viewModel, data: viewModel.activeOrders[i]),
-          );
-        },
-      );
+      if (viewModel.activeOrders.isEmpty) {
+        return Center(
+          child: Text(
+            "Henüz yeni bir siparişiniz yok.",
+            style: TextConsts.instance.regularBlack16,
+          ),
+        );
+      } else {
+        return ListView.builder(
+          itemCount: viewModel.activeOrders.length,
+          itemBuilder: (context, i) {
+            return Padding(
+              padding: PaddingConsts.instance.bottom15,
+              child: OrderWidget(
+                  isOrderExpired: false,
+                  viewModel: viewModel,
+                  data: viewModel.activeOrders[i]),
+            );
+          },
+        );
+      }
     });
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
 import 'package:haydi_express_restaurant/core/managers/web_socket_manager.dart';
 import 'package:haydi_express_restaurant/views/authentication/models/restaurant_model.dart';
+import 'package:haydi_express_restaurant/views/orders/model/bucket_element_model.dart';
 import 'package:haydi_express_restaurant/views/orders/model/order_model.dart';
 import 'package:haydi_express_restaurant/views/orders/service/orders_service.dart';
 import 'package:intl/intl.dart';
@@ -53,5 +54,9 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
       "New Order:${localeManager.getStringData(LocaleKeysEnums.id.name)}",
       (e) => activeOrders.add(OrderModel.fromJson(e)),
     );
+  }
+
+  String fetchMenuPrice(BucketElementModel bucketElement) {
+    return "${bucketElement.menuElement.isOnDiscount ? calculateDiscount(bucketElement.menuElement.price, bucketElement.menuElement.discountAmount!) : (bucketElement.menuElement.price * bucketElement.count)}₺";
   }
 }

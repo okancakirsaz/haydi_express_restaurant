@@ -3,13 +3,21 @@ part of '../orders_view.dart';
 class OrderWidget extends StatelessWidget {
   final OrdersViewModel viewModel;
   final OrderModel data;
-  const OrderWidget({super.key, required this.viewModel, required this.data});
+  final bool isOrderExpired;
+  const OrderWidget(
+      {super.key,
+      required this.viewModel,
+      required this.data,
+      required this.isOrderExpired});
 
   @override
   Widget build(BuildContext context) {
+    final Color bgColor = isOrderExpired
+        ? const Color(0xFFFFB000)
+        : ColorConsts.instance.blurGrey;
     return ExpansionTile(
-      collapsedBackgroundColor: ColorConsts.instance.blurGrey,
-      backgroundColor: ColorConsts.instance.blurGrey,
+      collapsedBackgroundColor: bgColor,
+      backgroundColor: bgColor,
       shape: RoundedRectangleBorder(
         borderRadius: RadiusConsts.instance.circularAll10,
       ),
@@ -53,14 +61,22 @@ class OrderWidget extends StatelessWidget {
   }
 
   Widget _buildTrailing() {
+    final bool isOrderWaitingAccept =
+        data.orderState == OrderStates.waitingForRestaurantAccept.value
+            ? true
+            : false;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         CustomButton(
+          width: 150,
           onPressed: () {},
-          text: "Onayla",
-          style: TextConsts.instance.regularBlack16,
-          backGroundColor: Colors.white,
+          text: isOrderWaitingAccept ? "Onayla" : data.orderState,
+          style: isOrderWaitingAccept
+              ? TextConsts.instance.regularBlack16
+              : TextConsts.instance.regularWhite12,
+          backGroundColor:
+              OrderStates.stateError.getEnumFromValue(data.orderState).color,
         ),
         FloatingActionButton(
           backgroundColor: ColorConsts.instance.background,
@@ -178,7 +194,7 @@ class OrderWidget extends StatelessWidget {
           ),
         ),
         trailing: Text(
-          "${bucketElement.menuElement.price * bucketElement.count}₺",
+          viewModel.fetchMenuPrice(bucketElement),
           style: TextConsts.instance.regularThird16Bold,
         ),
       ),
@@ -189,11 +205,13 @@ class OrderWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
+        //TODO:Add contact process
         _buildSpecialButton(
           AssetConsts.instance.customer,
           "Müşteri ile iletişime geç",
           () {},
         ),
+        //TODO:Add contact process
         viewModel.isRestaurantPreferredHe
             ? _buildSpecialButton(
                 AssetConsts.instance.haydiCourier,
