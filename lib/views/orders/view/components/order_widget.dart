@@ -71,15 +71,15 @@ class OrderWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         Observer(builder: (context) {
-          return CustomButton(
+          return CustomStateFullButton(
             width: 150,
-            onPressed: () =>
-                viewModel.changeOrderState(data.orderState.asOrderState, index),
+            onPressed: () async =>
+                viewModel.fetchNewOrderStateToDb(data, index),
             text: isOrderWaitingAccept ? "Onayla" : data.orderState,
             style: isOrderWaitingAccept
                 ? TextConsts.instance.regularBlack16
                 : TextConsts.instance.regularWhite12,
-            backGroundColor: data.orderState.asOrderState.color,
+            backgroundColor: data.orderState.asOrderState.color,
           );
         }),
         FloatingActionButton(

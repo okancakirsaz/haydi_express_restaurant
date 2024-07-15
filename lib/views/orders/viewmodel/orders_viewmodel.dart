@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
+import 'package:haydi_express_restaurant/core/init/model/http_exception_model.dart';
 import 'package:haydi_express_restaurant/core/managers/web_socket_manager.dart';
 import 'package:haydi_express_restaurant/views/authentication/models/restaurant_model.dart';
 import 'package:haydi_express_restaurant/views/orders/model/bucket_element_model.dart';
@@ -43,6 +44,9 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
         return false;
       }
       activeOrders = ObservableList.of(response);
+      for (OrderModel order in activeOrders) {
+        _listenOrderStateUpdate(order);
+      }
       await localeManager.setBoolData(LocaleKeysEnums.isOrderGot.name, true);
       return true;
     } else {
@@ -61,41 +65,88 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
   _listenOrderChannel() {
     WebSocketManager.instance.webSocketReceiver(
       "New Order:${localeManager.getStringData(LocaleKeysEnums.id.name)}",
-      (e) => activeOrders.add(OrderModel.fromJson(e)),
+      (e) {
+        final OrderModel asModel = OrderModel.fromJson(e);
+        activeOrders.add(asModel);
+        //Listen order state update process
+        _listenOrderStateUpdate(asModel);
+      },
     );
+  }
+
+  @action
+  _listenOrderStateUpdate(OrderModel data) {
+    if (isRestaurantPreferredHe) {
+      WebSocketManager.instance.webSocketReceiver(data.orderId, (newOrder) {
+        final OrderModel asModel = OrderModel.fromJson(newOrder);
+        int index =
+            activeOrders.indexWhere((e) => e.orderId == asModel.orderId);
+        if (_checkOrderIsDeliveredOrCancelled(
+            asModel.orderState.asOrderState)) {
+          WebSocketManager.instance.closeEvent(asModel.orderId);
+        }
+
+        activeOrders.removeAt(index);
+        activeOrders.insert(index, asModel);
+      });
+    }
   }
 
   String fetchMenuPrice(BucketElementModel bucketElement) {
     return "${bucketElement.menuElement.isOnDiscount ? calculateDiscount(bucketElement.menuElement.price, bucketElement.menuElement.discountAmount!) : (bucketElement.menuElement.price * bucketElement.count)}₺";
   }
 
+  Future<void> fetchNewOrderStateToDb(OrderModel data, int index) async {
+    OrderState oldOrderState = data.orderState.asOrderState;
+    data.orderState = _fetchNextOrderState(data.orderState.asOrderState);
+    final dynamic response = await service.updateOrderState(data, accessToken!);
+    if (response == null) {
+      showErrorDialog();
+      return;
+    }
+    if (response is HttpExceptionModel) {
+      showErrorDialog(response.message);
+      return;
+    }
+
+    changeOrderState(oldOrderState, index);
+  }
+
   @action
   changeOrderState(OrderState currentOrderState, int index) {
     final OrderModel changedOrder = activeOrders[index];
-    if (isRestaurantPreferredHe) {
-      if (currentOrderState == WaitingRestaurantAccept.instance) {
-        changedOrder.orderState = WaitingCourierAttachment.instance.text;
-        activeOrders.removeAt(index);
-        activeOrders.insert(index, changedOrder);
-      }
+    changedOrder.orderState = _fetchNextOrderState(currentOrderState);
+    activeOrders.removeAt(index);
+    activeOrders.insert(index, changedOrder);
+    if (_checkOrderIsDeliveredOrCancelled(currentOrderState)) {
+      activeOrders.removeAt(index);
+    }
+  }
+
+  bool _checkOrderIsDeliveredOrCancelled(OrderState orderState) {
+    if (orderState == PackageDelivered.instance ||
+        orderState == Cancelled.instance) {
+      return true;
     } else {
-      if (currentOrderState == WaitingRestaurantAccept.instance) {
-        changedOrder.orderState = Preparing.instance.text;
-        activeOrders.removeAt(index);
-        activeOrders.insert(index, changedOrder);
-        return;
-      }
-      if (currentOrderState == Preparing.instance) {
-        changedOrder.orderState = PackageIsOnWay.instance.text;
-        activeOrders.removeAt(index);
-        activeOrders.insert(index, changedOrder);
-        return;
-      }
-      if (currentOrderState == PackageIsOnWay.instance) {
-        changedOrder.orderState = PackageDelivered.instance.text;
-        activeOrders.removeAt(index);
-        return;
-      }
+      return false;
+    }
+  }
+
+  _fetchNextOrderState(OrderState currentOrderState) {
+    if (isRestaurantPreferredHe &&
+        currentOrderState == WaitingRestaurantAccept.instance) {
+      return WaitingCourierAttachment.instance.text;
+    }
+    if (currentOrderState == WaitingRestaurantAccept.instance) {
+      return Preparing.instance.text;
+    }
+    if (currentOrderState == Preparing.instance) {
+      return PackageIsOnWay.instance.text;
+    }
+    if (currentOrderState == PackageIsOnWay.instance) {
+      return PackageDelivered.instance.text;
+    } else {
+      return currentOrderState.text;
     }
   }
 }

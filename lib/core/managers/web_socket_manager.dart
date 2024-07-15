@@ -22,6 +22,11 @@ final class WebSocketManager extends NetworkManager {
   disconnectFromSocket() {
     socket.disconnect();
     socket.onDisconnect((data) => debugPrint("Websocket disconnected"));
+    socket.dispose();
+  }
+
+  closeEvent(String channel) {
+    socket.off(channel);
   }
 
   void webSocketReceiver(String eventName, Function(dynamic) onEvent) {
