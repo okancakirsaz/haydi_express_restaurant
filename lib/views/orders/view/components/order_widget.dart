@@ -73,8 +73,9 @@ class OrderWidget extends StatelessWidget {
         Observer(builder: (context) {
           return CustomStateFullButton(
             width: 150,
-            onPressed: () async =>
-                viewModel.fetchNewOrderStateToDb(data, index),
+            onPressed: () async => isOrderExpired
+                ? null
+                : viewModel.fetchNewOrderStateToDb(data, index),
             text: isOrderWaitingAccept ? "Onayla" : data.orderState,
             style: isOrderWaitingAccept
                 ? TextConsts.instance.regularBlack16
@@ -139,7 +140,7 @@ class OrderWidget extends StatelessWidget {
       ),
       Padding(
         padding: PaddingConsts.instance.top10,
-        child: _buildContactButtons(),
+        child: isOrderExpired ? null : _buildContactButtons(),
       ),
     ];
   }
@@ -212,26 +213,30 @@ class OrderWidget extends StatelessWidget {
         //TODO:Add contact process
         _buildSpecialButton(
           AssetConsts.instance.customer,
-          "Müşteri ile iletişime geç",
+          "Müşteri ile\niletişime geç",
           () {},
         ),
         //TODO:Add contact process
         viewModel.isRestaurantPreferredHe
             ? _buildSpecialButton(
                 AssetConsts.instance.haydiCourier,
-                "Kurye ile iletişime geç",
+                "Kurye ile\niletişime geç",
                 () {},
               )
             : const SizedBox(),
+        _buildSpecialButton(
+          AssetConsts.instance.cancel,
+          "Siparişi iptal et",
+          () => viewModel.openOrderCancelDialog(viewModel, data),
+          size: 15,
+        ),
       ],
     );
   }
 
   Widget _buildSpecialButton(
-    String iconPath,
-    String text,
-    VoidCallback onPressed,
-  ) {
+      String iconPath, String text, VoidCallback onPressed,
+      {double? size}) {
     return TextButton(
       style: ElevatedButton.styleFrom(
         shadowColor: ColorConsts.instance.blurGrey,
@@ -249,8 +254,8 @@ class OrderWidget extends StatelessWidget {
             padding: PaddingConsts.instance.horizontal10,
             child: SvgPicture.asset(
               iconPath,
-              width: 25,
-              height: 25,
+              width: size ?? 25,
+              height: size ?? 25,
             ),
           ),
           Padding(
@@ -259,7 +264,7 @@ class OrderWidget extends StatelessWidget {
               text,
               style: TextConsts.instance.regularBlack10,
             ),
-          )
+          ),
         ],
       ),
     );

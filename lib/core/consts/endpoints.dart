@@ -24,5 +24,7 @@ final class Endpoints {
 
   //Orders
   final String getActiveOrders = "/order/restaurant-active-orders";
+  final String getOrderLogs = "/order/restaurant-order-logs";
   final String updateOrderState = "/order/update-order-state";
+  final String cancelOrder = "/order/cancel-order";
 }

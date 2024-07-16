@@ -4,9 +4,11 @@ import 'package:haydi_express_restaurant/core/init/model/http_exception_model.da
 import 'package:haydi_express_restaurant/core/managers/web_socket_manager.dart';
 import 'package:haydi_express_restaurant/views/authentication/models/restaurant_model.dart';
 import 'package:haydi_express_restaurant/views/orders/model/bucket_element_model.dart';
+import 'package:haydi_express_restaurant/views/orders/model/cancel_order_model.dart';
 import 'package:haydi_express_restaurant/views/orders/model/order_model.dart';
 import 'package:haydi_express_restaurant/views/orders/model/order_states.dart';
 import 'package:haydi_express_restaurant/views/orders/service/orders_service.dart';
+import 'package:haydi_express_restaurant/views/orders/view/orders_view.dart';
 import 'package:intl/intl.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
@@ -20,23 +22,43 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
   void setContext(BuildContext context) => viewModelContext = context;
 
   @override
-  init() async {
+  init() {
     _listenOrderChannel();
-    await localeManager.setBoolData(LocaleKeysEnums.isOrderGot.name, false);
   }
 
   @observable
   ObservableList<OrderModel> activeOrders = ObservableList.of([]);
+
+  @observable
+  ObservableList<OrderModel> orderLogs = ObservableList.of([]);
+
+  bool isOrdersGot = false;
+  bool isLogsGot = false;
+
+  @observable
+  int orderLogCount = 0;
+
+  @observable
+  int totalRevenue = 0;
+
+  @observable
+  ObservableList<String> selectedTimeRange = ObservableList.of([]);
+
+  final TextEditingController cancelReason = TextEditingController();
 
   final OrdersService service = OrdersService();
   bool get isRestaurantPreferredHe => RestaurantModel.fromJson(
           localeManager.getJsonData(LocaleKeysEnums.restaurantData.name))
       .wantDeliveryFromUs;
 
+  String get _restaurantCreationDate => RestaurantModel.fromJson(
+          localeManager.getJsonData(LocaleKeysEnums.restaurantData.name))
+      .accountCreationDate;
+
   Future<bool> getActiveOrders() async {
     //Every screen size changes this function triggering.
     //So this check saves api from over requests
-    if (!localeManager.getBoolData(LocaleKeysEnums.isOrderGot.name)) {
+    if (!isOrdersGot) {
       final List<OrderModel>? response = await service.getActiveOrders(
           localeManager.getStringData(LocaleKeysEnums.id.name), accessToken!);
       if (response == null) {
@@ -47,11 +69,56 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
       for (OrderModel order in activeOrders) {
         _listenOrderStateUpdate(order);
       }
-      await localeManager.setBoolData(LocaleKeysEnums.isOrderGot.name, true);
+      isOrdersGot = true;
       return true;
     } else {
       return true;
     }
+  }
+
+  @action
+  Future<bool> getOrderLogs() async {
+    //Every screen size changes this function triggering.
+    //So this check saves api from over requests
+    if (!isLogsGot) {
+      final List<OrderModel>? response = await service.getOrderLogs(
+          localeManager.getStringData(LocaleKeysEnums.id.name),
+          selectedTimeRange.isEmpty
+              ? [_restaurantCreationDate, DateTime.now().toIso8601String()]
+              : selectedTimeRange,
+          accessToken!);
+      if (response == null) {
+        showErrorDialog();
+        return false;
+      }
+      orderLogs = ObservableList.of(response.isEmpty ? [] : response);
+      isLogsGot = true;
+      orderLogCount = orderLogs.length;
+      totalRevenue = _calculateTotalCount;
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  int get _calculateTotalCount {
+    List<BucketElementModel> menus = [];
+    for (OrderModel order in orderLogs) {
+      if (order.orderState.asOrderState != Cancelled.instance) {
+        menus += order.menuData;
+      }
+    }
+    final List<int> priceList = menus
+        .map(
+          (e) =>
+              e.count *
+              (e.menuElement.isOnDiscount
+                  ? calculateDiscount(
+                      e.menuElement.price, e.menuElement.discountAmount!)
+                  : e.menuElement.price),
+        )
+        .toList();
+    return priceList.reduce((a, b) => a + b);
   }
 
   String parseIso8601DateFormatDetailed(String isoDate) {
@@ -147,6 +214,83 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
       return PackageDelivered.instance.text;
     } else {
       return currentOrderState.text;
+    }
+  }
+
+  openOrderCancelDialog(OrdersViewModel viewModel, OrderModel data) {
+    showDialog(
+      context: viewModelContext,
+      builder: (context) => CancelReasonDialog(
+        viewModel: viewModel,
+        data: data,
+      ),
+    );
+  }
+
+  @action
+  Future<void> cancelOrder(OrderModel data) async {
+    if (_isOrderSuitableToCancel(data.orderState.asOrderState)) {
+      data.orderState = Cancelled.instance.text;
+      final dynamic response = await service.cancelOrder(
+          CancelOrderModel(
+            order: data,
+            reason: cancelReason.text,
+          ),
+          accessToken!);
+      if (response == null) {
+        showErrorDialog();
+        return;
+      }
+      if (response is HttpExceptionModel) {
+        showErrorDialog(response.message);
+        return;
+      }
+
+      changeOrderState(
+        data.orderState.asOrderState,
+        activeOrders.indexWhere((e) => e.orderId == data.orderId),
+      );
+    }
+    //Close dialog
+    navigatorPop();
+  }
+
+  bool _isOrderSuitableToCancel(OrderState state) {
+    if (state == CourierIsOnWay.instance ||
+        state == PackageIsOnWay.instance ||
+        state == PackageDelivered.instance) {
+      showErrorDialog(state.text);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  @action
+  Future<void> pickDate() async {
+    selectedTimeRange.clear();
+
+    final DateTimeRange? range = await showDateRangePicker(
+      context: viewModelContext,
+      firstDate: DateTime.parse(_restaurantCreationDate),
+      currentDate: DateTime.now(),
+      helpText: "Tarih aralığı seçiniz",
+      saveText: "Kaydet",
+      cancelText: "İptal",
+      confirmText: "Onayla",
+      fieldEndHintText: "Bitiş tarihi",
+      fieldStartHintText: "Başlangıç tarihi",
+      fieldEndLabelText: "Bitiş tarihi",
+      fieldStartLabelText: "Başlangıç tarihi",
+      lastDate: DateTime.now(),
+    );
+
+    if (range != null) {
+      isLogsGot = false;
+      selectedTimeRange.add(range.start.toIso8601String());
+      final DateTime endDate = range.end.copyWith(hour: 23, minute: 59);
+      selectedTimeRange.add(endDate.toIso8601String());
+      await getOrderLogs();
     }
   }
 }

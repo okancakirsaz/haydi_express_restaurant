@@ -4,4 +4,5 @@ class AssetConsts {
   final String haydiCourier = "assets/icons/haydi_courier.svg";
   final String addition = "assets/icons/addition.svg";
   final String customer = "assets/icons/customer.svg";
+  final String cancel = "assets/icons/cancel.svg";
 }

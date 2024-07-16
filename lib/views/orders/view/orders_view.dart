@@ -18,10 +18,13 @@ import 'package:haydi_express_restaurant/views/orders/model/order_model.dart';
 import 'package:haydi_express_restaurant/views/orders/model/order_states.dart';
 import '../../../../core/base/view/base_view.dart';
 import '../../../core/consts/asset_consts.dart';
+import '../../../core/widgets/input/custom_text_field.dart';
 import '../viewmodel/orders_viewmodel.dart';
 
 part './components/active_orders.dart';
 part './components/order_widget.dart';
+part './components/order_logs.dart';
+part './components/cancel_reason_dialog.dart';
 
 class OrdersView extends StatelessWidget {
   const OrdersView({super.key});
@@ -36,11 +39,7 @@ class OrdersView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               ActiveOrders(viewModel: model),
-              //TODO: Add order history
-              const SizedBox(
-                width: 400,
-                height: 400,
-              ),
+              OrderLogs(viewModel: model),
             ],
           ));
         },
