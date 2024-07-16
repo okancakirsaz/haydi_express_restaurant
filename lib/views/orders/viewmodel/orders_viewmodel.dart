@@ -103,9 +103,11 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
 
   int get _calculateTotalCount {
     List<BucketElementModel> menus = [];
-    for (OrderModel order in orderLogs) {
-      if (order.orderState.asOrderState != Cancelled.instance) {
-        menus += order.menuData;
+    if (orderLogs.isNotEmpty) {
+      for (OrderModel order in orderLogs) {
+        if (order.orderState.asOrderState != Cancelled.instance) {
+          menus += order.menuData;
+        }
       }
     }
     final List<int> priceList = menus
@@ -118,7 +120,8 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
                   : e.menuElement.price),
         )
         .toList();
-    return priceList.reduce((a, b) => a + b);
+    //If priceList empty reduce function throws error
+    return priceList.isNotEmpty ? priceList.reduce((a, b) => a + b) : 0;
   }
 
   String parseIso8601DateFormatDetailed(String isoDate) {
