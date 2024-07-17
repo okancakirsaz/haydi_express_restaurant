@@ -17,7 +17,7 @@ class ActiveOrders extends StatelessWidget {
           padding: PaddingConsts.instance.all10,
           child: viewModel.isRestaurantPreferredHe
               ? CustomButton(
-                  onPressed: () {},
+                  onPressed: () => viewModel.navigateToCreateOrder(),
                   text: "Sipariş Oluştur",
                   width: 170,
                   style: TextConsts.instance.regularWhite16,

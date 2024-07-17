@@ -5,4 +5,5 @@ class AssetConsts {
   final String addition = "assets/icons/addition.svg";
   final String customer = "assets/icons/customer.svg";
   final String cancel = "assets/icons/cancel.svg";
+  final String star = "assets/icons/star.svg";
 }

@@ -245,6 +245,14 @@ class TextConsts {
     );
   }
 
+  TextStyle get regularBlack12Bold {
+    return GoogleFonts.montserrat(
+      fontSize: 12,
+      color: Colors.black,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
   TextStyle get regularBlack12 {
     return GoogleFonts.montserrat(
       fontSize: 12,
@@ -289,6 +297,16 @@ class TextConsts {
   TextStyle get regularPrimary18LineThrough {
     return GoogleFonts.montserrat(
       fontSize: 18,
+      decoration: TextDecoration.lineThrough,
+      color: ColorConsts.instance.primary,
+      decorationColor: ColorConsts.instance.primary,
+      fontWeight: FontWeight.normal,
+    );
+  }
+
+  TextStyle get regularPrimary12LineThrough {
+    return GoogleFonts.montserrat(
+      fontSize: 12,
       decoration: TextDecoration.lineThrough,
       color: ColorConsts.instance.primary,
       decorationColor: ColorConsts.instance.primary,
@@ -411,6 +429,14 @@ class TextConsts {
   TextStyle get regularLightGrey18 {
     return GoogleFonts.montserrat(
       fontSize: 18,
+      color: const Color(0xFFE8E8E8),
+      fontWeight: FontWeight.normal,
+    );
+  }
+
+  TextStyle get regularLightGrey14 {
+    return GoogleFonts.montserrat(
+      fontSize: 14,
       color: const Color(0xFFE8E8E8),
       fontWeight: FontWeight.normal,
     );

@@ -14,6 +14,7 @@ class CustomTextField extends StatefulWidget {
   final TextStyle? hintStyle;
   final bool? isReadOnly;
   final int? maxLength;
+  final TextInputType? keyboardType;
   final List<TextInputFormatter>? customInputFormatters;
 
   const CustomTextField({
@@ -27,6 +28,7 @@ class CustomTextField extends StatefulWidget {
     this.customInputFormatters,
     this.maxLength,
     this.label,
+    this.keyboardType,
   });
 
   @override
@@ -53,7 +55,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
           Container(
             height: 45,
             decoration: BoxDecoration(
-              boxShadow: ColorConsts.instance.shadow,
               color: _isFocused
                   ? ColorConsts.instance.background
                   : ColorConsts.instance.blurGrey,
@@ -64,6 +65,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 _isFocused = true;
                 setState(() {});
               },
+              keyboardType: widget.keyboardType,
               maxLength: widget.maxLength,
               textInputAction: TextInputAction.next,
               readOnly: widget.isReadOnly ?? false,

@@ -9,17 +9,19 @@ class CustomDropdown extends StatelessWidget {
   final String hint;
   final double? width;
   final TextEditingController controller;
+  final TextStyle? style;
   const CustomDropdown(
       {super.key,
       required this.props,
       required this.hint,
       required this.controller,
-      this.width});
+      this.width,
+      this.style});
 
   @override
   Widget build(BuildContext context) {
     return DropdownMenu(
-      textStyle: TextConsts.instance.regularWhite20,
+      textStyle: style ?? TextConsts.instance.regularWhite20,
       menuStyle: MenuStyle(
         shape: MaterialStatePropertyAll(
           RoundedRectangleBorder(
@@ -34,9 +36,9 @@ class CustomDropdown extends StatelessWidget {
         filled: true,
         fillColor: ColorConsts.instance.blurGrey,
         border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-        activeIndicatorBorder:
-            BorderSide(color: ColorConsts.instance.background),
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
       ),
       hintText: hint,
       requestFocusOnTap: false,
