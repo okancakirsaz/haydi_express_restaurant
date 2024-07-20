@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:haydi_express_restaurant/views/main_view.dart/viewmodel/main_viewmodel.dart';
+import 'package:haydi_express_restaurant/views/main_view/viewmodel/main_viewmodel.dart';
 import '../../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 

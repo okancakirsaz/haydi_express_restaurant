@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:haydi_express_restaurant/core/consts/color_consts/color_consts.dart';
-import 'package:haydi_express_restaurant/core/consts/padding_consts.dart';
-import 'package:haydi_express_restaurant/core/consts/radius_consts.dart';
-import 'package:haydi_express_restaurant/core/consts/text_consts.dart';
+import 'package:haydi_ekspres_dev_tools/constants/constants_index.dart';
 import 'package:haydi_express_restaurant/core/widgets/button/custom_button.dart';
 import 'package:haydi_express_restaurant/core/widgets/input/custom_password_field.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';

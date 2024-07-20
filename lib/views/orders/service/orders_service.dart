@@ -1,19 +1,18 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:haydi_ekspres_dev_tools/constants/endpoints.dart';
+import 'package:haydi_ekspres_dev_tools/models/cancel_order_model.dart';
+import 'package:haydi_ekspres_dev_tools/models/http_exception_model.dart';
+import 'package:haydi_ekspres_dev_tools/models/order_model.dart';
 import 'package:haydi_express_restaurant/core/managers/network_manager.dart';
-import 'package:haydi_express_restaurant/views/orders/model/cancel_order_model.dart';
-import 'package:haydi_express_restaurant/views/orders/model/order_model.dart';
-
-import '../../../core/consts/endpoints.dart';
-import '../../../core/init/model/http_exception_model.dart';
 
 final class OrdersService extends NetworkManager {
   Future<List<OrderModel>?> getActiveOrders(
       String restaurantId, String accessToken) async {
     try {
       final response = await network.get(
-        Endpoints.instance.getActiveOrders,
+        Endpoints.instance.getActiveOrdersRestaurant,
         queryParameters: {"restaurantId": restaurantId},
         options: Options(
           headers: setHeaderAccessToken(accessToken),
@@ -31,7 +30,7 @@ final class OrdersService extends NetworkManager {
       String restaurantId, List<String> dateRange, String accessToken) async {
     try {
       final response = await network.get(
-        Endpoints.instance.getOrderLogs,
+        Endpoints.instance.getOrderLogsRestaurant,
         queryParameters: {
           "restaurantId": restaurantId,
           "dateRange": jsonEncode(dateRange),

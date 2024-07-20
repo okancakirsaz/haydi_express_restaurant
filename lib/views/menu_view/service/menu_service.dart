@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:dio/dio.dart';
-import 'package:haydi_express_restaurant/core/consts/endpoints.dart';
-import 'package:haydi_express_restaurant/views/menu_view/models/add_campaign_model.dart';
-
+import 'package:haydi_ekspres_dev_tools/constants/endpoints.dart';
+import 'package:haydi_ekspres_dev_tools/models/add_campaign_model.dart';
+import 'package:haydi_ekspres_dev_tools/models/menu_model.dart';
 import '../../../../core/managers/network_manager.dart';
-import '../models/menu_model.dart';
 
 final class MenuService extends NetworkManager {
   Future<MenuModel?> createMenu(

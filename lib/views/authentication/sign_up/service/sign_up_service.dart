@@ -1,10 +1,10 @@
-import 'package:haydi_express_restaurant/core/consts/endpoints.dart';
-import 'package:haydi_express_restaurant/views/authentication/models/mail_verification_request_model.dart';
+import 'package:haydi_ekspres_dev_tools/constants/endpoints.dart';
+import 'package:haydi_ekspres_dev_tools/models/http_exception_model.dart';
+import 'package:haydi_ekspres_dev_tools/models/mail_verification_model.dart';
+import 'package:haydi_ekspres_dev_tools/models/mail_verification_request_model.dart';
+import 'package:haydi_ekspres_dev_tools/models/restaurant_model.dart';
 
-import '../../../../core/init/model/http_exception_model.dart';
 import '../../../../core/managers/network_manager.dart';
-import '../../models/mail_verification_model.dart';
-import '../../models/restaurant_model.dart';
 
 final class SignUpService extends NetworkManager {
   Future<MailVerificationRequestModel?> sendVerifyRequest(
@@ -32,8 +32,8 @@ final class SignUpService extends NetworkManager {
 
   Future<dynamic> signUp(RestaurantModel data) async {
     try {
-      final response =
-          await network.post(Endpoints.instance.signUp, data: data.toJson());
+      final response = await network.post(Endpoints.instance.signUpRestaurant,
+          data: data.toJson());
       if (response.data.containsKey("status")) {
         return HttpExceptionModel.fromJson(response.data);
       } else {

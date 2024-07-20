@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:haydi_ekspres_dev_tools/models/models_index.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
-import 'package:haydi_express_restaurant/core/init/model/http_exception_model.dart';
 import 'package:haydi_express_restaurant/core/managers/web_socket_manager.dart';
-import 'package:haydi_express_restaurant/views/authentication/models/restaurant_model.dart';
 import 'package:haydi_express_restaurant/views/create_order/view/create_order_view.dart';
-import 'package:haydi_express_restaurant/views/orders/model/bucket_element_model.dart';
-import 'package:haydi_express_restaurant/views/orders/model/cancel_order_model.dart';
-import 'package:haydi_express_restaurant/views/orders/model/order_model.dart';
-import 'package:haydi_express_restaurant/views/orders/model/order_states.dart';
 import 'package:haydi_express_restaurant/views/orders/service/orders_service.dart';
 import 'package:haydi_express_restaurant/views/orders/view/orders_view.dart';
 import 'package:intl/intl.dart';

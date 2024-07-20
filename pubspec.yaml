@@ -15,37 +15,18 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
-  #State Management
-  mobx: ^2.2.0
-  mobx_codegen: ^2.4.0
-  flutter_mobx: ^2.1.0
-
-
-  #Generating
-  build_runner: ^2.4.6
-  uuid: ^4.3.3
-  intl: ^0.19.0
-
-  #UI
-  google_fonts: ^6.1.0
-  flutter_svg: ^2.0.9
-  easy_loading_button: ^0.3.2
-  window_manager: ^0.3.8
-  passwordfield:
-  calendar_date_picker2: ^0.5.3
-  toastification: ^1.2.1
+  #Devtools
+  haydi_ekspres_dev_tools:
+    path: ../haydi_ekspres_dev_tools
 
   #File
-  shared_preferences: ^2.2.1
-  sqlite3: ^2.1.0
-  sqlite3_flutter_libs: ^0.5.18
+  sqlite3:
+  #sqlite3_flutter_libs:
   path_provider: ^2.1.1
   file_selector: ^1.0.3
 
-  #Network
-  dio:
-  socket_io_client: ^3.0.0-beta.2
-  http_parser: ^4.0.2
+  #UI
+  window_manager: ^0.3.9
   
   
   
@@ -65,9 +46,11 @@ flutter:
 
   uses-material-design: true
 
-  assets:
-    - assets/images/
-    - assets/icons/
-    - assets/meta/
+assets:
+  - packages/haydi_ekspres_dev_tools/lib/assets/icons/
+  - packages/haydi_ekspres_dev_tools/lib/assets/images/
+  - packages/haydi_ekspres_dev_tools/lib/assets/meta/
+
+
 
 

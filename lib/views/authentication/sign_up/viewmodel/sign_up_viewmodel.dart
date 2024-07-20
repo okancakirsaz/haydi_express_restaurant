@@ -1,15 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:haydi_express_restaurant/core/init/model/http_exception_model.dart';
+import 'package:haydi_ekspres_dev_tools/models/models_index.dart';
 import 'package:haydi_express_restaurant/views/authentication/log_in/viewmodel/log_in_viewmodel.dart';
-import 'package:haydi_express_restaurant/views/authentication/models/mail_verification_model.dart';
-import 'package:haydi_express_restaurant/views/authentication/models/mail_verification_request_model.dart';
 import 'package:haydi_express_restaurant/views/authentication/sign_up/service/sign_up_service.dart';
 import 'package:haydi_express_restaurant/views/authentication/sign_up/view/sign_up_view.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
-
-import '../../models/restaurant_model.dart';
 
 part 'sign_up_viewmodel.g.dart';
 

@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:haydi_express_restaurant/core/init/model/http_exception_model.dart';
+import 'package:haydi_ekspres_dev_tools/constants/endpoints.dart';
+import 'package:haydi_ekspres_dev_tools/models/boost_menu_or_restaurant_model.dart';
+import 'package:haydi_ekspres_dev_tools/models/http_exception_model.dart';
 import 'package:haydi_express_restaurant/core/managers/network_manager.dart';
-import 'package:haydi_express_restaurant/views/adversiment/public/model/boost_menu_or_restaurant_model.dart';
-
-import '../../../../core/consts/endpoints.dart';
 
 final class AdsService extends NetworkManager {
   Future<HttpExceptionModel?> getBoost(

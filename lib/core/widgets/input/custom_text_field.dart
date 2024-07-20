@@ -1,9 +1,7 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:haydi_express_restaurant/core/consts/color_consts/color_consts.dart';
-import 'package:haydi_express_restaurant/core/consts/radius_consts.dart';
-import 'package:haydi_express_restaurant/core/consts/text_consts.dart';
+import 'package:haydi_ekspres_dev_tools/constants/constants_index.dart';
 
 class CustomTextField extends StatefulWidget {
   final EdgeInsetsGeometry? padding;

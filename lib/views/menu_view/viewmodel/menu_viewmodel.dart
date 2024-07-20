@@ -2,12 +2,12 @@ import 'dart:typed_data';
 
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:haydi_ekspres_dev_tools/models/add_campaign_model.dart';
+import 'package:haydi_ekspres_dev_tools/models/menu_model.dart';
+import 'package:haydi_ekspres_dev_tools/models/menu_stats_model.dart';
 import 'package:haydi_express_restaurant/core/consts/app_consts.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
-import 'package:haydi_express_restaurant/views/main_view.dart/view/main_view.dart';
-import 'package:haydi_express_restaurant/views/menu_view/models/add_campaign_model.dart';
-import 'package:haydi_express_restaurant/views/menu_view/models/menu_model.dart';
-import 'package:haydi_express_restaurant/views/menu_view/models/menu_stats_model.dart';
+import 'package:haydi_express_restaurant/views/main_view/view/main_view.dart';
 import 'package:haydi_express_restaurant/views/menu_view/service/menu_service.dart';
 import 'package:uuid/uuid.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:haydi_ekspres_dev_tools/models/boost_menu_or_restaurant_model.dart';
+import 'package:haydi_ekspres_dev_tools/models/http_exception_model.dart';
+import 'package:haydi_ekspres_dev_tools/models/menu_model.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
-import 'package:haydi_express_restaurant/core/init/model/http_exception_model.dart';
-import 'package:haydi_express_restaurant/views/adversiment/public/model/boost_menu_or_restaurant_model.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
-
-import '../../../menu_view/models/menu_model.dart';
 import '../../public/service/ads_service.dart';
 
 part 'get_ads_viewmodel.g.dart';

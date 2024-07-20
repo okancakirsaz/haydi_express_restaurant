@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:haydi_ekspres_dev_tools/models/restaurant_model.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
 import 'package:haydi_express_restaurant/views/adversiment/get_adversiment_view/view/get_ads_view.dart';
 import 'package:haydi_express_restaurant/views/authentication/log_in/view/log_in_view.dart';
-import 'package:haydi_express_restaurant/views/authentication/models/restaurant_model.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 

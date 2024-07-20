@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:haydi_ekspres_dev_tools/constants/constants_index.dart';
 import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
 import 'package:haydi_express_restaurant/core/widgets/button/custom_statefull_button.dart';
 import '../../../../core/base/view/base_view.dart';
-import '../../../../core/consts/color_consts/color_consts.dart';
-import '../../../../core/consts/padding_consts.dart';
-import '../../../../core/consts/radius_consts.dart';
-import '../../../../core/consts/text_consts.dart';
 import '../../../../core/widgets/button/custom_button.dart';
 import '../../../../core/widgets/input/custom_text_field.dart';
 import '../../../../core/widgets/logo.dart';
