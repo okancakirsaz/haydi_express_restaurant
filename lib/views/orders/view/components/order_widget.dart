@@ -210,11 +210,10 @@ class OrderWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        //TODO:Add contact process
         _buildSpecialButton(
           AssetConsts.instance.customer,
           "Müşteri ile\niletişime geç",
-          () {},
+          () => viewModel.showChatDialog(data),
         ),
         //TODO:Add contact process
         viewModel.isRestaurantPreferredHe

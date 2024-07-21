@@ -3,4 +3,5 @@ enum LocaleKeysEnums {
   restaurantData,
   accessToken,
   menu,
+  activeConversations,
 }
