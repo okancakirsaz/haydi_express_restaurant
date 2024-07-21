@@ -26,6 +26,7 @@ abstract class _ProfileViewModelBase with Store, BaseViewModel {
     await localeManager.removeData(LocaleKeysEnums.accessToken.name);
     await localeManager.removeData(LocaleKeysEnums.id.name);
     await localeManager.removeData(LocaleKeysEnums.restaurantData.name);
+    await localeManager.removeData(LocaleKeysEnums.activeConversations.name);
     navigationManager.navigateAndRemoveUntil(const LogInView());
   }
 
