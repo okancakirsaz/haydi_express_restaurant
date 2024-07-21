@@ -5,7 +5,6 @@ import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqlite3/sqlite3.dart';
 
-//TODO: May be unnecessary
 class LocaleSqlManager {
   static LocaleSqlManager instance = LocaleSqlManager();
   late Database _instance;

@@ -3,12 +3,16 @@ import 'package:haydi_ekspres_dev_tools/models/boost_menu_or_restaurant_model.da
 import 'package:haydi_ekspres_dev_tools/models/http_exception_model.dart';
 import 'package:haydi_ekspres_dev_tools/models/menu_model.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
+import 'package:haydi_express_restaurant/views/adversiment/get_adversiment_view/consts/get_ads_texts.dart';
+import 'package:haydi_express_restaurant/views/adversiment/get_adversiment_view/view/get_ads_view.dart';
+import 'package:haydi_express_restaurant/views/adversiment/public/const/ad_types.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
 import '../../public/service/ads_service.dart';
 
 part 'get_ads_viewmodel.g.dart';
 
+//TODO: Do payment part
 class GetAdsViewModel = _GetAdsViewModelBase with _$GetAdsViewModel;
 
 abstract class _GetAdsViewModelBase with Store, BaseViewModel {
@@ -17,17 +21,49 @@ abstract class _GetAdsViewModelBase with Store, BaseViewModel {
 
   @override
   init() async {
+    content = MenuBoost(viewModel: _vmInstance);
     _initMenu();
+    _getBoostAreaInfo();
     await _getSearchAdsLength();
   }
 
   final AdsService service = AdsService();
+
+  initVm(GetAdsViewModel model) => _vmInstance = model;
+
+  late GetAdsViewModel _vmInstance;
 
   List<MenuModel> restaurantMenu = [];
   bool isRestaurantBoosting = false;
   final TextEditingController boostArea = TextEditingController();
   final TextEditingController pickedMenu = TextEditingController();
   String? selectedExpireDate;
+
+  @observable
+  Widget? content;
+
+  @observable
+  Widget? info;
+
+  @observable
+  String title = GetAdsTexts.instance.menuBoostTitle;
+
+  @observable
+  String buttonText = GetAdsTexts.instance.boostRestaurant;
+
+  @observable
+  String description = "";
+
+  List<DropdownMenuEntry> boostAreas = [
+    DropdownMenuEntry(
+      value: AdTypes.instance.haydiFirsatlar,
+      label: AdTypes.instance.haydiFirsatlar,
+    ),
+    DropdownMenuEntry(
+      value: AdTypes.instance.suggestions,
+      label: AdTypes.instance.suggestions,
+    ),
+  ];
 
   _initMenu() {
     List<dynamic> cachedMenu =
@@ -41,6 +77,22 @@ abstract class _GetAdsViewModelBase with Store, BaseViewModel {
     }).toList();
   }
 
+  @action
+  changeContent() {
+    if (isRestaurantBoosting) {
+      content = MenuBoost(viewModel: _vmInstance);
+      isRestaurantBoosting = false;
+      title = GetAdsTexts.instance.menuBoostTitle;
+      buttonText = GetAdsTexts.instance.boostRestaurant;
+    } else {
+      content = RestaurantBoost(viewModel: _vmInstance);
+      isRestaurantBoosting = true;
+      title = GetAdsTexts.instance.restaurantBoostTitle;
+      buttonText = GetAdsTexts.instance.boostMenu;
+    }
+    _resetInputs();
+  }
+
   Future<void> _getSearchAdsLength() async {
     final int? response = await service.getSearchAdsLength(accessToken!);
     if (response == null) {
@@ -48,7 +100,7 @@ abstract class _GetAdsViewModelBase with Store, BaseViewModel {
       return;
     }
     if (response >= 5) {
-      //TODO: Close suggestion ads and edit text
+      boostAreas.removeAt(1);
       showErrorDialog("Arama Önerileri Kısmı Şuan Reklam İçin Açık Değil");
     }
   }
@@ -78,11 +130,19 @@ abstract class _GetAdsViewModelBase with Store, BaseViewModel {
       return;
     }
     showSuccessDialog(response.message);
+    _resetInputs();
   }
 
   bool get _boostValidation {
-    //TODO: Do validation
-    return true;
+    if (boostArea.text.isEmpty ||
+        selectedExpireDate == null ||
+        selectedExpireDate!.isEmpty ||
+        (!isRestaurantBoosting && pickedMenu.text.isEmpty)) {
+      showErrorDialog("Lütfen gerekli yerleri doldurunuz.");
+      return false;
+    } else {
+      return true;
+    }
   }
 
   String get restaurantId =>
@@ -101,5 +161,26 @@ abstract class _GetAdsViewModelBase with Store, BaseViewModel {
         .where((element) => element.name == pickedMenu.text)
         .first;
     return selectedMenu.menuId;
+  }
+
+  @action
+  _getBoostAreaInfo() {
+    boostArea.addListener(() {
+      if (boostArea.text == AdTypes.instance.haydiFirsatlar) {
+        info = const HaydiFirsatlarInfo();
+        return;
+      }
+      if (boostArea.text == AdTypes.instance.suggestions) {
+        info = const SuggestionsInfo();
+        return;
+      }
+    });
+  }
+
+  _resetInputs() {
+    boostArea.text = "";
+    pickedMenu.text = "";
+    info = null;
+    selectedExpireDate = null;
   }
 }

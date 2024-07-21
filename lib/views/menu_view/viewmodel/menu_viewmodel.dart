@@ -225,16 +225,6 @@ abstract class _MenuViewModelBase with Store, BaseViewModel {
     restaurantMenu = ObservableList.of(await _getRestaurantMenuFromApi() ?? []);
     _separateCampaigns();
     return restaurantMenu;
-
-    //TODO: Open it later when you want to display logic on cached menu
-    // if (localeManager.getNullableJsonData(LocaleKeysEnums.menu.name) == null) {
-    //   restaurantMenu =
-    //       ObservableList.of(await _getRestaurantMenuFromApi() ?? []);
-    // } else {
-    //   restaurantMenu = ObservableList.of(_encodeMenuFromCache);
-    // }
-    // _separateCampaigns();
-    // return restaurantMenu;
   }
 
   List<MenuModel> get _encodeMenuFromCache {
