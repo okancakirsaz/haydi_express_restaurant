@@ -234,6 +234,7 @@ abstract class _CreateOrderViewModelBase with Store, BaseViewModel {
         menuData: selectedItems,
         addressData: _fetchAddress,
         paymentMethod: paymentMethod.text,
+        restaurantName: "Restaurant Name",
         isPaidSuccess: paymentMethod.text == "Online Ödeme" ? true : false,
         orderState: WaitingRestaurantAccept.instance.text,
         orderCreationDate: DateTime.now().toIso8601String(),
