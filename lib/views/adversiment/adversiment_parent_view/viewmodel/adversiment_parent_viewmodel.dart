@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haydi_express_restaurant/views/adversiment/active_ads_view/view/active_ads_view.dart';
 import 'package:haydi_express_restaurant/views/adversiment/get_adversiment_view/view/get_ads_view.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
 import 'package:mobx/mobx.dart';
@@ -20,7 +21,7 @@ abstract class _AdvertisementParentViewModelBase with Store, BaseViewModel {
 
   List<Widget> pages = [
     const GetAdsView(),
-    const Text("Active Ads"),
+    const ActiveAdsView(),
   ];
 
   @observable

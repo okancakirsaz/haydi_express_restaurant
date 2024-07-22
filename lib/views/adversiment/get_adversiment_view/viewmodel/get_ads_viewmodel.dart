@@ -153,6 +153,7 @@ abstract class _GetAdsViewModelBase with Store, BaseViewModel {
         elementId: isRestaurantBoosting ? restaurantId : _getMenuIdFromMenuName,
         boostArea: boostArea.text,
         restaurantId: restaurantId,
+        menuName: pickedMenu.text.isNotEmpty ? pickedMenu.text : null,
         isRestaurant: isRestaurantBoosting,
       );
 
