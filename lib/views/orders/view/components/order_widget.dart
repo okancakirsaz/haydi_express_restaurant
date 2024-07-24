@@ -70,19 +70,17 @@ class OrderWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        Observer(builder: (context) {
-          return CustomStateFullButton(
-            width: 150,
-            onPressed: () async => isOrderExpired
-                ? null
-                : viewModel.fetchNewOrderStateToDb(data, index),
-            text: isOrderWaitingAccept ? "Onayla" : data.orderState,
-            style: isOrderWaitingAccept
-                ? TextConsts.instance.regularBlack16
-                : TextConsts.instance.regularWhite12,
-            backgroundColor: data.orderState.asOrderState.color,
-          );
-        }),
+        CustomStateFullButton(
+          width: 150,
+          onPressed: () async => isOrderExpired
+              ? null
+              : viewModel.fetchNewOrderStateToDb(data, index),
+          text: isOrderWaitingAccept ? "Onayla" : data.orderState,
+          style: isOrderWaitingAccept
+              ? TextConsts.instance.regularBlack16
+              : TextConsts.instance.regularWhite12,
+          backgroundColor: data.orderState.asOrderState.color,
+        ),
         FloatingActionButton(
           backgroundColor: ColorConsts.instance.background,
           //TODO:Add print process
@@ -168,7 +166,7 @@ class OrderWidget extends StatelessWidget {
   Widget _buildAddressLine() {
     final AddressModel address = data.addressData;
     return Text(
-      "${address.street}, ${address.neighborhood}, Bina No: ${address.buildingNumber}, Kapı No: ${address.doorNumber}, Kat: ${address.floor} - ${address.city}/${address.state}",
+      "${address.street}, ${address.neighborhood}, Bina No: ${address.buildingNumber}, Kapı No: ${address.doorNumber}, Kat: ${address.floor} - ${address.city}/${address.state}\n${address.addressDirection}",
       textAlign: TextAlign.left,
       style: TextConsts.instance.regularThird14,
     );
