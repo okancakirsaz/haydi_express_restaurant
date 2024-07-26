@@ -231,6 +231,7 @@ abstract class _OrdersViewModelBase with Store, BaseViewModel {
   Future<void> cancelOrder(OrderModel data) async {
     if (_isOrderSuitableToCancel(data.orderState.asOrderState)) {
       data.orderState = Cancelled.instance.text;
+      data.isCancelledFromCourier = false;
       final dynamic response = await service.cancelOrder(
           CancelOrderModel(
             order: data,
