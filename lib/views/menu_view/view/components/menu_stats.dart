@@ -162,14 +162,14 @@ class MenuStats extends StatelessWidget {
           "Beğenilme Oranı: ",
           "${data.stats.likeRatio}%",
         ),
-        _buildStatLineContainer(
-          "En çok sipariş edilen saat: ",
-          data.stats.mostOrderTakingHour,
-        ),
-        _buildStatLineContainer(
-          "Toplam Gelir(Menü): ",
-          "${data.stats.totalRevenue}₺",
-        ),
+        // _buildStatLineContainer(
+        //   "En çok sipariş edilen saat: ",
+        //   data.stats.mostOrderTakingHour,
+        // ),
+        // _buildStatLineContainer(
+        //   "Toplam Gelir(Menü): ",
+        //   "${data.stats.totalRevenue}₺",
+        // ),
         SizedBox(
             width: 400,
             height: 80,
