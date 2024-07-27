@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:haydi_ekspres_dev_tools/models/models_index.dart';
+import 'package:haydi_ekspres_dev_tools/models/work_hours_model.dart';
 import 'package:haydi_express_restaurant/views/authentication/log_in/viewmodel/log_in_viewmodel.dart';
 import 'package:haydi_express_restaurant/views/authentication/sign_up/service/sign_up_service.dart';
 import 'package:haydi_express_restaurant/views/authentication/sign_up/view/sign_up_view.dart';
@@ -292,6 +293,12 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
       businessName: restaurantName.text,
       email: email.text,
       password: password.text,
+      workHours: WorkHoursModel(
+        startHour: 9,
+        startMinute: 30,
+        endHour: 18,
+        endMinute: 30,
+      ),
       taxNumber: "undefined",
       isMailVerified: isMailVerified,
       address: AddressModel(
@@ -312,10 +319,12 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
       ibanNumber: "TR${iban.text}",
       bankName: bankName.text,
       bankAccountOwner: bankAccountOwner.text,
-      cardNumber: cardNumber.text,
-      cardOwner: cardOwner.text,
-      cardCvv: cvv.text,
-      cardExpirationDate: cardExpireDate.text,
+      payment: CardModel(
+        cardHolder: cardOwner.text,
+        cardNumber: cardNumber.text,
+        cvv: cvv.text,
+        expireDate: cardExpireDate.text,
+      ),
       isPoliciesAccepted: true,
       accountCreationDate: DateTime.now().toIso8601String(),
       uid: "",
