@@ -27,7 +27,7 @@ class ActiveOrders extends StatelessWidget {
         Container(
             margin: PaddingConsts.instance.top20,
             //193 is title and create order button total height
-            height: MediaQuery.of(context).size.height - 193,
+            height: MediaQuery.of(context).size.height - 203,
             width: 430,
             child: _buildActiveOrders()),
       ],

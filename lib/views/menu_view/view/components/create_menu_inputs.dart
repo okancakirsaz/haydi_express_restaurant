@@ -2,8 +2,8 @@ part of '../menu_view.dart';
 
 class CreateMenuInputs extends StatelessWidget {
   final MenuViewModel viewModel;
-  const CreateMenuInputs({super.key, required this.viewModel});
-
+  CreateMenuInputs({super.key, required this.viewModel});
+  final TextStyle inputTitleStyle = TextConsts.instance.regularWhite16;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -11,8 +11,11 @@ class CreateMenuInputs extends StatelessWidget {
       children: <Widget>[
         SizedBox(
           width: 350,
-          child:
-              CustomTextField(controller: viewModel.menuName, hint: "Menü Adı"),
+          child: CustomTextField(
+            controller: viewModel.menuName,
+            hint: "Menü Adı",
+            hintStyle: inputTitleStyle,
+          ),
         ),
         SizedBox(
           width: 350,
@@ -25,13 +28,13 @@ class CreateMenuInputs extends StatelessWidget {
                   customInputFormatters: [
                     FilteringTextInputFormatter.digitsOnly
                   ],
+                  hintStyle: inputTitleStyle,
                 ),
               ),
               Expanded(
                 child: Padding(
                   padding: PaddingConsts.instance.top30,
                   child: CustomStateFullButton(
-                    borderRadius: RadiusConsts.instance.circularAll10,
                     height: 50,
                     onPressed: () async => await viewModel.pickImage(),
                     text: "Ürün Fotoğrafı\nEkle",
@@ -53,6 +56,7 @@ class CreateMenuInputs extends StatelessWidget {
             controller: viewModel.menuContent,
             hint: "Menü İçeriği",
             maxLength: 150,
+            hintStyle: inputTitleStyle,
           ),
         ),
       ],
@@ -67,6 +71,7 @@ class CreateMenuInputs extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: CustomTextField(
+                style: inputTitleStyle,
                 controller: viewModel.tag,
                 hint: "Etiket",
                 label: "Örn: Makarna, Pide, Ev Yemeği...",
@@ -83,7 +88,7 @@ class CreateMenuInputs extends StatelessWidget {
           ],
         ),
         SizedBox(
-            height: 60,
+            height: 58,
             width: 350,
             child: TagsList(
               viewModel: viewModel,

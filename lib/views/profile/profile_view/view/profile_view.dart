@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:haydi_ekspres_dev_tools/constants/constants_index.dart';
-import 'package:haydi_express_restaurant/core/widgets/button/custom_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
-import 'package:haydi_express_restaurant/core/widgets/button/custom_text_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/part_title.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/custom_button.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/custom_scaffold.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/custom_text_button.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/part_title.dart';
 import '../../../../core/base/view/base_view.dart';
 import '../viewmodel/profile_viewmodel.dart';
 

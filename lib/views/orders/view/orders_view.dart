@@ -9,12 +9,8 @@ import 'package:haydi_ekspres_dev_tools/models/address_model.dart';
 import 'package:haydi_ekspres_dev_tools/models/bucket_element_model.dart';
 import 'package:haydi_ekspres_dev_tools/models/order_model.dart';
 import 'package:haydi_ekspres_dev_tools/models/order_states.dart';
-import 'package:haydi_express_restaurant/core/widgets/button/custom_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/button/custom_statefull_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
-import 'package:haydi_express_restaurant/core/widgets/part_title.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/widgets_index.dart';
 import '../../../../core/base/view/base_view.dart';
-import '../../../core/widgets/input/custom_text_field.dart';
 import '../viewmodel/orders_viewmodel.dart';
 
 part './components/active_orders.dart';

@@ -62,7 +62,7 @@ class AddCampaign extends StatelessWidget {
                 onPressed: () async => await viewModel.openDatePicker(),
                 style: TextConsts.instance.regularWhite14,
                 text: "Bitiş Tarihi Seçiniz",
-                backGroundColor: ColorConsts.instance.lightThird,
+                backgroundColor: ColorConsts.instance.lightThird,
               ),
             ),
           ),

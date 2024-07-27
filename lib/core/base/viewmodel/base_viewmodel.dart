@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/error_dialog.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/success_dialog.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_manager.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_sql_manager.dart';
 import 'package:haydi_express_restaurant/core/managers/navigation_manager.dart';
-import 'package:haydi_express_restaurant/core/widgets/dialog/success_dialog.dart';
 import 'package:intl/intl.dart';
-
-import '../../widgets/dialog/error_dialog.dart';
 
 abstract mixin class BaseViewModel {
   late BuildContext viewModelContext;

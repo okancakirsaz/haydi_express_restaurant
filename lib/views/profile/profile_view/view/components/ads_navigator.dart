@@ -27,7 +27,7 @@ class AdsNavigator extends StatelessWidget {
             onPressed: () => viewModel.navigateToAds,
             text: "Seçenekler",
             style: TextConsts.instance.regularWhite16,
-            backGroundColor: ColorConsts.instance.lightThird,
+            backgroundColor: ColorConsts.instance.lightThird,
           ),
         ),
       ],

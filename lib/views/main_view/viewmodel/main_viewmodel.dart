@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haydi_ekspres_dev_tools/constants/text_consts.dart';
 import 'package:haydi_ekspres_dev_tools/models/chat_room_model.dart';
 import 'package:haydi_ekspres_dev_tools/models/restaurant_model.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/custom_button.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
 import 'package:haydi_express_restaurant/views/menu_view/view/menu_view.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
@@ -9,7 +10,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../../core/consts/app_consts.dart';
 import '../../../core/managers/web_socket_manager.dart';
-import '../../../core/widgets/button/custom_button.dart';
 import '../../chat/view/chat_view.dart';
 import '../../chat/viewmodel/chat_viewmodel.dart';
 

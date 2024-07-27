@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:haydi_ekspres_dev_tools/constants/constants_index.dart';
-import 'package:haydi_express_restaurant/core/widgets/button/custom_text_button.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/widgets_index.dart';
 import 'package:haydi_express_restaurant/views/chat/viewmodel/chat_viewmodel.dart';
 import '../../../../core/base/view/base_view.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-
-import '../../../core/widgets/button/custom_statefull_button.dart';
 
 part './components/chat_text.dart';
 

@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:haydi_ekspres_dev_tools/constants/constants_index.dart';
-import 'package:haydi_express_restaurant/core/widgets/button/custom_button.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/widgets_index.dart';
 import 'package:haydi_express_restaurant/core/widgets/input/custom_password_field.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
-import 'package:haydi_express_restaurant/core/widgets/button/custom_statefull_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/input/custom_text_field.dart';
-import 'package:haydi_express_restaurant/core/widgets/logo.dart';
 import 'package:haydi_express_restaurant/views/authentication/log_in/viewmodel/log_in_viewmodel.dart';
 import '../../../../core/base/view/base_view.dart';
 

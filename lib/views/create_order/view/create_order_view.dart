@@ -4,15 +4,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:haydi_ekspres_dev_tools/constants/constants_index.dart';
 import 'package:haydi_ekspres_dev_tools/models/bucket_element_model.dart';
 import 'package:haydi_ekspres_dev_tools/models/menu_model.dart';
-import 'package:haydi_express_restaurant/core/widgets/button/custom_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/button/custom_statefull_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
-import 'package:haydi_express_restaurant/core/widgets/part_title.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/menu_rating_stars.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/widgets_index.dart';
 import '../../../../core/base/view/base_view.dart';
 import '../../../core/widgets/discount_container.dart';
-import '../../../core/widgets/input/custom_dropdown.dart';
-import '../../../core/widgets/input/custom_text_field.dart';
-import '../../../core/widgets/menu_rating_stars.dart';
 import '../viewmodel/create_order_viewmodel.dart';
 
 part './components/address_inputs.dart';

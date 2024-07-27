@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haydi_ekspres_dev_tools/constants/constants_index.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/widgets_index.dart';
 import 'package:haydi_express_restaurant/core/init/configrations/card_expire_text_formatter_config.dart';
-import 'package:haydi_express_restaurant/core/widgets/button/custom_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/input/custom_dropdown.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
-import 'package:haydi_express_restaurant/core/widgets/input/custom_text_field.dart';
-import 'package:haydi_express_restaurant/core/widgets/logo.dart';
 import '../../../../core/base/view/base_view.dart';
-import '../../../../core/widgets/button/custom_statefull_button.dart';
 import '../viewmodel/sign_up_viewmodel.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 

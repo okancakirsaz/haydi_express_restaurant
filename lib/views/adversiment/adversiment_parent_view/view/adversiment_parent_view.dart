@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haydi_ekspres_dev_tools/constants/constants_index.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
-import 'package:haydi_express_restaurant/core/widgets/part_title.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/widgets_index.dart';
 import '../../../../core/base/view/base_view.dart';
 import '../viewmodel/adversiment_parent_viewmodel.dart';
 import 'package:flutter_svg/flutter_svg.dart';

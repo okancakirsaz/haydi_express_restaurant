@@ -11,14 +11,8 @@ import 'package:haydi_ekspres_dev_tools/constants/padding_consts.dart';
 import 'package:haydi_ekspres_dev_tools/constants/radius_consts.dart';
 import 'package:haydi_ekspres_dev_tools/constants/text_consts.dart';
 import 'package:haydi_ekspres_dev_tools/models/menu_model.dart';
-import 'package:haydi_express_restaurant/core/widgets/button/custom_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/input/custom_dropdown.dart';
-import 'package:haydi_express_restaurant/core/widgets/custom_scaffold.dart';
-import 'package:haydi_express_restaurant/core/widgets/button/custom_statefull_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/button/custom_text_button.dart';
-import 'package:haydi_express_restaurant/core/widgets/input/custom_text_field.dart';
+import 'package:haydi_ekspres_dev_tools/widgets/widgets_index.dart';
 import '../../../../core/base/view/base_view.dart';
-import '../../../core/widgets/part_title.dart';
 import '../viewmodel/menu_viewmodel.dart';
 
 part './components/tags_list.dart';

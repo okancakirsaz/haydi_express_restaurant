@@ -28,7 +28,7 @@ class CampaignsContainer extends StatelessWidget {
               child: Observer(builder: (context) {
                 return CustomButton(
                   onPressed: () => viewModel.changeCampaignScreen(viewModel),
-                  style: TextConsts.instance.regularWhite20,
+                  style: TextConsts.instance.regularWhite16,
                   text: viewModel.campaignButtonText,
                 );
               }),
