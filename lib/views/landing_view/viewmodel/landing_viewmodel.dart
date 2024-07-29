@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:haydi_ekspres_dev_tools/models/restaurant_model.dart';
 import 'package:haydi_express_restaurant/core/init/cache/local_keys_enums.dart';
 import 'package:haydi_express_restaurant/core/managers/web_socket_manager.dart';
+import 'package:haydi_express_restaurant/views/landing_view/services/init_service.dart';
 import 'package:haydi_express_restaurant/views/landing_view/view/components/splash_screen.dart';
 import 'package:haydi_express_restaurant/views/main_view/view/main_view.dart';
 import '../../../../core/base/viewmodel/base_viewmodel.dart';
@@ -22,8 +24,11 @@ abstract class _LandingViewModelBase with Store, BaseViewModel {
     await localeSqlManager.initDb();
     await localeManager.removeData(LocaleKeysEnums.menu.name);
     _checkLoggedInState();
+    await _refreshRestaurantData();
     return defaultWidget;
   }
+
+  final InitService _service = InitService();
 
   Widget defaultWidget = const SplashScreen();
 
@@ -37,5 +42,21 @@ abstract class _LandingViewModelBase with Store, BaseViewModel {
       //Main Screen
       defaultWidget = const MainView();
     }
+  }
+
+  Future<void> _refreshRestaurantData() async {
+    String? userId =
+        localeManager.getNullableStringData(LocaleKeysEnums.id.name);
+    if (userId == null) {
+      return;
+    }
+    final RestaurantModel? response =
+        await _service.getRestaurantData(userId, accessToken!);
+    if (response == null) {
+      showErrorDialog("İşletme verileri getirilirken bir sorun oluştu.");
+      return;
+    }
+    await localeManager.setJsonData(
+        LocaleKeysEnums.restaurantData.name, response.toJson());
   }
 }

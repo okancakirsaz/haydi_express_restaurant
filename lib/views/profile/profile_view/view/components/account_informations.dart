@@ -28,13 +28,6 @@ class AccountInformation extends StatelessWidget {
           viewModel.restaurantData.email,
         ),
         _buildContent(
-          "Sonraki ödeme tarihi",
-          viewModel.restaurantData.nextPaymentDate == null
-              ? "Sonraki ödeme tarihi belirlenmemiş."
-              : viewModel.parseIso8601DateFormat(
-                  viewModel.restaurantData.nextPaymentDate!),
-        ),
-        _buildContent(
           "Kurye hizmeti",
           viewModel.restaurantData.wantDeliveryFromUs
               ? "Haydi Express"

@@ -34,15 +34,15 @@ class OrderLogs extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               Observer(builder: (context) {
-                return _buildStatsContainer(
-                  "Toplam\nKazanç",
-                  "${viewModel.totalRevenue}₺",
+                return StatContainer(
+                  desc: "Toplam\nKazanç",
+                  value: "${viewModel.totalRevenue}₺",
                 );
               }),
               Observer(builder: (context) {
-                return _buildStatsContainer(
-                  "Sipariş\nSayısı",
-                  "${viewModel.orderLogCount}",
+                return StatContainer(
+                  desc: "Sipariş\nSayısı",
+                  value: "${viewModel.orderLogCount}",
                 );
               }),
             ],
@@ -56,38 +56,6 @@ class OrderLogs extends StatelessWidget {
         ],
       );
     });
-  }
-
-  Widget _buildStatsContainer(String key, String value) {
-    return Container(
-      margin: PaddingConsts.instance.all10,
-      height: 60,
-      decoration: BoxDecoration(
-        color: ColorConsts.instance.background,
-        boxShadow: ColorConsts.instance.shadow,
-        borderRadius: RadiusConsts.instance.circularAll10,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Padding(
-            padding: PaddingConsts.instance.all10,
-            child: Text(
-              key,
-              textAlign: TextAlign.center,
-              style: TextConsts.instance.regularBlack12,
-            ),
-          ),
-          Padding(
-            padding: PaddingConsts.instance.all10,
-            child: Text(
-              value,
-              style: TextConsts.instance.regularBlack16Bold,
-            ),
-          )
-        ],
-      ),
-    );
   }
 
   Widget _buildLogs() {

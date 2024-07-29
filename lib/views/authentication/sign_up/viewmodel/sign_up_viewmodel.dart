@@ -325,6 +325,7 @@ abstract class _SignUpViewModelBase with Store, BaseViewModel {
         cvv: cvv.text,
         expireDate: cardExpireDate.text,
       ),
+      bills: 0,
       isPoliciesAccepted: true,
       accountCreationDate: DateTime.now().toIso8601String(),
       uid: "",

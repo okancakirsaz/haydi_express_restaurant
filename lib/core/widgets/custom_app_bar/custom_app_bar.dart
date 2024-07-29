@@ -9,6 +9,7 @@ import 'package:haydi_express_restaurant/views/menu_view/view/menu_view.dart';
 import 'package:haydi_express_restaurant/views/orders/view/orders_view.dart';
 import 'package:haydi_express_restaurant/views/profile/profile_view/view/profile_view.dart';
 import 'package:haydi_ekspres_dev_tools/constants/constants_index.dart';
+import 'package:haydi_express_restaurant/views/stats/view/stats_view.dart';
 
 class CustomAppBar {
   final BuildContext context;
@@ -40,17 +41,18 @@ class CustomAppBar {
         buildTextButton(const MenuView(), 0, elements[0]),
         buildTextButton(const OrdersView(), 1, elements[1]),
         buildTextButton(const ProfileView(), 2, elements[2]),
-        buildTextButton(const Center(child: Text("3")), 3, elements[3]),
+        buildTextButton(const StatsView(), 3, elements[3]),
         buildTextButton(
-            const Center(
-              child: ChatView(
-                isContactingWithCustomer: false,
-                targetId: "live-support",
-                targetName: "Canlı Destek",
-              ),
+          const Center(
+            child: ChatView(
+              isContactingWithCustomer: false,
+              targetId: "live-support",
+              targetName: "Canlı Destek",
             ),
-            5,
-            elements[5]),
+          ),
+          5,
+          elements[5],
+        ),
       ],
     );
   }
