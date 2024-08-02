@@ -105,7 +105,7 @@ class OrderWidget extends StatelessWidget {
         alignment: Alignment.bottomRight,
         child: SvgPicture.asset(
           AssetConsts.instance.addition,
-          height: 7,
+          height: 9,
         ),
       ),
       Align(
