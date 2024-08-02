@@ -8,6 +8,7 @@ import 'package:haydi_ekspres_dev_tools/models/menu_model.dart';
 import 'package:haydi_ekspres_dev_tools/models/order_model.dart';
 import 'package:haydi_ekspres_dev_tools/models/order_states.dart';
 import 'package:haydi_ekspres_dev_tools/models/payment_model.dart';
+import 'package:haydi_ekspres_dev_tools/models/restaurant_model.dart';
 import 'package:haydi_express_restaurant/views/create_order/service/create_order_service.dart';
 import 'package:haydi_express_restaurant/views/create_order/view/create_order_view.dart';
 import 'package:haydi_express_restaurant/views/menu_view/service/menu_service.dart';
@@ -231,6 +232,9 @@ abstract class _CreateOrderViewModelBase with Store, BaseViewModel {
   OrderModel get _fetchOrder => OrderModel(
         paymentData:
             PaymentModel(cardData: null, totalPrice: calculateTotalCount()),
+        isDeliveringWithCourierService: RestaurantModel.fromJson(
+                localeManager.getJsonData(LocaleKeysEnums.restaurantData.name))
+            .wantDeliveryFromUs,
         menuData: selectedItems,
         addressData: _fetchAddress,
         paymentMethod: paymentMethod.text,
