@@ -83,8 +83,8 @@ abstract class _CreateOrderViewModelBase with Store, BaseViewModel {
   int selectedMenuItemCount = 1;
 
   Future<List> getProvinceJson() async {
-    final String jsonFile =
-        await rootBundle.loadString('assets/meta/turkey.json');
+    final String jsonFile = await rootBundle.loadString(
+        'packages/haydi_ekspres_dev_tools/lib/assets/meta/turkey.json');
     provinceData = jsonDecode(jsonFile);
     return provinceData;
   }

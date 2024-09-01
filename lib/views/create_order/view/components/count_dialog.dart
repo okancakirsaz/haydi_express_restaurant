@@ -16,7 +16,7 @@ class CountDialog extends StatelessWidget {
         ),
       ),
       content: SizedBox(
-        height: 120,
+        height: 130,
         child: Column(
           children: <Widget>[
             Row(

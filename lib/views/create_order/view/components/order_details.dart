@@ -16,7 +16,7 @@ class OrderDetails extends StatelessWidget {
         ),
         Container(
           width: 300,
-          height: 485,
+          height: 475,
           margin: PaddingConsts.instance.left10,
           padding: PaddingConsts.instance.all10,
           decoration: BoxDecoration(

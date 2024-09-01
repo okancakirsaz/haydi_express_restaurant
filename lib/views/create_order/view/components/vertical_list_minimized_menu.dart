@@ -70,7 +70,7 @@ class VerticalListMinimizedMenu extends StatelessWidget {
   Widget _buildLikeRatio(BuildContext context) {
     if (data.stats.likeRatio ~/ 20 >= 1) {
       return Container(
-        width: 100,
+        width: 110,
         padding: PaddingConsts.instance.all5,
         margin: PaddingConsts.instance.all5,
         decoration: BoxDecoration(
